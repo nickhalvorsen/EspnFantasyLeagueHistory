@@ -28,8 +28,8 @@ const Nav = ({ leagueName }: NavProps) => {
               <Link href="/">Home</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <ManagerSelector />
         </NavigationMenuList>
-        <ManagerSelector />
       </NavigationMenu>
     </div>
   );
