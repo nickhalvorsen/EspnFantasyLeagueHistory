@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { create } from "zustand";
 
 const useStore = create<AllData>((set) => ({
   teams: [],
   teamYears: [],
-  setAllData: (data: AllData) =>
-    set({ teams: data.teams, teamYears: data.teamYears }),
+  setAllData: (data: AllData) => {
+    const teamsWithAddedData = data.teams?.map((team) => ({
+      ...team,
+      trophies:
+        data.teamYears?.filter(
+          (year) => year.finalRank === 1 && year.teamEspnId === team.espnId
+        ).length || 0,
+    }));
+    set({
+      teams: teamsWithAddedData,
+      teamYears: data.teamYears,
+      lastSuccessfulLoad: new Date(data.lastSuccessfulLoad),
+    });
+  },
 }));
 
 const useLoadData = () => {
@@ -27,11 +39,13 @@ export { useStore, useLoadData };
 export interface AllData {
   teams?: TeamsEntity[] | null;
   teamYears?: TeamYearsEntity[] | null;
+  lastSuccessfulLoad?: Date | null;
 }
 export interface TeamsEntity {
   espnId: string;
   primaryOwnerId: string;
   managerName: string;
+  trophies: number;
 }
 export interface TeamYearsEntity {
   year: number;

@@ -1,30 +1,46 @@
 import { useStore } from "./useData";
 import classes from "./trophyShelf.module.scss";
+import { Card, CardContent, CardHeader } from "./components/ui/card";
+import { TrophyCount } from "./trophyCount";
 
 const TrophyShelf = () => {
   const allData = useStore();
-  const data = allData.teams
-    ?.map((team) => ({
+  // Group managers by number of trophies
+  const data =
+    allData.teams?.map((team) => ({
       manager: team.managerName,
-      trophies:
-        allData.teamYears?.filter(
-          (year) => year.finalRank === 1 && year.teamEspnId === team.espnId
-        ).length || 0,
-    }))
-    .sort((a, b) => b.trophies - a.trophies);
+      trophies: team.trophies,
+    })) || [];
+
+  const grouped = Object.groupBy(data, (item) => item.trophies);
+  const sortedTrophyCounts = Object.keys(grouped)
+    .map(Number)
+    .sort((a, b) => b - a)
+    .filter((count) => count > 0);
 
   return (
-    <div>
-      <h2>Trophy Shelf</h2>
-      <div>
-        {data.map((item) => (
-          <div key={item.manager}>
-            <div className={classes.manager}>{item.manager}</div>:{" "}
-            {"🏆".repeat(item.trophies)}
+    <Card className="mb-4">
+      <CardHeader>
+        <h2>Trophy Shelf</h2>
+      </CardHeader>
+      <CardContent>
+        {sortedTrophyCounts.map((trophyCount) => (
+          <div key={trophyCount} style={{ marginBottom: "1em" }}>
+            {grouped[trophyCount].map((item) => (
+              <span
+                key={item.manager}
+                style={{ marginLeft: 12, marginRight: 12 }}
+              >
+                {item.manager} &nbsp;
+                <span className={classes.trophyCount}>
+                  <TrophyCount numTrophies={item?.trophies} />
+                </span>
+              </span>
+            ))}
           </div>
         ))}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

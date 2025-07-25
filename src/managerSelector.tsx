@@ -5,47 +5,32 @@ import {
   NavigationMenuLink,
   NavigationMenuTrigger,
 } from "./components/ui/navigation-menu";
+import { useStore } from "./useData";
+import { TrophyCount } from "./trophyCount";
 
-const ManagerSelector = () => (
-  <NavigationMenuItem>
-    <NavigationMenuTrigger>Manager stats</NavigationMenuTrigger>
-    <NavigationMenuContent>
-      <ul className="grid w-[200px] gap-4">
-        <li>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/alex">Alex</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/brandon">Brandon</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/connor">Connor</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/cole">Cole</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/g-pop">G-Pop</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/leah">Leah</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/nick">Nick</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/paul">Paul</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/sean">Sean</Link>
-          </NavigationMenuLink>
-          <NavigationMenuLink asChild>
-            <Link href="/managers/sean">Trace</Link>
-          </NavigationMenuLink>
-        </li>
-      </ul>
-    </NavigationMenuContent>
-  </NavigationMenuItem>
-);
+const ManagerSelector = () => {
+  const teams = useStore((state) => state.teams).sort((a, b) =>
+    a.managerName.localeCompare(b.managerName)
+  );
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Manager stats</NavigationMenuTrigger>
+      <NavigationMenuContent className="absolute">
+        <ul className="grid w-[200px] gap-4">
+          <li>
+            {teams.map((team) => (
+              <NavigationMenuLink asChild key={team.id}>
+                <Link href={`/managers/${team.managerName}`}>
+                  {team.managerName}
+                  <TrophyCount numTrophies={team.trophies} />
+                </Link>
+              </NavigationMenuLink>
+            ))}
+          </li>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+};
 
 export { ManagerSelector };
