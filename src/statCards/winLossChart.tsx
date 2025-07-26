@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useStore } from "./useData";
+import { useStore } from "../useData";
 
 export const description = "A horizontal bar chart";
 
@@ -62,9 +62,11 @@ const WinLossChart = () => {
     .sort((a, b) => b.differential - a.differential);
 
   return (
-    <Card>
+    <Card className="flex-grow basis-full md:basis-1/2">
       <CardHeader>
-        <CardTitle>Career Win/Loss</CardTitle>
+        <CardTitle>
+          <h2>Career Win/Loss</h2>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -80,11 +82,15 @@ const WinLossChart = () => {
             <XAxis type="number" dataKey="differential" hide />
             <YAxis
               dataKey="manager"
-              width={80}
+              width={100}
               type="category"
               tickLine={false}
               tickMargin={0}
               axisLine={false}
+              tick={{
+                fontSize: 16,
+                fontFamily: "Geist",
+              }}
             />
             <ChartTooltip
               cursor={false}

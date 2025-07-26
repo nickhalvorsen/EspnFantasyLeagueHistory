@@ -1,5 +1,5 @@
-import { StatCard } from "./statCard";
-import { TrophyCount } from "./trophyCount";
+import { StatCard } from "./reusableComponents/statCard";
+import { TrophyCount } from "./reusableComponents/trophyCount";
 import { useStore } from "./useData";
 
 interface ManagerStatsProps {
@@ -16,6 +16,7 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
   );
   const wins = years?.reduce((acc, year) => acc + year.wins, 0) || 0;
   const losses = years?.reduce((acc, year) => acc + year.losses, 0) || 0;
+  const ties = years?.reduce((acc, year) => acc + year.ties, 0) || 0;
 
   const averageFinish = years
     ? (
@@ -39,7 +40,12 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
           <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-            <StatCard name="Win/Loss" value={`${wins}-${losses}`} />
+            <StatCard
+              name="Win/Loss"
+              value={
+                ties > 0 ? `${wins}-${losses}-${ties}` : `${wins}-${losses}`
+              }
+            />
             <StatCard name="Average points per game" value={"TODO"} />
             <StatCard
               name="Average finish"

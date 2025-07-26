@@ -1,6 +1,6 @@
-import { useStore } from "./useData";
+import { useStore } from "../useData";
 import classes from "./trophyShelf.module.scss";
-import { Card, CardContent, CardHeader } from "./components/ui/card";
+import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 
 const GarbageBinShelf = () => {
   const allData = useStore();
@@ -36,32 +36,15 @@ const GarbageBinShelf = () => {
   const sortedData = data.sort((a, b) => a.bins - b.bins);
 
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <h2>Garbage Bin Shelf</h2>
-      </CardHeader>
-      <CardContent>
-        {sortedData.map((item) => (
-          <div
-            key={item.manager}
-            style={{ marginBottom: "0", borderBottomColor: "#222" }}
-            className="mb-2 border-b"
-          >
-            <span style={{ minWidth: 65, display: "inline-block" }}>
-              {item.manager}
-            </span>
-            <span className={classes.trophyCount}>
-              &nbsp;{"🗑️".repeat(item.bins)}
-            </span>
-            {item.binYears && item.binYears.length > 0 && (
-              <span style={{ marginLeft: 6, fontSize: "0.9em", color: "#888" }}>
-                ({item.binYears.join(", ")})
-              </span>
-            )}
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+    <Shelf title="Garbage Bin Shelf">
+      {sortedData.map((item) => (
+        <ShelfRow key={item.manager} label={item.manager}>
+          <span className={classes.trophyCount}>
+            &nbsp;{"🗑️".repeat(item.bins)}
+          </span>
+        </ShelfRow>
+      ))}
+    </Shelf>
   );
 };
 

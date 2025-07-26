@@ -1,7 +1,8 @@
-import { SimpleBarChart, WinLossChart } from "./winLossChart";
-import { TrophyShelf } from "./trophyShelf";
-import { useLoadData, useStore } from "./useData";
-import { GarbageBinShelf } from "./garbageBinShelf";
+import { SimpleBarChart, WinLossChart } from "./statCards/winLossChart";
+import { TrophyShelf } from "./statCards/trophyShelf";
+import { useStore } from "./useData";
+import { GarbageBinShelf } from "./statCards/garbageBinShelf";
+import { AveragePointsChart } from "./statCards/averagePointsChart";
 
 const Home = () => {
   const allData = useStore((state: any) => state.allData);
@@ -9,14 +10,12 @@ const Home = () => {
   return (
     <div>
       <h1 className="mb-4">XFL :POG: Fantasy Stats 2020&ndash;2024</h1>
-      <TrophyShelf />
-      <WinLossChart />
-      <hr />
-      ggg
-      <SimpleBarChart />
-      ggg
-      <hr />
-      <GarbageBinShelf />
+      <div className="flex flex-wrap gap-4">
+        <TrophyShelf />
+        <WinLossChart />
+        <AveragePointsChart />
+        <GarbageBinShelf />
+      </div>
     </div>
   );
 };

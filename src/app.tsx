@@ -1,11 +1,11 @@
 import "./app.css";
-import { ThemeProvider } from "./theme-provider";
-import { Nav } from "./nav";
+import { ThemeProvider } from "./layout/theme-provider.tsx";
+import { Nav } from "./layout/nav.tsx";
 import { Route } from "wouter";
 import ManagerStats from "./managerStats.tsx";
 import { Home } from "./home.tsx";
 import { useLoadData } from "./useData.ts";
-import { Footer } from "./footer.tsx";
+import { Footer } from "./layout/footer.tsx";
 
 const App = () => {
   useLoadData();

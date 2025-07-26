@@ -6,9 +6,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "./components/ui/navigation-menu";
+} from "../components/ui/navigation-menu";
 import { Link } from "wouter";
-import { ManagerSelector } from "./managerSelector";
+import { ManagerSelector } from "../managerSelector";
 
 interface NavProps {
   leagueName: string;

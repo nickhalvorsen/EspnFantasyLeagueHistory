@@ -1,4 +1,4 @@
-import { useStore } from "./useData";
+import { useStore } from "../useData";
 
 const Footer = () => {
   const date = useStore((s) => s.lastSuccessfulLoad);

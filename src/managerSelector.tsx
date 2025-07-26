@@ -6,7 +6,7 @@ import {
   NavigationMenuTrigger,
 } from "./components/ui/navigation-menu";
 import { useStore } from "./useData";
-import { TrophyCount } from "./trophyCount";
+import { TrophyCount } from "./reusableComponents/trophyCount";
 
 const ManagerSelector = () => {
   const teams = useStore((state) => state.teams).sort((a, b) =>

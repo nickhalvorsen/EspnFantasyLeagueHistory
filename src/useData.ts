@@ -15,6 +15,7 @@ const useStore = create<AllData>((set) => ({
     set({
       teams: teamsWithAddedData,
       teamYears: data.teamYears,
+      teamWeeks: data.teamWeeks,
       lastSuccessfulLoad: new Date(data.lastSuccessfulLoad),
     });
   },
@@ -39,6 +40,7 @@ export { useStore, useLoadData };
 export interface AllData {
   teams?: TeamsEntity[] | null;
   teamYears?: TeamYearsEntity[] | null;
+  teamWeeks?: TeamWeeksEntity[] | null;
   lastSuccessfulLoad?: Date | null;
 }
 export interface TeamsEntity {
@@ -57,4 +59,13 @@ export interface TeamYearsEntity {
   playoffSeed: number;
   finalRank: number;
   teamEspnId: string;
+}
+export interface TeamWeeksEntity {
+  year: number;
+  week: number;
+  awayTeamEspnId: string;
+  homeTeamEspnId: string;
+  awayTeamScore: number;
+  homeTeamScore: number;
+  winner: string;
 }
