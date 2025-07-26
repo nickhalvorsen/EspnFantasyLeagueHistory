@@ -10,7 +10,7 @@ type Team = {
 };
 
 type TeamFullStats = {
-  espnId: string;
+  team: Team;
   trophies: number;
   trophyYears: number[];
   binYears: number[];

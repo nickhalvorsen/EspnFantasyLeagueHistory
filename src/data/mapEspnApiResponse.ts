@@ -55,7 +55,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         pointsFor: team.record.overall.pointsFor,
         pointsAgainst: team.record.overall.pointsAgainst,
         playoffSeed: team.playoffSeed,
-        finalRank: team.finalRank,
+        finalRank: team.rankCalculatedFinal,
       });
     });
 
@@ -118,7 +118,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
     );
 
     const thisTeamsStats: TeamFullStats = {
-      espnId: team.espnId,
+      team: team,
       trophies: calculateTrophyCount(thisTeamStatsByYear),
       trophyYears: calculateTrophyYears(thisTeamStatsByYear),
       binYears: calculateBinYears(thisTeamStatsByYear, allTeamStatsByYear),

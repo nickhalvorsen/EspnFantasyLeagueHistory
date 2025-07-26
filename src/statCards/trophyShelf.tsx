@@ -5,48 +5,39 @@ import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 
 const TrophyShelf = () => {
   const allData = useStore();
-  // Group managers by number of trophies
-  const data =
-    allData.teams?.map((team) => {
-      // Find all years this team came in first place
-      const firstPlaceYears =
-        allData.teamStats?.[team.espnId]?.trophyYears || [];
-      // Get trophy count from teamStats
-      const trophies = allData.teamStats?.[team.espnId]?.trophies ?? 0;
-      return {
-        manager: team.managerName,
-        trophies,
-        firstPlaceYears,
-      };
-    }) || [];
 
-  const grouped = Object.groupBy(data, (item) => item.trophies);
-  const sortedTrophyCounts = Object.keys(grouped)
-    .map(Number)
-    .sort((a, b) => b - a)
-    .filter((count) => count > 0);
+  const champs = allData.teamStats.filter((team) => team.trophies > 0);
 
-  console.log("sorted", sortedTrophyCounts, allData.teams);
+  const grouped: Record<number, typeof champs> = {};
+  for (const team of champs) {
+    if (!grouped[team.trophies]) {
+      grouped[team.trophies] = [];
+    }
+    grouped[team.trophies].push(team);
+  }
+  const groupedEntries = Object.entries(grouped).sort(
+    ([a], [b]) => Number(b) - Number(a)
+  );
 
   return (
     <Shelf title="Trophy Shelf">
-      {sortedTrophyCounts.map((trophyCount) => (
+      {groupedEntries.map(([trophyCount, teams]) => (
         <ShelfRow key={trophyCount}>
-          {grouped[trophyCount].map((item) => (
+          {teams.map((team) => (
             <span
-              key={item.manager}
+              key={team.team.espnId}
               style={{ marginLeft: 12, marginRight: 12, marginTop: -5 }}
               className="whitespace-nowrap"
             >
-              {item.manager}&nbsp;
+              {team.team.managerName}{" "}
               <span className={classes.trophyCount}>
-                <TrophyCount numTrophies={item?.trophies} />
+                <TrophyCount numTrophies={team.trophies} />
               </span>
-              {item.firstPlaceYears && item.firstPlaceYears.length > 0 && (
+              {team.trophyYears && team.trophyYears.length > 0 && (
                 <span
                   style={{ marginLeft: 6, fontSize: "0.9em", color: "#888" }}
                 >
-                  ({item.firstPlaceYears.join(", ")})
+                  ({team.trophyYears.join(", ")})
                 </span>
               )}
             </span>

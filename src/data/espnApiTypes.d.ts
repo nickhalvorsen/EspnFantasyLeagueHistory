@@ -22,7 +22,7 @@ type GetYearDataApiResponse = {
       };
     };
     playoffSeed: number;
-    finalRank: number;
+    rankCalculatedFinal: number;
   }>;
   schedule: Array<{
     matchupPeriodId: number;
