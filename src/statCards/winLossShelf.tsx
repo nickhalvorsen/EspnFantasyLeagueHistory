@@ -1,37 +1,37 @@
 import { useStore } from "../useData";
-import classes from "./trophyShelf.module.scss";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 
+const WinLossLabel = (wins: number, losses: number, ties: number) =>
+  ties > 0 ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`;
+
 const WinLossShelf = () => {
-  const allData = useStore();
-  const data = allData.teams
-    ?.map((team) => {
-      const wins =
-        allData.teamYears
-          ?.filter((year) => year.teamEspnId === team.espnId)
-          .reduce((acc, year) => acc + year.wins, 0) || 0;
-      const losses =
-        allData.teamYears
-          ?.filter((year) => year.teamEspnId === team.espnId)
-          .reduce((acc, year) => acc + year.losses, 0) || 0;
-      const ties =
-        allData.teamYears
-          ?.filter((year) => year.teamEspnId === team.espnId)
-          .reduce((acc, year) => acc + year.ties, 0) || 0;
-      return {
-        manager: team.managerName,
-        winrate: wins / (wins + losses),
-        differential: wins - losses,
-        label: ties ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`,
-      };
-    })
-    .sort((a, b) => b.differential - a.differential);
+  const allData = useStore((s) => s.teamStats).sort((a, b) => {
+    const diffA = a.winLossRecord.wins - a.winLossRecord.losses;
+    const diffB = b.winLossRecord.wins - b.winLossRecord.losses;
+    return diffB - diffA;
+  });
 
   return (
     <Shelf title="Career Win/Loss">
-      {data.map((item) => (
-        <ShelfRow key={item.manager} label={item.manager}>
-          {item.label}&nbsp;({Math.round(item.winrate * 100)}%)
+      {allData.map((teamStats) => (
+        <ShelfRow
+          key={teamStats.team.espnId}
+          label={teamStats.team.managerName}
+        >
+          {WinLossLabel(
+            teamStats.winLossRecord.wins,
+            teamStats.winLossRecord.losses,
+            teamStats.winLossRecord.ties
+          )}
+          &nbsp;(
+          {Math.round(
+            (teamStats.winLossRecord.wins /
+              (teamStats.winLossRecord.wins +
+                teamStats.winLossRecord.losses +
+                teamStats.winLossRecord.ties)) *
+              100
+          )}
+          %)
         </ShelfRow>
       ))}
     </Shelf>

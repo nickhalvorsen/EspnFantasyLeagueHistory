@@ -14,7 +14,7 @@ const Home = () => {
       <h1 className="mb-4">XFL :POG: Fantasy Stats 2020&ndash;2024</h1>
       <div className="flex flex-wrap gap-4">
         <TrophyShelf />
-        {/* <WinLossShelf /> */}
+        <WinLossShelf />
         {/* <WinLossChart /> */}
         {/* <AveragePointsChart /> */}
         {/* <BiggestWeeksShelf /> */}
