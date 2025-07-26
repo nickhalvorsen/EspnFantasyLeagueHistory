@@ -19,14 +19,17 @@ const GarbageBinShelf = () => {
   // 2. For each team, count how many times their teamYear has finalRank equal to that year's max
   const data =
     allData.teams?.map((team) => {
-      const bins = (allData.teamYears || []).filter(
-        (year) =>
-          year.teamEspnId === team.espnId &&
-          year.playoffSeed === yearToMaxRank[year.year]
-      ).length;
+      const binYears = (allData.teamYears || [])
+        .filter(
+          (year) =>
+            year.teamEspnId === team.espnId &&
+            year.playoffSeed === yearToMaxRank[year.year]
+        )
+        .map((year) => year.year);
       return {
         manager: team.managerName,
-        bins,
+        bins: binYears.length,
+        binYears,
       };
     }) || [];
 
@@ -39,13 +42,22 @@ const GarbageBinShelf = () => {
       </CardHeader>
       <CardContent>
         {sortedData.map((item) => (
-          <div key={item.manager} style={{ marginBottom: "1em" }}>
+          <div
+            key={item.manager}
+            style={{ marginBottom: "0", borderBottomColor: "#222" }}
+            className="mb-2 border-b"
+          >
             <span style={{ minWidth: 65, display: "inline-block" }}>
               {item.manager}
             </span>
             <span className={classes.trophyCount}>
               &nbsp;{"🗑️".repeat(item.bins)}
             </span>
+            {item.binYears && item.binYears.length > 0 && (
+              <span style={{ marginLeft: 6, fontSize: "0.9em", color: "#888" }}>
+                ({item.binYears.join(", ")})
+              </span>
+            )}
           </div>
         ))}
       </CardContent>
