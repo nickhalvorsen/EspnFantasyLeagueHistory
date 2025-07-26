@@ -7,7 +7,7 @@ type ShelfProps = {
 };
 
 const Shelf = ({ title, children }: ShelfProps) => (
-  <Card>
+  <Card className="w-full md:w-1/2">
     <CardHeader>
       <h2>{title}</h2>
     </CardHeader>
@@ -26,9 +26,17 @@ const ShelfRow = ({ label, children }: ShelfRowProps) => (
     className="mb-2 border-b"
   >
     {label && (
-      <span style={{ minWidth: 65, display: "inline-block" }}>{label}</span>
+      <span style={{ minWidth: 68, display: "inline-block" }}>{label}</span>
     )}
-    <span>{children}</span>
+    <span
+      style={
+        {
+          /*lineHeight: "1.8em"*/
+        }
+      }
+    >
+      {children}
+    </span>
   </div>
 );
 

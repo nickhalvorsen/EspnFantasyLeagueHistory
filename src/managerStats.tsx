@@ -1,5 +1,6 @@
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
+import { useAveragePointsData } from "./useAveragePointsData";
 import { useStore } from "./useData";
 
 interface ManagerStatsProps {
@@ -29,6 +30,11 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
     years?.filter((year) => year.playoffSeed <= 4).length || 0;
   const playoffPercentage = years ? (playoffYears / years.length) * 100 : 0;
 
+  const averagePointsData = useAveragePointsData();
+  const averagePoints = averagePointsData?.find(
+    (data) => data.teamEspnId === managerData?.espnId
+  )?.averagePoints;
+
   return (
     <div>
       <h1>
@@ -43,10 +49,10 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
             <StatCard
               name="Win/Loss"
               value={
-                ties > 0 ? `${wins}-${losses}-${ties}` : `${wins}-${losses}`
+                ties > 0 ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`
               }
             />
-            <StatCard name="Average points per game" value={"TODO"} />
+            <StatCard name="Average points per game" value={averagePoints} />
             <StatCard
               name="Average finish"
               value={`${averageFinish}th place`}

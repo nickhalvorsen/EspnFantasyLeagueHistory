@@ -1,6 +1,5 @@
 "use client";
 
-import { TerminalIcon, TrendingUp } from "lucide-react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 import {
@@ -18,6 +17,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useStore } from "../useData";
+import { useAveragePointsData } from "..//useAveragePointsData";
 
 export const description = "A horizontal bar chart";
 
@@ -41,37 +41,12 @@ const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
 };
 
 const AveragePointsChart = () => {
-  const allData = useStore();
-  let data = allData.teams.map((team) => ({
-    manager: team.managerName,
-    teamEspnId: team.espnId,
-    averagePoints: 0,
-  }));
-
-  for (const team of allData.teams) {
-    const teamWeeks = allData.teamWeeks.filter(
-      (week) =>
-        week.awayTeamEspnId === team.espnId ||
-        week.homeTeamEspnId === team.espnId
-    );
-    const totalPoints = teamWeeks.reduce((acc, week) => {
-      return (
-        acc +
-        (week.awayTeamEspnId === team.espnId
-          ? week.awayTeamScore
-          : week.homeTeamScore)
-      );
-    }, 0);
-    const averagePoints = totalPoints / teamWeeks.length;
-
-    data.find((t) => t.teamEspnId === team.espnId).averagePoints =
-      averagePoints.toFixed(2);
-  }
+  let data = useAveragePointsData();
 
   data = data.sort((a, b) => b.averagePoints - a.averagePoints);
 
   return (
-    <Card className="flex-grow basis-full md:basis-1/2">
+    <Card className="w-full md:w-1/2">
       <CardHeader>
         <CardTitle>
           <h2>Average points per game</h2>
@@ -86,7 +61,6 @@ const AveragePointsChart = () => {
             margin={{
               left: -20,
             }}
-            //barCategoryGap={}
           >
             <XAxis type="number" dataKey="averagePoints" domain={[100, 150]} />
             <YAxis
@@ -101,15 +75,16 @@ const AveragePointsChart = () => {
                 fontFamily: "Geist",
               }}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
             <Bar
               dataKey="averagePoints"
-              fill="var(--color-desktop)"
+              fill="var(--chart-1)"
               radius={5}
-              label={renderCustomBarLabel}
+              label={{
+                position: "right",
+                fill: "#777",
+                fontSize: 14,
+                fontFamily: "Geist",
+              }}
             />
           </BarChart>
         </ChartContainer>

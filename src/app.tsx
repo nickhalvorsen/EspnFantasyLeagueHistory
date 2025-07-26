@@ -5,7 +5,6 @@ import { Route } from "wouter";
 import ManagerStats from "./managerStats.tsx";
 import { Home } from "./home.tsx";
 import { useLoadData } from "./useData.ts";
-import { Footer } from "./layout/footer.tsx";
 
 const App = () => {
   useLoadData();
@@ -17,7 +16,6 @@ const App = () => {
         <Route path="/managers/:manager">
           {(params) => <ManagerStats manager={params.manager} />}
         </Route>
-        <Footer />
       </ThemeProvider>
     </>
   );

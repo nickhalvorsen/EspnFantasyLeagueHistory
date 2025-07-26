@@ -1,7 +1,14 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  LabelList,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
@@ -35,7 +42,9 @@ const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
       x={x}
       y={y}
       fill="#666"
-      textAnchor="start"
+      //textAnchor="right"
+      textAnchor="start" // align text start at xPos (to right of bar)
+      dominantBaseline="middle" // centers vertically
     >{`value: ${value} ${payload}`}</text>
   );
 };
@@ -62,10 +71,10 @@ const WinLossChart = () => {
     .sort((a, b) => b.differential - a.differential);
 
   return (
-    <Card className="flex-grow basis-full md:basis-1/2">
+    <Card className="w-full md:w-1/2">
       <CardHeader>
         <CardTitle>
-          <h2>Career Win/Loss</h2>
+          <h2>Win/Loss differential</h2>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -77,7 +86,6 @@ const WinLossChart = () => {
             margin={{
               left: -20,
             }}
-            //barCategoryGap={}
           >
             <XAxis type="number" dataKey="differential" hide />
             <YAxis
@@ -92,16 +100,18 @@ const WinLossChart = () => {
                 fontFamily: "Geist",
               }}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
             <Bar
               dataKey="differential"
               fill="var(--color-desktop)"
               radius={5}
-              label={renderCustomBarLabel}
-            />
+              label={{
+                position: "right",
+                fill: "#777",
+                fontSize: 14,
+                fontFamily: "Geist",
+              }}
+              //label={renderCustomBarLabel}
+            ></Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

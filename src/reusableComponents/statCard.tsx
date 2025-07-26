@@ -2,15 +2,13 @@ import {
   Card,
   CardAction,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 interface StatCardProps {
   name: string;
-  value: string | number;
+  value: any;
 }
 
 const StatCard = ({ name, value }: StatCardProps) => (

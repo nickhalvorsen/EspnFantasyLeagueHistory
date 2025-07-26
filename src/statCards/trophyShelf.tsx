@@ -8,14 +8,14 @@ const TrophyShelf = () => {
   // Group managers by number of trophies
   const data =
     allData.teams?.map((team) => {
-      const firstPlaceYears = (allData.teamYears || [])
-        .filter(
-          (year) => year.finalRank === 1 && year.teamEspnId === team.espnId
-        )
-        .map((year) => year.year);
+      // Find all years this team came in first place
+      const firstPlaceYears =
+        allData.teamStats?.[team.espnId]?.trophyYears || [];
+      // Get trophy count from teamStats
+      const trophies = allData.teamStats?.[team.espnId]?.trophies ?? 0;
       return {
         manager: team.managerName,
-        trophies: team.trophies,
+        trophies,
         firstPlaceYears,
       };
     }) || [];
@@ -25,6 +25,8 @@ const TrophyShelf = () => {
     .map(Number)
     .sort((a, b) => b - a)
     .filter((count) => count > 0);
+
+  console.log("sorted", sortedTrophyCounts, allData.teams);
 
   return (
     <Shelf title="Trophy Shelf">
