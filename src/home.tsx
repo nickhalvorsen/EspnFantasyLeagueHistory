@@ -17,7 +17,7 @@ const Home = () => {
         <WinLossShelf />
         {/* <WinLossChart /> */}
         <AveragePointsChart />
-        {/* <BiggestWeeksShelf /> */}
+        <BiggestWeeksShelf />
         {/* <GarbageBinShelf /> */}
       </div>
     </div>
