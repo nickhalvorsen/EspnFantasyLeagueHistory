@@ -127,6 +127,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
 
     const thisTeamsStats: TeamFullStats = {
       team: team,
+      yearsPlayed: thisTeamStatsByYear.length,
       trophies: calculateTrophyCount(thisTeamStatsByYear),
       trophyYears: calculateTrophyYears(thisTeamStatsByYear),
       binYears: calculateBinYears(thisTeamStatsByYear, allTeamStatsByYear),
@@ -137,6 +138,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       lowScores: calculateLowScores(thisTeamStatsByWeek),
       biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
       playoffPercentage: calculatePlayoffPercentage(thisTeamStatsByYear),
+      numPlayoffAppearances: calculatePlayoffAppearances(thisTeamStatsByYear),
       winLossRecord: calculateWinLossRecord(thisTeamStatsByYear),
 
       // TODO
@@ -265,12 +267,13 @@ const calculateBiggestBlowouts = (thisTeamStatsByWeek: weeklyStats[]) => {
     }));
 };
 
-// todo: add fractional playoff percentage
 const calculatePlayoffPercentage = (teamStatsByYear: yearlyStats[]) => {
-  const playoffAppearances = teamStatsByYear.filter(
-    (yearStat) => yearStat.playoffSeed <= 4
-  ).length;
-  return (playoffAppearances / teamStatsByYear.length) * 100 || 0; // Return percentage of years made playoffs
+  const playoffAppearances = calculatePlayoffAppearances(teamStatsByYear);
+  return (playoffAppearances / teamStatsByYear.length) * 100 || 0;
+};
+
+const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.filter((yearStat) => yearStat.playoffSeed <= 4).length;
 };
 
 const calculateWinLossRecord = (teamStatsByYear: yearlyStats[]) => {

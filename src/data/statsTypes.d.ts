@@ -11,6 +11,7 @@ type Team = {
 
 type TeamFullStats = {
   team: Team;
+  yearsPlayed: number;
   trophies: number;
   trophyYears: number[];
   binYears: number[];
@@ -21,6 +22,7 @@ type TeamFullStats = {
   highScores: WeeklyAchievement[];
   lowScores: WeeklyAchievement[];
   biggestBlowouts: WeeklyAchievement[];
+  numPlayoffAppearances: number;
   playoffPercentage: number;
   winLossRecord: WinsAndLosses;
   //finalsWinLossRecord: WinsAndLosses;

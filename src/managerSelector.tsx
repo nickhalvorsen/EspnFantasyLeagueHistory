@@ -9,8 +9,8 @@ import { useStore } from "./useData";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 
 const ManagerSelector = () => {
-  const teams = useStore((state) => state.teams).sort((a, b) =>
-    a.managerName.localeCompare(b.managerName)
+  const teams = useStore((state) => state.teamStats).sort((a, b) =>
+    a.team.managerName.localeCompare(b.team.managerName)
   );
   return (
     <NavigationMenuItem>
@@ -19,9 +19,9 @@ const ManagerSelector = () => {
         <ul className="grid w-[200px] gap-4">
           <li>
             {teams.map((team) => (
-              <NavigationMenuLink asChild key={team.id}>
-                <Link href={`/managers/${team.managerName}`}>
-                  {team.managerName}
+              <NavigationMenuLink asChild key={team.team.espnId}>
+                <Link href={`/managers/${team.team.managerName}`}>
+                  {team.team.managerName}
                   <TrophyCount numTrophies={team.trophies} />
                 </Link>
               </NavigationMenuLink>

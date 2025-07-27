@@ -8,38 +8,46 @@ interface ManagerStatsProps {
 }
 
 const ManagerStats = ({ manager }: ManagerStatsProps) => {
-  const allData = useStore();
-  const managerData = allData.teams?.find(
-    (team) => team.managerName.toLowerCase() === manager.toLowerCase()
+  const stats = useStore((s) =>
+    s.teamStats.find(
+      (team) => team.team.managerName.toLowerCase() === manager.toLowerCase()
+    )
   );
-  const years = allData.teamYears?.filter(
-    (year) => year.teamEspnId === managerData?.espnId
-  );
-  const wins = years?.reduce((acc, year) => acc + year.wins, 0) || 0;
-  const losses = years?.reduce((acc, year) => acc + year.losses, 0) || 0;
-  const ties = years?.reduce((acc, year) => acc + year.ties, 0) || 0;
+  if (!stats) {
+    return <div>No stats found for {manager}</div>;
+  }
+  // const allData;
+  // const managerData = allData.teams?.find(
+  //   (team) => team.managerName.toLowerCase() === manager.toLowerCase()
+  // );
+  // const years = allData.teamYears?.filter(
+  //   (year) => year.teamEspnId === managerData?.espnId
+  // );
+  // const wins = years?.reduce((acc, year) => acc + year.wins, 0) || 0;
+  // const losses = years?.reduce((acc, year) => acc + year.losses, 0) || 0;
+  // const ties = years?.reduce((acc, year) => acc + year.ties, 0) || 0;
 
-  const averageFinish = years
-    ? (
-        years.reduce((acc, year) => acc + year.finalRank, 0) / years.length
-      ).toFixed(2)
-    : 0;
+  // const averageFinish = years
+  //   ? (
+  //       years.reduce((acc, year) => acc + year.finalRank, 0) / years.length
+  //     ).toFixed(2)
+  //   : 0;
 
-  // playoff percentage is the percentage of years the playoff seed is 4 or less
-  const playoffYears =
-    years?.filter((year) => year.playoffSeed <= 4).length || 0;
-  const playoffPercentage = years ? (playoffYears / years.length) * 100 : 0;
+  // // playoff percentage is the percentage of years the playoff seed is 4 or less
+  // const playoffYears =
+  //   years?.filter((year) => year.playoffSeed <= 4).length || 0;
+  // const playoffPercentage = years ? (playoffYears / years.length) * 100 : 0;
 
-  const averagePointsData = useAveragePointsData();
-  const averagePoints = averagePointsData?.find(
-    (data) => data.teamEspnId === managerData?.espnId
-  )?.averagePoints;
+  // const averagePointsData = useAveragePointsData();
+  // const averagePoints = averagePointsData?.find(
+  //   (data) => data.teamEspnId === managerData?.espnId
+  // )?.averagePoints;
 
   return (
     <div>
       <h1>
         <span className="capitalize">{manager}</span>'s fantasy stats
-        <TrophyCount numTrophies={managerData?.trophies} />
+        <TrophyCount numTrophies={stats.trophies} />
       </h1>
 
       {/* these classes copied from shadcn demo, I have no clue what they all mean */}
@@ -49,19 +57,21 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
             <StatCard
               name="Win/Loss"
               value={
-                ties > 0 ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`
+                stats.winLossRecord.ties > 0
+                  ? `${stats.winLossRecord.wins}–${stats.winLossRecord.losses}–${stats.winLossRecord.ties}`
+                  : `${stats.winLossRecord.wins}–${stats.winLossRecord.losses}`
               }
             />
-            <StatCard name="Average points per game" value={averagePoints} />
             <StatCard
-              name="Average finish"
-              value={`${averageFinish}th place`}
+              name="Average points per game"
+              value={stats.averagePointsPerGame.toFixed(2)}
             />
+            <StatCard name="Average finish" value={"TODO"} />
             <StatCard
               name="Playoff %"
-              value={`${playoffPercentage.toFixed(0)}% (${playoffYears}/${
-                years?.length
-              })`}
+              value={`${stats.playoffPercentage.toFixed(0)}% (${
+                stats.numPlayoffAppearances
+              }/${stats.yearsPlayed})`}
             />
           </div>
         </div>
