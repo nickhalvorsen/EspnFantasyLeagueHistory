@@ -8,11 +8,13 @@ import { BiggestWeeksShelf } from "./statCards/biggestWeeksShelf";
 import { WorstWeeksShelf } from "./statCards/worstWeeksShelf";
 
 const Home = () => {
-  const allData = useStore((state: any) => state.allData);
-  console.log("allData", allData);
+  const leagueInfo = useStore((state: any) => state.leagueInfo);
   return (
-    <div>
-      <h1 className="mb-4">XFL :POG: Fantasy Stats 2020&ndash;2024</h1>
+    <div className="mb-2">
+      <h1 className="mb-4">
+        XFL :POG: Fantasy Stats {leagueInfo?.startYear}&ndash;
+        {leagueInfo?.latestYear}
+      </h1>
       <div className="flex flex-wrap gap-4">
         <TrophyShelf />
         <WinLossShelf />

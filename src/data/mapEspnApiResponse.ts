@@ -30,6 +30,11 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
   const allStats: AllStats = {
     teams: [],
     teamStats: [],
+    leagueInfo: {
+      leagueName: "",
+      startYear: 0,
+      latestYear: 0,
+    },
   };
 
   let allTeamStatsByYear: yearlyStats[] = [];
@@ -149,6 +154,13 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
     };
     allStats.teamStats.push(thisTeamsStats);
   });
+
+  allStats.leagueInfo = {
+    leagueName: "", //getYearDataApiResponse[0].leagueName,
+    startYear: getYearDataApiResponse[0].seasonId,
+    latestYear:
+      getYearDataApiResponse[getYearDataApiResponse.length - 1].seasonId,
+  };
 
   return allStats;
 };
@@ -277,6 +289,8 @@ const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
 };
 
 const calculateWinLossRecord = (teamStatsByYear: yearlyStats[]) => {
+  // TODO:
+  //yearStat.wins is regular season only
   const wins = teamStatsByYear.reduce(
     (sum, yearStat) => sum + yearStat.wins,
     0

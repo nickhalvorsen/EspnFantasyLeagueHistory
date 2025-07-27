@@ -1,6 +1,13 @@
 type AllStats = {
   teams: Team[];
   teamStats: TeamFullStats[];
+  leagueInfo: LeagueInfo;
+};
+
+type LeagueInfo = {
+  leagueName: string;
+  startYear: number;
+  latestYear: number;
 };
 
 type Team = {
