@@ -29,10 +29,12 @@ type GetYearDataApiResponse = {
     away: {
       teamId: number;
       totalPoints: number;
+      pointsByScoringPeriod: { [key: number]: number };
     };
     home: {
       teamId: number;
       totalPoints: number;
+      pointsByScoringPeriod: { [key: number]: number };
     };
     winner: "AWAY" | "HOME" | "TIE";
     playoffTierType: string;

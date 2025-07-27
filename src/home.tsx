@@ -5,6 +5,7 @@ import { GarbageBinShelf } from "./statCards/garbageBinShelf";
 import { AveragePointsChart } from "./statCards/averagePointsChart";
 import { WinLossShelf } from "./statCards/winLossShelf";
 import { BiggestWeeksShelf } from "./statCards/biggestWeeksShelf";
+import { WorstWeeksShelf } from "./statCards/worstWeeksShelf";
 
 const Home = () => {
   const allData = useStore((state: any) => state.allData);
@@ -18,6 +19,7 @@ const Home = () => {
         {/* <WinLossChart /> */}
         <AveragePointsChart />
         <BiggestWeeksShelf />
+        <WorstWeeksShelf />
         <GarbageBinShelf />
       </div>
     </div>

@@ -22,6 +22,8 @@ type weeklyStats = {
   pointsAgainst: number;
   result: "WIN" | "LOSS" | "TIE";
   opponentEspnId: number;
+  isMultiHeader?: boolean;
+  multiHeaderPoints?: number[];
 };
 
 const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
@@ -73,6 +75,9 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
             ? "WIN"
             : "LOSS",
         opponentEspnId: schedule.home.teamId,
+        isMultiHeader:
+          Object.keys(schedule.away.pointsByScoringPeriod).length > 1,
+        multiHeaderPoints: Object.values(schedule.away.pointsByScoringPeriod),
       });
 
       allTeamStatsByWeek.push({
@@ -88,6 +93,9 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
             ? "WIN"
             : "LOSS",
         opponentEspnId: schedule.away.teamId,
+        isMultiHeader:
+          Object.keys(schedule.home.pointsByScoringPeriod).length > 1,
+        multiHeaderPoints: Object.values(schedule.home.pointsByScoringPeriod),
       });
     });
   });
@@ -173,24 +181,52 @@ const calculateAveragePointsPerGame = (thisTeamStatsByWeek: weeklyStats[]) => {
     (sum, weekStat) => sum + weekStat.pointsFor,
     0
   );
-  return totalPoints / thisTeamStatsByWeek.length;
-  // TODO: double-header weeks in 2020 championship
+
+  const weeks = thisTeamStatsByWeek.reduce(
+    (sum, weekStat) =>
+      sum + (weekStat.isMultiHeader ? weekStat.multiHeaderPoints!.length : 1),
+    0
+  );
+
+  return totalPoints / weeks;
 };
 
 const calculateAveragePointsAgainstPerGame = (
   thisTeamStatsByWeek: weeklyStats[]
 ) => {
-  const totalPointsAgainst = thisTeamStatsByWeek.reduce(
+  const totalPoints = thisTeamStatsByWeek.reduce(
     (sum, weekStat) => sum + weekStat.pointsAgainst,
     0
   );
-  return thisTeamStatsByWeek.length > 0
-    ? totalPointsAgainst / thisTeamStatsByWeek.length
-    : 0;
+
+  const weeks = thisTeamStatsByWeek.reduce(
+    (sum, weekStat) =>
+      sum + (weekStat.isMultiHeader ? weekStat.multiHeaderPoints!.length : 1),
+    0
+  );
+
+  return totalPoints / weeks;
 };
 
 const calculateHighScores = (thisTeamStatsByWeek: weeklyStats[]) => {
-  return [...thisTeamStatsByWeek]
+  const weeksWithDoubleHeadersSplitOut = thisTeamStatsByWeek.flatMap(
+    (weekStat) => {
+      if (weekStat.isMultiHeader) {
+        return weekStat.multiHeaderPoints!.map((points, idx) => ({
+          year: weekStat.year,
+          weekNumber: weekStat.weekNumber,
+          teamEspnId: weekStat.teamEspnId,
+          pointsFor: points,
+          pointsAgainst: weekStat.pointsAgainst,
+          result: weekStat.result,
+          opponentEspnId: weekStat.opponentEspnId,
+        }));
+      }
+      return [weekStat];
+    }
+  );
+
+  return [...weeksWithDoubleHeadersSplitOut]
     .sort((a, b) => b.pointsFor - a.pointsFor)
     .slice(0, 5)
     .map((weekStat) => ({
