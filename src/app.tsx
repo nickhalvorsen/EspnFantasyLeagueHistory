@@ -7,7 +7,14 @@ import { Home } from "./home.tsx";
 import { useLoadData } from "./useData.ts";
 
 const App = () => {
-  useLoadData();
+  const { isLoading } = useLoadData();
+  if (isLoading) {
+    return (
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <></>
+      </ThemeProvider>
+    );
+  }
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
