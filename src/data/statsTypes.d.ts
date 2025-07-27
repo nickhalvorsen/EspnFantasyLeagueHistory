@@ -34,6 +34,9 @@ type TeamFullStats = {
   playoffPercentage: number;
   winLossRecord: WinsAndLosses;
   winLossRecordAgainst: Array<WinsAndLosses & { opponentEspnId: number }>;
+  playoffWinLossRecordAgainst: Array<
+    WinsAndLosses & { opponentEspnId: number }
+  >;
   //finalsWinLossRecord: WinsAndLosses;
   longestWinStreak: number;
   longestLossStreak: number;

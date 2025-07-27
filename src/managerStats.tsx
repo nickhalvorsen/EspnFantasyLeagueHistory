@@ -1,6 +1,8 @@
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 import { winLossTieString } from "./reusableComponents/winLossTieString";
+import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
+import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShelf";
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useAveragePointsData } from "./useAveragePointsData";
 import { useStore } from "./useData";
@@ -80,6 +82,8 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
       </div>
       <div>
         <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
+        <PlayoffWinLossAgainstShelf managerEspnId={stats.team.espnId} />
+        {/* <PlacementHistoryShelf managerEspnId={stats.team.espnId} /> */}
       </div>
     </div>
   );

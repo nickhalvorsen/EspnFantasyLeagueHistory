@@ -18,6 +18,7 @@ import { BestRecordsShelf } from "./statCards/bestRecordsShelf";
 import { BestRecordsChart } from "./statCards/bestRecordsChart";
 import { WorstRecordsChart } from "./statCards/worstRecordsChart";
 import { WorstRecordsShelf } from "./statCards/worstRecordsShelf";
+import { PlayoffPercentageShelf } from "./statCards/playoffPercentageShelf";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -30,7 +31,7 @@ const Home = () => {
       <div className="flex flex-wrap gap-4">
         <TrophyShelf />
         <WinLossShelf />
-        {/* <WinLossChart /> */}
+        <PlayoffPercentageShelf />
 
         <Card className="w-full md:w-1/2">
           <CardHeader>

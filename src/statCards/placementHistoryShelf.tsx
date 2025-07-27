@@ -7,26 +7,16 @@ type Props = {
   managerEspnId: string;
 };
 
-const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
+const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
   const teamStats = useStore((s) => s.teamStats);
-  const data = teamStats
-    .find((teamStats) => teamStats.team.espnId === managerEspnId)
-    ?.winLossRecordAgainst.map((record) => ({
-      ...record,
-      winrate: Math.round(
-        (record.wins / (record.wins + record.losses + record.ties)) * 100
-      ),
-      name:
-        teamStats.find(
-          (team) => team.team.espnId === record.opponentEspnId.toString()
-        )?.team.managerName || "Unknown",
-    }))
-    .sort((a, b) => b.winrate - a.winrate);
+  const data = teamStats.find(
+    (teamStats) => teamStats.team.espnId === managerEspnId
+  );
 
   return (
     <Shelf title="Win/loss vs. manager" description="Regular season, all-time">
       {data.map((record) => (
-        <ShelfRow key={record.opponentEspnId} label={"vs. " + record.name}>
+        <ShelfRow key={record.opponentEspnId} label={record.name}>
           {winLossTieString(record.wins, record.losses, record.ties)}
 
           <SubSubText>
@@ -40,4 +30,4 @@ const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
   );
 };
 
-export { WinLossAgainstShelf };
+export { PlacementHistoryShelf };

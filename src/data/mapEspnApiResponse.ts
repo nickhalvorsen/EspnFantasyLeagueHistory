@@ -25,6 +25,7 @@ type weeklyStats = {
   isMultiHeader?: boolean;
   multiHeaderPoints?: number[];
   isPostSeason?: boolean;
+  isWinnersBracketPostSeason?: boolean;
 };
 
 // 4 = BIN
@@ -90,6 +91,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
           Object.keys(schedule.away.pointsByScoringPeriod).length > 1,
         multiHeaderPoints: Object.values(schedule.away.pointsByScoringPeriod),
         isPostSeason: schedule.playoffTierType !== "NONE",
+        isWinnersBracketPostSeason:
+          schedule.playoffTierType === "WINNERS_BRACKET",
       });
 
       allTeamStatsByWeek.push({
@@ -109,6 +112,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
           Object.keys(schedule.home.pointsByScoringPeriod).length > 1,
         multiHeaderPoints: Object.values(schedule.home.pointsByScoringPeriod),
         isPostSeason: schedule.playoffTierType !== "NONE",
+        isWinnersBracketPostSeason:
+          schedule.playoffTierType === "WINNERS_BRACKET",
       });
     });
   });
@@ -151,6 +156,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       numPlayoffAppearances: calculatePlayoffAppearances(thisTeamStatsByYear),
       winLossRecord: calculateWinLossRecord(thisTeamStatsByYear),
       winLossRecordAgainst: calculateWinLossRecordAgainst(thisTeamStatsByWeek),
+      playoffWinLossRecordAgainst:
+        calculatePlayoffWinLossRecordAgainst(thisTeamStatsByWeek),
       bestSeasonRecords: calculateBestSeasonRecords(thisTeamStatsByYear),
       worstSeasonRecords:
         calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
@@ -317,6 +324,50 @@ const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
 
   thisTeamStatsByWeek.forEach((weekStat) => {
     if (weekStat.isPostSeason) return;
+    if (espnTeamIdsToOmit.includes(weekStat.opponentEspnId.toString())) return;
+
+    let thisRecord = records.find(
+      (record) => record.opponentEspnId === weekStat.opponentEspnId
+    );
+
+    if (!thisRecord) {
+      records.push({
+        opponentEspnId: weekStat.opponentEspnId,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+      });
+
+      thisRecord = records.find(
+        (record) => record.opponentEspnId === weekStat.opponentEspnId
+      );
+    }
+    if (weekStat.result === "WIN") {
+      thisRecord.wins += 1;
+    } else if (weekStat.result === "LOSS") {
+      thisRecord.losses += 1;
+    } else if (weekStat.result === "TIE") {
+      thisRecord.ties += 1;
+    }
+  });
+
+  return records;
+};
+
+// TODO: this is bugged. brandon has 4 wins and zero losses. but he should have one loss.
+const calculatePlayoffWinLossRecordAgainst = (
+  thisTeamStatsByWeek: weeklyStats[]
+) => {
+  const records = [];
+
+  if (thisTeamStatsByWeek[0].teamEspnId === 2) {
+    console.log(
+      "this team stats by week,",
+      thisTeamStatsByWeek.filter((x) => x.isWinnersBracketPostSeason)
+    );
+  }
+  thisTeamStatsByWeek.forEach((weekStat) => {
+    if (!weekStat.isWinnersBracketPostSeason) return;
     if (espnTeamIdsToOmit.includes(weekStat.opponentEspnId.toString())) return;
 
     let thisRecord = records.find(

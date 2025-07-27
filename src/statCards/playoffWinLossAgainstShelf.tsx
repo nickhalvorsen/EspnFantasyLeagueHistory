@@ -7,11 +7,11 @@ type Props = {
   managerEspnId: string;
 };
 
-const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
+const PlayoffWinLossAgainstShelf = ({ managerEspnId }: Props) => {
   const teamStats = useStore((s) => s.teamStats);
   const data = teamStats
     .find((teamStats) => teamStats.team.espnId === managerEspnId)
-    ?.winLossRecordAgainst.map((record) => ({
+    ?.playoffWinLossRecordAgainst.map((record) => ({
       ...record,
       winrate: Math.round(
         (record.wins / (record.wins + record.losses + record.ties)) * 100
@@ -24,7 +24,10 @@ const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
     .sort((a, b) => b.winrate - a.winrate);
 
   return (
-    <Shelf title="Win/loss vs. manager" description="Regular season, all-time">
+    <Shelf
+      title="Playoff win/loss vs. manager"
+      description="Winner's bracket, all-time, excluding consolation matches"
+    >
       {data.map((record) => (
         <ShelfRow key={record.opponentEspnId} label={"vs. " + record.name}>
           {winLossTieString(record.wins, record.losses, record.ties)}
@@ -40,4 +43,4 @@ const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
   );
 };
 
-export { WinLossAgainstShelf };
+export { PlayoffWinLossAgainstShelf };
