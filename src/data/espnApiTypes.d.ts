@@ -39,4 +39,10 @@ type GetYearDataApiResponse = {
     winner: "AWAY" | "HOME" | "TIE";
     playoffTierType: string;
   }>;
+  settings: {
+    name: string;
+    scheduleSettings: {
+      matchupPeriodCount: number;
+    };
+  };
 };

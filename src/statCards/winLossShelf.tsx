@@ -1,8 +1,7 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
-
-const WinLossLabel = (wins: number, losses: number, ties: number) =>
-  ties > 0 ? `${wins}–${losses}–${ties}` : `${wins}–${losses}`;
+import { winLossTieString } from "@/reusableComponents/winLossTieString";
+import { SubSubText } from "@/reusableComponents/subSubText";
 
 const WinLossShelf = () => {
   const allData = useStore((s) => s.teamStats).sort((a, b) => {
@@ -12,26 +11,29 @@ const WinLossShelf = () => {
   });
 
   return (
-    <Shelf title="Career Win/Loss">
+    <Shelf title="Win/Loss" description="Regular season, all-time">
       {allData.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}
           label={teamStats.team.managerName}
         >
-          {WinLossLabel(
+          {winLossTieString(
             teamStats.winLossRecord.wins,
             teamStats.winLossRecord.losses,
             teamStats.winLossRecord.ties
           )}
-          &nbsp;(
-          {Math.round(
-            (teamStats.winLossRecord.wins /
-              (teamStats.winLossRecord.wins +
-                teamStats.winLossRecord.losses +
-                teamStats.winLossRecord.ties)) *
-              100
-          )}
-          %)
+
+          <SubSubText>
+            &nbsp;(
+            {Math.round(
+              (teamStats.winLossRecord.wins /
+                (teamStats.winLossRecord.wins +
+                  teamStats.winLossRecord.losses +
+                  teamStats.winLossRecord.ties)) *
+                100
+            )}
+            %)
+          </SubSubText>
         </ShelfRow>
       ))}
     </Shelf>

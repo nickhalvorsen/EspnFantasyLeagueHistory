@@ -1,5 +1,6 @@
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
+import { winLossTieString } from "./reusableComponents/winLossTieString";
 import { useAveragePointsData } from "./useAveragePointsData";
 import { useStore } from "./useData";
 
@@ -56,11 +57,11 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
           <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
             <StatCard
               name="Win/Loss"
-              value={
-                stats.winLossRecord.ties > 0
-                  ? `${stats.winLossRecord.wins}–${stats.winLossRecord.losses}–${stats.winLossRecord.ties}`
-                  : `${stats.winLossRecord.wins}–${stats.winLossRecord.losses}`
-              }
+              value={winLossTieString(
+                stats.winLossRecord.wins,
+                stats.winLossRecord.losses,
+                stats.winLossRecord.ties
+              )}
             />
             <StatCard
               name="Average points per game"

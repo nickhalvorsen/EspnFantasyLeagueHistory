@@ -5,7 +5,7 @@ type props = {
 };
 
 const SubSubText = ({ children }: props) => (
-  <span className="text-xs text-gray-500 ml-2">{children}</span>
+  <span className="text-[0.9em] text-gray-500 ml-2">{children}</span>
 );
 
 export { SubSubText };

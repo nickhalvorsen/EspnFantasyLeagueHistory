@@ -145,6 +145,9 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       playoffPercentage: calculatePlayoffPercentage(thisTeamStatsByYear),
       numPlayoffAppearances: calculatePlayoffAppearances(thisTeamStatsByYear),
       winLossRecord: calculateWinLossRecord(thisTeamStatsByYear),
+      bestSeasonRecords: calculateBestSeasonRecords(thisTeamStatsByYear),
+      worstSeasonRecords:
+        calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -156,10 +159,14 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
   });
 
   allStats.leagueInfo = {
-    leagueName: "", //getYearDataApiResponse[0].leagueName,
+    leagueName:
+      getYearDataApiResponse[getYearDataApiResponse.length - 1].settings.name,
     startYear: getYearDataApiResponse[0].seasonId,
     latestYear:
       getYearDataApiResponse[getYearDataApiResponse.length - 1].seasonId,
+    regularSeasonMatchups:
+      getYearDataApiResponse[getYearDataApiResponse.length - 1].settings
+        .scheduleSettings.matchupPeriodCount,
   };
 
   return allStats;
@@ -242,7 +249,7 @@ const calculateHighScores = (thisTeamStatsByWeek: weeklyStats[]) => {
 
   return [...weeksWithDoubleHeadersSplitOut]
     .sort((a, b) => b.pointsFor - a.pointsFor)
-    .slice(0, 5)
+    .slice(0, 10)
     .map((weekStat) => ({
       year: weekStat.year,
       week: weekStat.weekNumber,
@@ -253,7 +260,7 @@ const calculateHighScores = (thisTeamStatsByWeek: weeklyStats[]) => {
 const calculateLowScores = (thisTeamStatsByWeek: weeklyStats[]) => {
   return [...thisTeamStatsByWeek]
     .sort((a, b) => a.pointsFor - b.pointsFor)
-    .slice(0, 5)
+    .slice(0, 10)
     .map((weekStat) => ({
       year: weekStat.year,
       week: weekStat.weekNumber,
@@ -268,7 +275,7 @@ const calculateBiggestBlowouts = (thisTeamStatsByWeek: weeklyStats[]) => {
         Math.abs(b.pointsFor - b.pointsAgainst) -
         Math.abs(a.pointsFor - a.pointsAgainst)
     )
-    .slice(0, 5)
+    .slice(0, 10)
     .map((weekStat) => ({
       year: weekStat.year,
       week: weekStat.weekNumber,
@@ -304,6 +311,30 @@ const calculateWinLossRecord = (teamStatsByYear: yearlyStats[]) => {
     0
   );
   return { wins, losses, ties };
+};
+
+const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear
+    .sort((a, b) => b.wins - a.wins || a.losses - b.losses)
+    .slice(0, 10)
+    .map((yearStat) => ({
+      wins: yearStat.wins,
+      losses: yearStat.losses,
+      ties: yearStat.ties,
+      year: yearStat.year,
+    }));
+};
+
+const calculateWorstSeasonRecords = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear
+    .sort((a, b) => a.losses - b.losses)
+    .slice(0, 10)
+    .map((yearStat) => ({
+      wins: yearStat.wins,
+      losses: yearStat.losses,
+      ties: yearStat.ties,
+      year: yearStat.year,
+    }));
 };
 
 export { mapAllStats };

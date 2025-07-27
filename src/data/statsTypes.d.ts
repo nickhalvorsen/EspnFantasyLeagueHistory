@@ -8,6 +8,7 @@ type LeagueInfo = {
   leagueName: string;
   startYear: number;
   latestYear: number;
+  regularSeasonMatchups: number;
 };
 
 type Team = {
@@ -37,6 +38,8 @@ type TeamFullStats = {
   longestLossStreak: number;
   //winLossRecordYearly: Record<number, WinsAndLosses>;
   //winLossRecordAgainst: Record<number, WinsAndLosses>;
+  bestSeasonRecords: Array<WinsAndLosses & { year: number }>;
+  worstSeasonRecords: Array<WinsAndLosses & { year: number }>;
 };
 
 type WinsAndLosses = {

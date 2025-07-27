@@ -22,7 +22,7 @@ const getAllYears = async () => {
 
 const getYearData = async (year: number) => {
   const response: GetYearDataApiResponse = await fetchFromApi(
-    `/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${LEAGUE_ID}?view=mTeam&view=mMatchupScore`
+    `/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${LEAGUE_ID}?view=mTeam&view=mMatchupScore&view=mSettings`
   );
   return response;
 };

@@ -18,7 +18,7 @@ const App = () => {
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Nav leagueName="XFL :POG:" />
+        <Nav />
         <Route path="/" component={Home} />
         <Route path="/managers/:manager">
           {(params) => <ManagerStats manager={params.manager} />}
