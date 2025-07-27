@@ -1,5 +1,6 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
+import { SubSubText } from "@/reusableComponents/subSubText";
 
 const BiggestWeeksShelf = () => {
   const allData = useStore();
@@ -20,9 +21,9 @@ const BiggestWeeksShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow key={idx} label={item.manager}>
           {item.value}{" "}
-          <span className="text-xs text-gray-500 ml-2">
+          <SubSubText>
             ({item.year} week {item.week})
-          </span>
+          </SubSubText>
         </ShelfRow>
       ))}
     </Shelf>

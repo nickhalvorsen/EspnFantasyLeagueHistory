@@ -2,6 +2,7 @@ import { useStore } from "../useData";
 import classes from "./trophyShelf.module.scss";
 import { TrophyCount } from "../reusableComponents/trophyCount";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
+import { SubText } from "@/reusableComponents/subText";
 
 const TrophyShelf = () => {
   const allData = useStore();
@@ -34,11 +35,7 @@ const TrophyShelf = () => {
                 <TrophyCount numTrophies={team.trophies} />
               </span>
               {team.trophyYears && team.trophyYears.length > 0 && (
-                <span
-                  style={{ marginLeft: 6, fontSize: "0.9em", color: "#888" }}
-                >
-                  ({team.trophyYears.join(", ")})
-                </span>
+                <SubText>({team.trophyYears.join(", ")})</SubText>
               )}
             </span>
           ))}
