@@ -21,7 +21,7 @@ const TrophyShelf = () => {
   );
 
   return (
-    <Shelf title="Trophy Shelf">
+    <Shelf title="Trophy shelf">
       {groupedEntries.map(([trophyCount, teams]) => (
         <ShelfRow key={trophyCount}>
           {teams.map((team) => (

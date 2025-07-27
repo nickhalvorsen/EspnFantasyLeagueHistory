@@ -9,7 +9,7 @@ const GarbageBinShelf = () => {
   );
 
   return (
-    <Shelf title="Garbage Bin Shelf">
+    <Shelf title="Garbage bin shelf">
       {allData.map((item) => (
         <ShelfRow key={item.team.espnId} label={item.team.managerName}>
           <span className={classes.trophyCount}>

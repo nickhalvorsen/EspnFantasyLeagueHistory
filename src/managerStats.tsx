@@ -1,6 +1,7 @@
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 import { winLossTieString } from "./reusableComponents/winLossTieString";
+import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useAveragePointsData } from "./useAveragePointsData";
 import { useStore } from "./useData";
 
@@ -76,6 +77,9 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
             />
           </div>
         </div>
+      </div>
+      <div>
+        <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
       </div>
     </div>
   );

@@ -24,7 +24,12 @@ type weeklyStats = {
   opponentEspnId: number;
   isMultiHeader?: boolean;
   multiHeaderPoints?: number[];
+  isPostSeason?: boolean;
 };
+
+// 4 = BIN
+// Bri isn't appearing here. I don't know why. But the team should be omitted anyway.
+const espnTeamIdsToOmit = ["4"];
 
 const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
   const allStats: AllStats = {
@@ -34,6 +39,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       leagueName: "",
       startYear: 0,
       latestYear: 0,
+      regularSeasonMatchups: 0,
     },
   };
 
@@ -83,6 +89,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         isMultiHeader:
           Object.keys(schedule.away.pointsByScoringPeriod).length > 1,
         multiHeaderPoints: Object.values(schedule.away.pointsByScoringPeriod),
+        isPostSeason: schedule.playoffTierType !== "NONE",
       });
 
       allTeamStatsByWeek.push({
@@ -101,13 +108,11 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         isMultiHeader:
           Object.keys(schedule.home.pointsByScoringPeriod).length > 1,
         multiHeaderPoints: Object.values(schedule.home.pointsByScoringPeriod),
+        isPostSeason: schedule.playoffTierType !== "NONE",
       });
     });
   });
 
-  // 4 = BIN
-  // Bri isn't appearing here. I don't know why. But the team should be omitted anyway.
-  const espnTeamIdsToOmit = ["4"];
   allTeamStatsByYear = allTeamStatsByYear.filter(
     (s) => !espnTeamIdsToOmit.includes(s.team.espnId)
   );
@@ -145,6 +150,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       playoffPercentage: calculatePlayoffPercentage(thisTeamStatsByYear),
       numPlayoffAppearances: calculatePlayoffAppearances(thisTeamStatsByYear),
       winLossRecord: calculateWinLossRecord(thisTeamStatsByYear),
+      winLossRecordAgainst: calculateWinLossRecordAgainst(thisTeamStatsByWeek),
       bestSeasonRecords: calculateBestSeasonRecords(thisTeamStatsByYear),
       worstSeasonRecords:
         calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
@@ -295,22 +301,50 @@ const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear.filter((yearStat) => yearStat.playoffSeed <= 4).length;
 };
 
-const calculateWinLossRecord = (teamStatsByYear: yearlyStats[]) => {
-  // TODO:
+const calculateWinLossRecord = (eamStatsByYear: yearlyStats[]) => {
   //yearStat.wins is regular season only
-  const wins = teamStatsByYear.reduce(
-    (sum, yearStat) => sum + yearStat.wins,
-    0
-  );
-  const losses = teamStatsByYear.reduce(
+  const wins = eamStatsByYear.reduce((sum, yearStat) => sum + yearStat.wins, 0);
+  const losses = eamStatsByYear.reduce(
     (sum, yearStat) => sum + yearStat.losses,
     0
   );
-  const ties = teamStatsByYear.reduce(
-    (sum, yearStat) => sum + yearStat.ties,
-    0
-  );
+  const ties = eamStatsByYear.reduce((sum, yearStat) => sum + yearStat.ties, 0);
   return { wins, losses, ties };
+};
+
+const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
+  const records = [];
+
+  thisTeamStatsByWeek.forEach((weekStat) => {
+    if (weekStat.isPostSeason) return;
+    if (espnTeamIdsToOmit.includes(weekStat.opponentEspnId.toString())) return;
+
+    let thisRecord = records.find(
+      (record) => record.opponentEspnId === weekStat.opponentEspnId
+    );
+
+    if (!thisRecord) {
+      records.push({
+        opponentEspnId: weekStat.opponentEspnId,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+      });
+
+      thisRecord = records.find(
+        (record) => record.opponentEspnId === weekStat.opponentEspnId
+      );
+    }
+    if (weekStat.result === "WIN") {
+      thisRecord.wins += 1;
+    } else if (weekStat.result === "LOSS") {
+      thisRecord.losses += 1;
+    } else if (weekStat.result === "TIE") {
+      thisRecord.ties += 1;
+    }
+  });
+
+  return records;
 };
 
 const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) => {

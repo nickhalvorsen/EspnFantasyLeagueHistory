@@ -49,7 +49,7 @@ const Home = () => {
         <Card className="w-full md:w-1/2">
           <CardHeader>
             <CardTitle>
-              <h2>Most Wins in a Season</h2>
+              <h2>Most wins in a season</h2>
             </CardTitle>
             <CardDescription>Regular season, by manager</CardDescription>
           </CardHeader>
@@ -63,7 +63,7 @@ const Home = () => {
         <Card className="w-full md:w-1/2">
           <CardHeader>
             <CardTitle>
-              <h2>Most Losses in a Season</h2>
+              <h2>Most losses in a season</h2>
             </CardTitle>
             <CardDescription>Regular season, by manager</CardDescription>
           </CardHeader>
@@ -77,7 +77,7 @@ const Home = () => {
         <Card className="w-full md:w-1/2">
           <CardHeader>
             <CardTitle>
-              <h2>Biggest Weeks</h2>
+              <h2>Biggest weeks</h2>
             </CardTitle>
             <CardDescription>By manager</CardDescription>
           </CardHeader>
@@ -91,7 +91,7 @@ const Home = () => {
         <Card className="w-full md:w-1/2">
           <CardHeader>
             <CardTitle>
-              <h2>Worst Weeks</h2>
+              <h2>Worst weeks</h2>
             </CardTitle>
             <CardDescription>By manager</CardDescription>
           </CardHeader>
