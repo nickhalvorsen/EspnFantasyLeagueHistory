@@ -5,13 +5,16 @@ import { Route } from "wouter";
 import ManagerStats from "./managerStats.tsx";
 import { Home } from "./home.tsx";
 import { useLoadData } from "./useData.ts";
+import { DelayedLoading } from "./layout/delayedLoading.tsx";
 
 const App = () => {
   const { isLoading } = useLoadData();
   if (isLoading) {
     return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <></>
+        <DelayedLoading isLoading={true} delay={1500}>
+          Loading...
+        </DelayedLoading>
       </ThemeProvider>
     );
   }

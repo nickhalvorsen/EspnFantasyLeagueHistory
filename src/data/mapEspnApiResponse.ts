@@ -161,12 +161,12 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       bestSeasonRecords: calculateBestSeasonRecords(thisTeamStatsByYear),
       worstSeasonRecords:
         calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
+      longestWinStreak: calculateLongestWinStreak(thisTeamStatsByWeek),
+      longestLossStreak: calculateLongestLossStreak(thisTeamStatsByWeek),
 
       // TODO
       averagePointsPerGameYearly: {},
       averagePointsAgainstPerGameYearly: {},
-      longestWinStreak: 0,
-      longestLossStreak: 0,
     };
     allStats.teamStats.push(thisTeamsStats);
   });
@@ -421,5 +421,41 @@ const calculateWorstSeasonRecords = (teamStatsByYear: yearlyStats[]) => {
       year: yearStat.year,
     }));
 };
+
+const calculateLongestStreak = (
+  thisTeamStatsByWeek: weeklyStats[],
+  desiredResult: "WIN" | "LOSS"
+) => {
+  let longestStreak = 0;
+  let currentStreak = 0;
+  let currentYear = 0;
+
+  thisTeamStatsByWeek = thisTeamStatsByWeek
+    .sort((a, b) => a.year - b.year || a.weekNumber - b.weekNumber)
+    .filter((x) => !x.isPostSeason);
+
+  thisTeamStatsByWeek.forEach((weekStat) => {
+    if (weekStat.year !== currentYear) {
+      currentYear = weekStat.year;
+      currentStreak = 0; // Reset streak for new year
+    }
+
+    if (weekStat.result === desiredResult) {
+      currentStreak += 1;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else {
+      longestStreak = Math.max(longestStreak, currentStreak);
+      currentStreak = 0;
+    }
+  });
+
+  return Math.max(longestStreak, currentStreak);
+};
+
+const calculateLongestWinStreak = (thisTeamStatsByWeek: weeklyStats[]) =>
+  calculateLongestStreak(thisTeamStatsByWeek, "WIN");
+
+const calculateLongestLossStreak = (thisTeamStatsByWeek: weeklyStats[]) =>
+  calculateLongestStreak(thisTeamStatsByWeek, "LOSS");
 
 export { mapAllStats };

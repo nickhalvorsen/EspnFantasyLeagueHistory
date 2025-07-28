@@ -19,6 +19,8 @@ import { BestRecordsChart } from "./statCards/bestRecordsChart";
 import { WorstRecordsChart } from "./statCards/worstRecordsChart";
 import { WorstRecordsShelf } from "./statCards/worstRecordsShelf";
 import { PlayoffPercentageShelf } from "./statCards/playoffPercentageShelf";
+import { WinStreaksChart } from "./statCards/winStreaksChart";
+import { LossStreaksChart } from "./statCards/lossStreaksChart";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -98,6 +100,30 @@ const Home = () => {
           </CardHeader>
           <CardContent>
             <WorstWeeksChart />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              <h2>Longest win streaks</h2>
+            </CardTitle>
+            <CardDescription>Regular season, by manager</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <WinStreaksChart />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              <h2>Longest loss streaks</h2>
+            </CardTitle>
+            <CardDescription>Regular season, by manager</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LossStreaksChart />
           </CardContent>
         </Card>
 
