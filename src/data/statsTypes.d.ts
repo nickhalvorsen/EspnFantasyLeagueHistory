@@ -48,6 +48,7 @@ type TeamFullStats = {
   biggestMatchups: Matchup[];
   lowestMatchups: Matchup[];
   tradeCount: number;
+  lifetimePointsFor: number;
 };
 
 type Matchup = {

@@ -26,7 +26,7 @@ const BiggestBlowoutsShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}
-          label={`${item.manager1Name} vs ${item.manager2Name}`}
+          label={`${item.manager1Name} vs. ${item.manager2Name}`}
         >
           {item.manager1score}–{item.manager2score}
           <SubSubText>

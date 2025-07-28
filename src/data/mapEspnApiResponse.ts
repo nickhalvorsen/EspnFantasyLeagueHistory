@@ -169,6 +169,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
       biggestMatchups: calculateBiggestMatchups(thisTeamStatsByWeek),
       lowestMatchups: calculateLowestMatchups(thisTeamStatsByWeek),
+      lifetimePointsFor: calculateLifetimePointsFor(thisTeamStatsByYear),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -527,6 +528,12 @@ const calculateLowestMatchups = (thisTeamStatsByWeek: weeklyStats[]) => {
       manager2: weekStat.opponentEspnId.toString(),
       manager2score: weekStat.pointsAgainst,
     }));
+};
+
+const calculateLifetimePointsFor = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.reduce((sum, yearStat) => {
+    return sum + yearStat.pointsFor;
+  }, 0);
 };
 
 export { mapAllStats };

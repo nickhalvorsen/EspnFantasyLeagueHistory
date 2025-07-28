@@ -38,12 +38,15 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
           name="Average points per game"
           value={stats.averagePointsPerGame.toFixed(2)}
         />
-        <StatCard name="Average finish" value={"TODO"} />
         <StatCard
-          name="Playoff %"
+          name="Playoff appearance %"
           value={`${stats.playoffPercentage.toFixed(0)}% (${
             stats.numPlayoffAppearances
           }/${stats.yearsPlayed})`}
+        />
+        <StatCard
+          name="Career points"
+          value={stats.lifetimePointsFor.toFixed(2)}
         />
       </div>
 

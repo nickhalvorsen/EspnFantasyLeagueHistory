@@ -28,7 +28,7 @@ const BiggestMatchupsShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}
-          label={`${item.manager1Name} vs ${item.manager2Name}`}
+          label={`${item.manager1Name} vs. ${item.manager2Name}`}
         >
           {item.total.toFixed(2)} combined pts
           <SubSubText>
