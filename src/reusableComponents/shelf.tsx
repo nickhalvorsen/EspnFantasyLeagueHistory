@@ -14,7 +14,7 @@ type ShelfProps = {
 };
 
 const Shelf = ({ title, description, children }: ShelfProps) => (
-  <Card className="w-full md:w-1/2">
+  <Card>
     <CardHeader>
       <CardTitle>
         <h2>{title}</h2>

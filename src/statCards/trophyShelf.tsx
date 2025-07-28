@@ -28,7 +28,7 @@ const TrophyShelf = () => {
             <span
               key={team.team.espnId}
               style={{ marginLeft: 12, marginRight: 12, marginTop: -5 }}
-              className="whitespace-nowrap"
+              className="inline-block break-normal whitespace-pre-wrap"
             >
               {team.team.managerName}{" "}
               <span className={classes.trophyCount}>

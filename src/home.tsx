@@ -28,12 +28,12 @@ const Home = () => {
         XFL :POG: Fantasy Stats {leagueInfo?.startYear}&ndash;
         {leagueInfo?.latestYear}
       </h1>
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <TrophyShelf />
         <WinLossShelf />
         <PlayoffPercentageShelf />
 
-        <Card className="w-full md:w-1/2">
+        <Card>
           <CardHeader>
             <CardTitle>
               <h2>Average points per game</h2>
@@ -47,7 +47,7 @@ const Home = () => {
 
         <BestRecordsShelf />
 
-        <Card className="w-full md:w-1/2">
+        <Card>
           <CardHeader>
             <CardTitle>
               <h2>Most wins in a season</h2>
@@ -61,7 +61,7 @@ const Home = () => {
 
         <WorstRecordsShelf />
 
-        <Card className="w-full md:w-1/2">
+        <Card>
           <CardHeader>
             <CardTitle>
               <h2>Most losses in a season</h2>
@@ -75,7 +75,7 @@ const Home = () => {
 
         <BiggestWeeksShelf />
 
-        <Card className="w-full md:w-1/2">
+        <Card>
           <CardHeader>
             <CardTitle>
               <h2>Biggest weeks</h2>
@@ -89,7 +89,7 @@ const Home = () => {
 
         <WorstWeeksShelf />
 
-        <Card className="w-full md:w-1/2">
+        <Card>
           <CardHeader>
             <CardTitle>
               <h2>Worst weeks</h2>
