@@ -19,9 +19,13 @@ const Shelf = ({ title, description, children }: ShelfProps) => (
       <CardTitle>
         <h2>{title}</h2>
       </CardTitle>
-      {description && <CardDescription>{description}</CardDescription>}
+      <CardDescription>{description}</CardDescription>
     </CardHeader>
-    <CardContent>{children}</CardContent>
+    <CardContent>
+      <table style={{ width: "100%" }}>
+        <tbody>{children}</tbody>
+      </table>
+    </CardContent>
   </Card>
 );
 
@@ -31,24 +35,34 @@ type ShelfRowProps = {
 };
 
 const ShelfRow = ({ label, children }: ShelfRowProps) => (
-  <div
-    style={{ marginBottom: "0", borderBottomColor: "#292929" }}
+  <tr
+    style={{
+      marginBottom: "0",
+      borderBottomColor: "#292929",
+    }}
     className="mb-2 border-b"
   >
     {label && (
-      <span style={{ minWidth: 70, display: "inline-block", paddingRight: 8 }}>
+      <td
+        style={{
+          minWidth: 70,
+          paddingRight: 12,
+          whiteSpace: "nowrap",
+          lineHeight: "1.7em",
+        }}
+      >
         {label}
-      </span>
+      </td>
     )}
-    <span
+    <td
       style={{
         fontFamily: "Geist",
-        /*lineHeight: "1.8em"*/
+        width: "100%",
       }}
     >
       {children}
-    </span>
-  </div>
+    </td>
+  </tr>
 );
 
 export { Shelf, ShelfRow };

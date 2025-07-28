@@ -1,5 +1,4 @@
 import { useStore } from "../useData";
-import classes from "./trophyShelf.module.scss";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubText } from "@/reusableComponents/subText";
 
@@ -12,9 +11,7 @@ const GarbageBinShelf = () => {
     <Shelf title="Garbage bin shelf">
       {allData.map((item) => (
         <ShelfRow key={item.team.espnId} label={item.team.managerName}>
-          <span className={classes.trophyCount}>
-            &nbsp;{"🗑️".repeat(item.binYears.length)}
-          </span>
+          <span>&nbsp;{"🗑️".repeat(item.binYears.length)}</span>
           {item.binYears.length > 0 && (
             <SubText>{"(" + item.binYears.join(", ") + ")"}</SubText>
           )}
