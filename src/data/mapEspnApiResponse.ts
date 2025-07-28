@@ -12,6 +12,7 @@ type yearlyStats = {
   pointsAgainst: number;
   playoffSeed: number;
   finalRank: number;
+  tradeCount: number;
 };
 
 type weeklyStats = {
@@ -70,6 +71,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         pointsAgainst: team.record.overall.pointsAgainst,
         playoffSeed: team.playoffSeed,
         finalRank: team.rankCalculatedFinal,
+        tradeCount: team.transactionCounter.trades,
       });
     });
 
@@ -163,6 +165,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
       longestWinStreak: calculateLongestWinStreak(thisTeamStatsByWeek),
       longestLossStreak: calculateLongestLossStreak(thisTeamStatsByWeek),
+      //mostTradesPerYear: ,
+      tradeCount: calculateTradeCount(thisTeamStatsByYear),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -457,5 +461,12 @@ const calculateLongestWinStreak = (thisTeamStatsByWeek: weeklyStats[]) =>
 
 const calculateLongestLossStreak = (thisTeamStatsByWeek: weeklyStats[]) =>
   calculateLongestStreak(thisTeamStatsByWeek, "LOSS");
+
+const calculateTradeCount = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.reduce((sum, yearStat) => {
+    const trades = yearStat.tradeCount;
+    return sum + trades;
+  }, 0);
+};
 
 export { mapAllStats };

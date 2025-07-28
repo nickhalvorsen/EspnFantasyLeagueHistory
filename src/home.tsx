@@ -21,6 +21,7 @@ import { WorstRecordsShelf } from "./statCards/worstRecordsShelf";
 import { PlayoffPercentageShelf } from "./statCards/playoffPercentageShelf";
 import { WinStreaksChart } from "./statCards/winStreaksChart";
 import { LossStreaksChart } from "./statCards/lossStreaksChart";
+import { TradeTotalsChart } from "./statCards/tradeTotalsChart";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -124,6 +125,18 @@ const Home = () => {
           </CardHeader>
           <CardContent>
             <LossStreaksChart />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              <h2>Trade count</h2>
+            </CardTitle>
+            <CardDescription>All-time, by manager</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TradeTotalsChart />
           </CardContent>
         </Card>
 

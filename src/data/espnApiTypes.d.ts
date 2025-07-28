@@ -21,6 +21,9 @@ type GetYearDataApiResponse = {
         pointsAgainst: number;
       };
     };
+    transactionCounter: {
+      trades: number;
+    };
     playoffSeed: number;
     rankCalculatedFinal: number;
   }>;

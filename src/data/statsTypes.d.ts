@@ -43,7 +43,8 @@ type TeamFullStats = {
   //winLossRecordYearly: Record<number, WinsAndLosses>;
   //winLossRecordAgainst: Record<number, WinsAndLosses>;
   bestSeasonRecords: Array<WinsAndLosses & { year: number }>;
-  worstSeasonRecords: Array<WinsAndLosses & { year: number }>;
+  worstSeasonRecords: Array<WinsAndLosses & { year: number }>;\
+  tradeCount: number;
 };
 
 type WinsAndLosses = {
