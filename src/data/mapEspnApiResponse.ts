@@ -167,6 +167,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       tradeCount: calculateTradeCount(thisTeamStatsByYear),
       closestGames: calculateClosestGames(thisTeamStatsByWeek),
       biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
+      biggestMatchups: calculateBiggestMatchups(thisTeamStatsByWeek),
+      lowestMatchups: calculateLowestMatchups(thisTeamStatsByWeek),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -340,7 +342,6 @@ const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
   return records;
 };
 
-// TODO: this is bugged. brandon has 4 wins and zero losses. but he should have one loss.
 const calculatePlayoffWinLossRecordAgainst = (
   thisTeamStatsByWeek: weeklyStats[]
 ) => {
@@ -483,6 +484,44 @@ const calculateBiggestBlowouts = (thisTeamStatsByWeek: weeklyStats[]) => {
       year: weekStat.year,
       week: weekStat.weekNumber,
       margin: Math.abs(weekStat.pointsFor - weekStat.pointsAgainst),
+      manager1: weekStat.teamEspnId.toString(),
+      manager1score: weekStat.pointsFor,
+      manager2: weekStat.opponentEspnId.toString(),
+      manager2score: weekStat.pointsAgainst,
+    }));
+};
+
+const calculateBiggestMatchups = (thisTeamStatsByWeek: weeklyStats[]) => {
+  return [...thisTeamStatsByWeek]
+    .sort(
+      (a, b) => b.pointsFor + b.pointsAgainst - (a.pointsFor + a.pointsAgainst)
+    )
+    .filter((x) => !x.isMultiHeader)
+    .filter((x) => x.opponentEspnId !== 4)
+    .slice(0, 10)
+    .map((weekStat) => ({
+      year: weekStat.year,
+      week: weekStat.weekNumber,
+      total: weekStat.pointsFor + weekStat.pointsAgainst,
+      manager1: weekStat.teamEspnId.toString(),
+      manager1score: weekStat.pointsFor,
+      manager2: weekStat.opponentEspnId.toString(),
+      manager2score: weekStat.pointsAgainst,
+    }));
+};
+
+const calculateLowestMatchups = (thisTeamStatsByWeek: weeklyStats[]) => {
+  return [...thisTeamStatsByWeek]
+    .sort(
+      (a, b) => a.pointsFor + a.pointsAgainst - (b.pointsFor + b.pointsAgainst)
+    )
+    .filter((x) => !x.isMultiHeader)
+    .filter((x) => x.opponentEspnId !== 4)
+    .slice(0, 10)
+    .map((weekStat) => ({
+      year: weekStat.year,
+      week: weekStat.weekNumber,
+      total: weekStat.pointsFor + weekStat.pointsAgainst,
       manager1: weekStat.teamEspnId.toString(),
       manager1score: weekStat.pointsFor,
       manager2: weekStat.opponentEspnId.toString(),

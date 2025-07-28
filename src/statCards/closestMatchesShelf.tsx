@@ -31,7 +31,8 @@ const ClosestMatchesShelf = () => {
         >
           {item.manager1score}–{item.manager2score}
           <SubSubText>
-            ({item.differential.toFixed(2)} pts) ({item.year} week {item.week})
+            ({item.differential.toFixed(2)} pts margin) ({item.year} week{" "}
+            {item.week})
           </SubSubText>
         </ShelfRow>
       ))}

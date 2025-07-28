@@ -43,25 +43,21 @@ type TeamFullStats = {
   //winLossRecordAgainst: Record<number, WinsAndLosses>;
   bestSeasonRecords: Array<WinsAndLosses & { year: number }>;
   worstSeasonRecords: Array<WinsAndLosses & { year: number }>;
-  closestGames: Array<{
-    year: number;
-    week: number;
-    margin: number;
-    manager1: string;
-    manager1score: number;
-    manager2: string;
-    manager2score: number;
-  }>;
-  biggestBlowouts: Array<{
-    year: number;
-    week: number;
-    margin: number;
-    manager1: string;
-    manager1score: number;
-    manager2: string;
-    manager2score: number;
-  }>;
+  closestGames: Matchup[];
+  biggestBlowouts: Matchup[];
+  biggestMatchups: Matchup[];
+  lowestMatchups: Matchup[];
   tradeCount: number;
+};
+
+type Matchup = {
+  year: number;
+  week: number;
+  margin: number;
+  manager1: string;
+  manager1score: number;
+  manager2: string;
+  manager2score: number;
 };
 
 type WinsAndLosses = {

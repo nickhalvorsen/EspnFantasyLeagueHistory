@@ -24,6 +24,8 @@ import { LossStreaksChart } from "./statCards/lossStreaksChart";
 import { TradeTotalsChart } from "./statCards/tradeTotalsChart";
 import { BiggestBlowoutsShelf } from "./statCards/biggestBlowoutsShelf";
 import { ClosestMatchesShelf } from "./statCards/closestMatchesShelf";
+import { BiggestMatchupsShelf } from "./statCards/biggestMatchupsShelf";
+import { LowestMatchupsShelf } from "./statCards/lowestMatchupsShelf";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -108,6 +110,9 @@ const Home = () => {
 
         <BiggestBlowoutsShelf />
         <ClosestMatchesShelf />
+
+        <BiggestMatchupsShelf />
+        <LowestMatchupsShelf />
 
         <Card>
           <CardHeader>

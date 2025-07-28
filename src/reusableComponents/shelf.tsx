@@ -34,11 +34,13 @@ type ShelfRowProps = {
   children?: ReactNode;
 };
 
+const borderColor = "#292929";
+
 const ShelfRow = ({ label, children }: ShelfRowProps) => (
   <tr
     style={{
       marginBottom: "0",
-      borderBottomColor: "#292929",
+      borderBottomColor: borderColor,
     }}
     className="mb-2 border-b"
   >
@@ -46,9 +48,10 @@ const ShelfRow = ({ label, children }: ShelfRowProps) => (
       <td
         style={{
           minWidth: 70,
-          paddingRight: 12,
+          paddingRight: 6,
           whiteSpace: "nowrap",
           lineHeight: "1.7em",
+          //borderRight: `1px solid ${borderColor}`,
         }}
       >
         {label}
@@ -58,6 +61,7 @@ const ShelfRow = ({ label, children }: ShelfRowProps) => (
       style={{
         fontFamily: "Geist",
         width: "100%",
+        paddingLeft: 6,
       }}
     >
       {children}
