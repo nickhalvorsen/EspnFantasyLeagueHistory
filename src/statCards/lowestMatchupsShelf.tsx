@@ -30,10 +30,9 @@ const LowestMatchupsShelf = () => {
           key={idx}
           label={`${item.manager1Name} vs. ${item.manager2Name}`}
         >
-          {item.total.toFixed(2)} combined pts
+          {item.total.toFixed(2)} total pts
           <SubSubText>
-            ({item.manager1score}–{item.manager2score}) ({item.year} week{" "}
-            {item.week})
+            ({item.manager1score}–{item.manager2score})
           </SubSubText>
         </ShelfRow>
       ))}

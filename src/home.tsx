@@ -85,7 +85,7 @@ const Home = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <h2>Biggest weeks</h2>
+              <h2>Highest scoring weeks</h2>
             </CardTitle>
             <CardDescription>By manager</CardDescription>
           </CardHeader>
@@ -99,7 +99,7 @@ const Home = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <h2>Worst weeks</h2>
+              <h2>Lowest scoring weeks</h2>
             </CardTitle>
             <CardDescription>By manager</CardDescription>
           </CardHeader>

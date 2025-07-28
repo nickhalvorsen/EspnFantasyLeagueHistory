@@ -253,7 +253,7 @@ const calculateHighScores = (thisTeamStatsByWeek: weeklyStats[]) => {
   const weeksWithDoubleHeadersSplitOut = thisTeamStatsByWeek.flatMap(
     (weekStat) => {
       if (weekStat.isMultiHeader) {
-        return weekStat.multiHeaderPoints!.map((points, idx) => ({
+        return weekStat.multiHeaderPoints!.map((points) => ({
           year: weekStat.year,
           weekNumber: weekStat.weekNumber,
           teamEspnId: weekStat.teamEspnId,
@@ -309,7 +309,7 @@ const calculateWinLossRecord = (eamStatsByYear: yearlyStats[]) => {
 };
 
 const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
-  const records = [];
+  const records: WinsAndLossesAgainst[] = [];
 
   thisTeamStatsByWeek.forEach((weekStat) => {
     if (weekStat.isPostSeason) return;
@@ -332,11 +332,11 @@ const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
       );
     }
     if (weekStat.result === "WIN") {
-      thisRecord.wins += 1;
+      thisRecord!.wins += 1;
     } else if (weekStat.result === "LOSS") {
-      thisRecord.losses += 1;
+      thisRecord!.losses += 1;
     } else if (weekStat.result === "TIE") {
-      thisRecord.ties += 1;
+      thisRecord!.ties += 1;
     }
   });
 
@@ -346,7 +346,7 @@ const calculateWinLossRecordAgainst = (thisTeamStatsByWeek: weeklyStats[]) => {
 const calculatePlayoffWinLossRecordAgainst = (
   thisTeamStatsByWeek: weeklyStats[]
 ) => {
-  const records = [];
+  const records: WinsAndLossesAgainst[] = [];
 
   if (thisTeamStatsByWeek[0].teamEspnId === 2) {
     console.log(
@@ -375,11 +375,11 @@ const calculatePlayoffWinLossRecordAgainst = (
       );
     }
     if (weekStat.result === "WIN") {
-      thisRecord.wins += 1;
+      thisRecord!.wins += 1;
     } else if (weekStat.result === "LOSS") {
-      thisRecord.losses += 1;
+      thisRecord!.losses += 1;
     } else if (weekStat.result === "TIE") {
-      thisRecord.ties += 1;
+      thisRecord!.ties += 1;
     }
   });
 

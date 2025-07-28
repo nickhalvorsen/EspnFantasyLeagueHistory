@@ -25,7 +25,7 @@ const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
 
   return (
     <Shelf title="Win/loss vs. manager" description="Regular season, all-time">
-      {data.map((record) => (
+      {data!.map((record) => (
         <ShelfRow key={record.opponentEspnId} label={"vs. " + record.name}>
           {winLossTieString(record.wins, record.losses, record.ties)}
 

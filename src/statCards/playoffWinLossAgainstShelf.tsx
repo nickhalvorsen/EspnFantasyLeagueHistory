@@ -28,7 +28,7 @@ const PlayoffWinLossAgainstShelf = ({ managerEspnId }: Props) => {
       title="Playoff win/loss vs. manager"
       description="Winner's bracket, all-time, excluding consolation matches"
     >
-      {data.map((record) => (
+      {data!.map((record) => (
         <ShelfRow key={record.opponentEspnId} label={"vs. " + record.name}>
           {winLossTieString(record.wins, record.losses, record.ties)}
 

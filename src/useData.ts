@@ -17,6 +17,7 @@ const useStore = create<MyStore>((set) => ({
     leagueName: "",
     startYear: 0,
     latestYear: 0,
+    regularSeasonMatchups: 0,
   },
   isLoading: true,
   isLoaded: false,

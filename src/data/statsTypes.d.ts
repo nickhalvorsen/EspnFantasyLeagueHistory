@@ -32,29 +32,27 @@ type TeamFullStats = {
   numPlayoffAppearances: number;
   playoffPercentage: number;
   winLossRecord: WinsAndLosses;
-  winLossRecordAgainst: Array<WinsAndLosses & { opponentEspnId: number }>;
-  playoffWinLossRecordAgainst: Array<
-    WinsAndLosses & { opponentEspnId: number }
-  >;
-  //finalsWinLossRecord: WinsAndLosses;
+  winLossRecordAgainst: WinsAndLossesAgainst[];
+  playoffWinLossRecordAgainst: WinsAndLossesAgainst[];
   longestWinStreak: number;
   longestLossStreak: number;
   //winLossRecordYearly: Record<number, WinsAndLosses>;
   //winLossRecordAgainst: Record<number, WinsAndLosses>;
   bestSeasonRecords: Array<WinsAndLosses & { year: number }>;
   worstSeasonRecords: Array<WinsAndLosses & { year: number }>;
-  closestGames: Matchup[];
-  biggestBlowouts: Matchup[];
+  closestGames: Array<Matchup & { margin: number }>;
+  biggestBlowouts: Array<Matchup & { margin: number }>;
   biggestMatchups: Matchup[];
   lowestMatchups: Matchup[];
   tradeCount: number;
   lifetimePointsFor: number;
 };
 
+type WinsAndLossesAgainst = WinsAndLosses & { opponentEspnId: number };
+
 type Matchup = {
   year: number;
   week: number;
-  margin: number;
   manager1: string;
   manager1score: number;
   manager2: string;
