@@ -22,6 +22,8 @@ import { PlayoffPercentageShelf } from "./statCards/playoffPercentageShelf";
 import { WinStreaksChart } from "./statCards/winStreaksChart";
 import { LossStreaksChart } from "./statCards/lossStreaksChart";
 import { TradeTotalsChart } from "./statCards/tradeTotalsChart";
+import { BiggestBlowoutsShelf } from "./statCards/biggestBlowoutsShelf";
+import { ClosestMatchesShelf } from "./statCards/closestMatchesShelf";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -103,6 +105,9 @@ const Home = () => {
             <WorstWeeksChart />
           </CardContent>
         </Card>
+
+        <BiggestBlowoutsShelf />
+        <ClosestMatchesShelf />
 
         <Card>
           <CardHeader>

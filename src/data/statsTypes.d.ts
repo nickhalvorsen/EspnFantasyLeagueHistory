@@ -29,7 +29,6 @@ type TeamFullStats = {
   averagePointsAgainstPerGameYearly: Record<number, number>;
   highScores: WeeklyAchievement[];
   lowScores: WeeklyAchievement[];
-  biggestBlowouts: WeeklyAchievement[];
   numPlayoffAppearances: number;
   playoffPercentage: number;
   winLossRecord: WinsAndLosses;
@@ -43,7 +42,25 @@ type TeamFullStats = {
   //winLossRecordYearly: Record<number, WinsAndLosses>;
   //winLossRecordAgainst: Record<number, WinsAndLosses>;
   bestSeasonRecords: Array<WinsAndLosses & { year: number }>;
-  worstSeasonRecords: Array<WinsAndLosses & { year: number }>;\
+  worstSeasonRecords: Array<WinsAndLosses & { year: number }>;
+  closestGames: Array<{
+    year: number;
+    week: number;
+    margin: number;
+    manager1: string;
+    manager1score: number;
+    manager2: string;
+    manager2score: number;
+  }>;
+  biggestBlowouts: Array<{
+    year: number;
+    week: number;
+    margin: number;
+    manager1: string;
+    manager1score: number;
+    manager2: string;
+    manager2score: number;
+  }>;
   tradeCount: number;
 };
 

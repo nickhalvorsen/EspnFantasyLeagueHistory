@@ -153,7 +153,6 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         calculateAveragePointsAgainstPerGame(thisTeamStatsByWeek),
       highScores: calculateHighScores(thisTeamStatsByWeek),
       lowScores: calculateLowScores(thisTeamStatsByWeek),
-      biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
       playoffPercentage: calculatePlayoffPercentage(thisTeamStatsByYear),
       numPlayoffAppearances: calculatePlayoffAppearances(thisTeamStatsByYear),
       winLossRecord: calculateWinLossRecord(thisTeamStatsByYear),
@@ -165,8 +164,9 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         calculateWorstSeasonRecords(thisTeamStatsByYear).reverse(),
       longestWinStreak: calculateLongestWinStreak(thisTeamStatsByWeek),
       longestLossStreak: calculateLongestLossStreak(thisTeamStatsByWeek),
-      //mostTradesPerYear: ,
       tradeCount: calculateTradeCount(thisTeamStatsByYear),
+      closestGames: calculateClosestGames(thisTeamStatsByWeek),
+      biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -282,24 +282,6 @@ const calculateLowScores = (thisTeamStatsByWeek: weeklyStats[]) => {
       year: weekStat.year,
       week: weekStat.weekNumber,
       value: weekStat.pointsFor,
-    }));
-};
-
-const calculateBiggestBlowouts = (thisTeamStatsByWeek: weeklyStats[]) => {
-  return [...thisTeamStatsByWeek]
-    .sort(
-      (a, b) =>
-        Math.abs(b.pointsFor - b.pointsAgainst) -
-        Math.abs(a.pointsFor - a.pointsAgainst)
-    )
-    .slice(0, 10)
-    .map((weekStat) => ({
-      year: weekStat.year,
-      week: weekStat.weekNumber,
-      value: Math.abs(weekStat.pointsFor - weekStat.pointsAgainst),
-      message: `Blowout of ${weekStat.opponentEspnId} by ${Math.abs(
-        weekStat.pointsFor - weekStat.pointsAgainst
-      )} points`,
     }));
 };
 
@@ -467,6 +449,45 @@ const calculateTradeCount = (teamStatsByYear: yearlyStats[]) => {
     const trades = yearStat.tradeCount;
     return sum + trades;
   }, 0);
+};
+
+const calculateClosestGames = (thisTeamStatsByWeek: weeklyStats[]) => {
+  return [...thisTeamStatsByWeek]
+    .sort(
+      (a, b) =>
+        Math.abs(a.pointsFor - a.pointsAgainst) -
+        Math.abs(b.pointsFor - b.pointsAgainst)
+    )
+    .slice(0, 10)
+    .map((weekStat) => ({
+      year: weekStat.year,
+      week: weekStat.weekNumber,
+      margin: Math.abs(weekStat.pointsFor - weekStat.pointsAgainst),
+      manager1: weekStat.teamEspnId.toString(),
+      manager1score: weekStat.pointsFor,
+      manager2: weekStat.opponentEspnId.toString(),
+      manager2score: weekStat.pointsAgainst,
+    }));
+};
+
+const calculateBiggestBlowouts = (thisTeamStatsByWeek: weeklyStats[]) => {
+  return [...thisTeamStatsByWeek]
+    .sort(
+      (a, b) =>
+        Math.abs(b.pointsFor - b.pointsAgainst) -
+        Math.abs(a.pointsFor - a.pointsAgainst)
+    )
+    .filter((x) => x.opponentEspnId !== 4)
+    .slice(0, 10)
+    .map((weekStat) => ({
+      year: weekStat.year,
+      week: weekStat.weekNumber,
+      margin: Math.abs(weekStat.pointsFor - weekStat.pointsAgainst),
+      manager1: weekStat.teamEspnId.toString(),
+      manager1score: weekStat.pointsFor,
+      manager2: weekStat.opponentEspnId.toString(),
+      manager2score: weekStat.pointsAgainst,
+    }));
 };
 
 export { mapAllStats };
