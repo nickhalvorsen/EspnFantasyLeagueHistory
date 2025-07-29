@@ -1,12 +1,4 @@
-import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig;
 
 type ChartData = {
   label: string;
@@ -56,8 +48,6 @@ const HorizontalBarChart = ({
         dataKey="value"
         fill="var(--chart-1)"
         radius={5}
-        //barSize={50}
-        //minPointSize={50}
         label={{
           position: "right",
           fill: "#777",

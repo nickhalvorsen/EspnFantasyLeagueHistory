@@ -1,4 +1,3 @@
-import { TrophyShelf } from "./statCards/trophyShelf";
 import { useStore } from "./useData";
 import { GarbageBinShelf } from "./statCards/garbageBinShelf";
 import { AveragePointsChart } from "./statCards/averagePointsChart";
