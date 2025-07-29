@@ -1,5 +1,5 @@
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   desktop: {
@@ -24,7 +24,7 @@ const HorizontalBarChart = ({
   domainStart,
   domainEnd,
 }: HorizontalBarChartProps) => (
-  <ChartContainer config={chartConfig}>
+  <ResponsiveContainer width="100%" height={280}>
     <BarChart
       accessibilityLayer
       data={data}
@@ -56,6 +56,8 @@ const HorizontalBarChart = ({
         dataKey="value"
         fill="var(--chart-1)"
         radius={5}
+        //barSize={50}
+        //minPointSize={50}
         label={{
           position: "right",
           fill: "#777",
@@ -64,7 +66,7 @@ const HorizontalBarChart = ({
         }}
       />
     </BarChart>
-  </ChartContainer>
+  </ResponsiveContainer>
 );
 
 export { HorizontalBarChart };

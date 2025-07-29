@@ -26,6 +26,7 @@ import { BiggestBlowoutsShelf } from "./statCards/biggestBlowoutsShelf";
 import { ClosestMatchesShelf } from "./statCards/closestMatchesShelf";
 import { BiggestMatchupsShelf } from "./statCards/biggestMatchupsShelf";
 import { LowestMatchupsShelf } from "./statCards/lowestMatchupsShelf";
+import { TrophyShelf2 } from "./statCards/trophyShelf2";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -35,8 +36,9 @@ const Home = () => {
         XFL :POG: Fantasy Stats {leagueInfo?.startYear}&ndash;
         {leagueInfo?.latestYear}
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <TrophyShelf />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        {/* <TrophyShelf /> */}
+        <TrophyShelf2 />
         <WinLossShelf />
         <PlayoffPercentageShelf />
 
