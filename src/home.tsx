@@ -29,6 +29,7 @@ import { TrophyShelf2 } from "./statCards/trophyShelf2";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
+
   return (
     <div className="mb-2">
       <h1 className="mb-4">
@@ -46,7 +47,7 @@ const Home = () => {
             <CardTitle>
               <h2>Average points per game</h2>
             </CardTitle>
-            <CardDescription>All-time</CardDescription>
+            <CardDescription>Reg. season, all time</CardDescription>
           </CardHeader>
           <CardContent>
             <AveragePointsChart />

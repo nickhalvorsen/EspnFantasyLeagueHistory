@@ -194,7 +194,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       biggestBlowouts: calculateBiggestBlowouts(thisTeamStatsByWeek),
       biggestMatchups: calculateBiggestMatchups(thisTeamStatsByWeek),
       lowestMatchups: calculateLowestMatchups(thisTeamStatsByWeek),
-      lifetimePointsFor: calculateLifetimePointsFor(thisTeamStatsByYear),
+      lifetimePointsFor: calculateLifetimePointsFor(thisTeamStatsByWeek),
 
       // TODO
       averagePointsPerGameYearly: {},

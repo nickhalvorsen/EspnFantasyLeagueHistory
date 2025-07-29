@@ -7,7 +7,8 @@ import {
 const calculateTrophyYears = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear
     .filter((yearStat) => yearStat.finalRank === 1)
-    .map((yearStat) => yearStat.year);
+    .map((yearStat) => yearStat.year)
+    .sort((a, b) => a - b);
 };
 
 const calculateTrophyCount = (teamStatsByYear: yearlyStats[]) =>
@@ -30,6 +31,8 @@ const calculateBinYears = (
 };
 
 const calculateAveragePointsPerGame = (thisTeamStatsByWeek: weeklyStats[]) => {
+  thisTeamStatsByWeek = thisTeamStatsByWeek.filter((x) => !x.isPostSeason);
+
   const totalPoints = thisTeamStatsByWeek.reduce(
     (sum, weekStat) => sum + weekStat.pointsFor,
     0
@@ -160,12 +163,6 @@ const calculatePlayoffWinLossRecordAgainst = (
 ) => {
   const records: WinsAndLossesAgainst[] = [];
 
-  if (thisTeamStatsByWeek[0].teamEspnId === 2) {
-    console.log(
-      "this team stats by week,",
-      thisTeamStatsByWeek.filter((x) => x.isWinnersBracketPostSeason)
-    );
-  }
   thisTeamStatsByWeek.forEach((weekStat) => {
     if (!weekStat.isWinnersBracketPostSeason) return;
     if (espnTeamIdsToOmit.includes(weekStat.opponentEspnId.toString())) return;
@@ -342,9 +339,10 @@ const calculateLowestMatchups = (thisTeamStatsByWeek: weeklyStats[]) => {
     }));
 };
 
-const calculateLifetimePointsFor = (teamStatsByYear: yearlyStats[]) => {
-  return teamStatsByYear.reduce((sum, yearStat) => {
-    return sum + yearStat.pointsFor;
+const calculateLifetimePointsFor = (thisTeamStatsByWeek: weeklyStats[]) => {
+  thisTeamStatsByWeek = thisTeamStatsByWeek.filter((x) => !x.isPostSeason);
+  return thisTeamStatsByWeek.reduce((sum, weekStat) => {
+    return sum + weekStat.pointsFor;
   }, 0);
 };
 

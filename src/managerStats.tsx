@@ -27,7 +27,7 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 ">
         <StatCard
-          name="Win/Loss"
+          name="Win/Loss (reg. season)"
           value={winLossTieString(
             stats.winLossRecord.wins,
             stats.winLossRecord.losses,
@@ -35,7 +35,7 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
           )}
         />
         <StatCard
-          name="Average points per game"
+          name="Average points per game (reg. season)"
           value={stats.averagePointsPerGame.toFixed(2)}
         />
         <StatCard
@@ -45,7 +45,7 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
           }/${stats.yearsPlayed})`}
         />
         <StatCard
-          name="Career points"
+          name="Career points (reg. season)"
           value={stats.lifetimePointsFor.toFixed(2)}
         />
       </div>
