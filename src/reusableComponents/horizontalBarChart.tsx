@@ -23,6 +23,7 @@ const HorizontalBarChart = ({
       layout="vertical"
       margin={{
         left: -20,
+        right: 20,
       }}
     >
       <XAxis

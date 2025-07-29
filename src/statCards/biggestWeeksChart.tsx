@@ -16,7 +16,7 @@ const BiggestWeeksChart = () => {
     .sort((a, b) => b.value - a.value);
 
   const maxValue = Math.max(...data.map((d) => d.value));
-  const domainMax = Math.ceil((maxValue + 10) / 10) * 10;
+  const domainMax = Math.ceil((maxValue + 20) / 10) * 10;
 
   return (
     <HorizontalBarChart data={data} domainStart={100} domainEnd={domainMax} />
