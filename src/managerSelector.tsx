@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import {
   NavigationMenuContent,
   NavigationMenuItem,
@@ -7,6 +6,7 @@ import {
 } from "./components/ui/navigation-menu";
 import { useStore } from "./useData";
 import { TrophyCount } from "./reusableComponents/trophyCount";
+import { Link } from "react-router-dom";
 
 const ManagerSelector = () => {
   const teams = useStore((state) => state.teamStats).sort((a, b) =>
@@ -20,7 +20,7 @@ const ManagerSelector = () => {
           <li>
             {teams.map((team) => (
               <NavigationMenuLink asChild key={team.team.espnId}>
-                <Link href={`/managers/${team.team.managerName}`}>
+                <Link to={`/managers/${team.team.managerName}`}>
                   {team.team.managerName}
                   <TrophyCount numTrophies={team.trophies} />
                 </Link>

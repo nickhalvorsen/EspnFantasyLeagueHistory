@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -5,7 +6,6 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../components/ui/navigation-menu";
-import { Link } from "wouter";
 import { ManagerSelector } from "../managerSelector";
 
 const Nav = () => {
@@ -18,7 +18,7 @@ const Nav = () => {
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href="/">League stats</Link>
+              <Link to="/">League stats</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <ManagerSelector />

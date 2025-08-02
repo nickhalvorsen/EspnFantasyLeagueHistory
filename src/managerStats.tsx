@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 import { winLossTieString } from "./reusableComponents/winLossTieString";
@@ -5,11 +6,8 @@ import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShe
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useStore } from "./useData";
 
-interface ManagerStatsProps {
-  manager: string;
-}
-
-const ManagerStats = ({ manager }: ManagerStatsProps) => {
+const ManagerStats = () => {
+  const manager = useParams().manager!;
   const stats = useStore((s) =>
     s.teamStats.find(
       (team) => team.team.managerName.toLowerCase() === manager.toLowerCase()
@@ -27,7 +25,7 @@ const ManagerStats = ({ manager }: ManagerStatsProps) => {
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 ">
         <StatCard
-          name="Win/Loss (reg. season)"
+          name="Career win/loss (reg. season)"
           value={winLossTieString(
             stats.winLossRecord.wins,
             stats.winLossRecord.losses,

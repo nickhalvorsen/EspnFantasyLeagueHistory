@@ -1,11 +1,11 @@
 import "./app.css";
 import { ThemeProvider } from "./layout/theme-provider.tsx";
 import { Nav } from "./layout/nav.tsx";
-import { Route } from "wouter";
 import ManagerStats from "./managerStats.tsx";
 import { Home } from "./home.tsx";
 import { useLoadData } from "./useData.ts";
 import { DelayedLoading } from "./layout/delayedLoading.tsx";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   const { isLoading } = useLoadData();
@@ -21,11 +21,13 @@ const App = () => {
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Nav />
-        <Route path="/" component={Home} />
-        <Route path="/managers/:manager">
-          {(params) => <ManagerStats manager={params.manager} />}
-        </Route>
+        <HashRouter>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/managers/:manager" element={<ManagerStats />} />
+          </Routes>
+        </HashRouter>
       </ThemeProvider>
     </>
   );
