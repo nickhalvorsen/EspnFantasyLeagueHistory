@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { StatCard } from "./reusableComponents/statCard";
 import { TrophyCount } from "./reusableComponents/trophyCount";
-import { winLossTieString } from "./reusableComponents/winLossTieString";
+import { winLossTieString } from "./reusableComponents/stringFormatters";
 import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShelf";
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useStore } from "./useData";
+import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
@@ -51,7 +52,7 @@ const ManagerStats = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
         <PlayoffWinLossAgainstShelf managerEspnId={stats.team.espnId} />
-        {/* <PlacementHistoryShelf managerEspnId={stats.team.espnId} /> */}
+        <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
-import { winLossTieString } from "@/reusableComponents/winLossTieString";
+import { winLossTieString } from "@/reusableComponents/stringFormatters";
 
 const BestRecordsShelf = () => {
   const allData = useStore();

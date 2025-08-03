@@ -25,7 +25,9 @@ import { BiggestBlowoutsShelf } from "./statCards/biggestBlowoutsShelf";
 import { ClosestMatchesShelf } from "./statCards/closestMatchesShelf";
 import { BiggestMatchupsShelf } from "./statCards/biggestMatchupsShelf";
 import { LowestMatchupsShelf } from "./statCards/lowestMatchupsShelf";
-import { TrophyShelf2 } from "./statCards/trophyShelf2";
+import { TrophyShelf } from "./statCards/trophyShelf";
+import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
+import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -37,8 +39,7 @@ const Home = () => {
         {leagueInfo?.latestYear}
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {/* <TrophyShelf /> */}
-        <TrophyShelf2 />
+        <TrophyShelf />
         <WinLossShelf />
         <PlayoffPercentageShelf />
 
@@ -81,6 +82,9 @@ const Home = () => {
             <WorstRecordsChart />
           </CardContent>
         </Card>
+
+        <BestPlacementShelf />
+        <WorstPlacementShelf />
 
         <BiggestWeeksShelf />
 

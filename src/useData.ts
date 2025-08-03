@@ -18,6 +18,7 @@ const useStore = create<MyStore>((set) => ({
     startYear: 0,
     latestYear: 0,
     regularSeasonMatchups: 0,
+    maximumPlayerCount: 0,
   },
   isLoading: true,
   isLoaded: false,

@@ -1,6 +1,6 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
-import { winLossTieString } from "@/reusableComponents/winLossTieString";
+import { winLossTieString } from "@/reusableComponents/stringFormatters";
 import { SubSubText } from "@/reusableComponents/subSubText";
 
 type Props = {

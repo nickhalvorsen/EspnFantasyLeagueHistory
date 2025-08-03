@@ -9,6 +9,7 @@ type LeagueInfo = {
   startYear: number;
   latestYear: number;
   regularSeasonMatchups: number;
+  maximumPlayerCount: number;
 };
 
 type Team = {
@@ -23,6 +24,7 @@ type TeamFullStats = {
   trophies: number;
   trophyYears: number[];
   binYears: number[];
+  placementHistory: Record<number, number>;
   averagePointsPerGame: number;
   averagePointsAgainstPerGame: number;
   averagePointsPerGameYearly: Record<number, number>;
@@ -46,6 +48,8 @@ type TeamFullStats = {
   lowestMatchups: Matchup[];
   tradeCount: number;
   lifetimePointsFor: number;
+  bestFinish: number;
+  worstFinish: number;
 };
 
 type WinsAndLossesAgainst = WinsAndLosses & { opponentEspnId: number };

@@ -1,33 +1,34 @@
-// import { useStore } from "../useData";
-// import { Shelf, ShelfRow } from "../reusableComponents/shelf";
-// import { winLossTieString } from "@/reusableComponents/winLossTieString";
-// import { SubSubText } from "@/reusableComponents/subSubText";
+import { useStore } from "../useData";
+import { Shelf, ShelfRow } from "../reusableComponents/shelf";
+import { getOrdinal } from "@/reusableComponents/stringFormatters";
+type Props = {
+  managerEspnId: string;
+};
 
-// type Props = {
-//   managerEspnId: string;
-// };
+const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
+  const teamStats = useStore((s) => s.teamStats);
+  const data = teamStats.find(
+    (teamStats) => teamStats.team.espnId === managerEspnId
+  )?.placementHistory;
 
-// const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
-//   const teamStats = useStore((s) => s.teamStats);
-//   const data = teamStats.find(
-//     (teamStats) => teamStats.team.espnId === managerEspnId
-//   );
+  const maxPlayerCount = useStore((s) => s.leagueInfo.maximumPlayerCount);
 
-//   return (
-//     <Shelf title="Win/loss vs. manager" description="Regular season, all-time">
-//       {data.map((record) => (
-//         <ShelfRow key={record.opponentEspnId} label={record.name}>
-//           {winLossTieString(record.wins, record.losses, record.ties)}
+  const rows = [];
+  if (maxPlayerCount) {
+    for (let place = 1; place <= maxPlayerCount; place++) {
+      const count = data?.[place] ?? 0;
+      rows.push(
+        <ShelfRow key={place} label={getOrdinal(place)}>
+          {"⚪️".repeat(count)}
+        </ShelfRow>
+      );
+    }
+  }
+  return (
+    <Shelf title="Career placements" description="">
+      {rows}
+    </Shelf>
+  );
+};
 
-//           <SubSubText>
-//             &nbsp;(
-//             {record.winrate}
-//             %)
-//           </SubSubText>
-//         </ShelfRow>
-//       ))}
-//     </Shelf>
-//   );
-// };
-
-// export { PlacementHistoryShelf };
+export { PlacementHistoryShelf };

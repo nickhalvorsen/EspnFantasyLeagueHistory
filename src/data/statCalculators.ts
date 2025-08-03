@@ -346,6 +346,29 @@ const calculateLifetimePointsFor = (thisTeamStatsByWeek: weeklyStats[]) => {
   }, 0);
 };
 
+const calculatePlacementHistory = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.reduce((acc, yearStat) => {
+    acc[yearStat.finalRank] = acc[yearStat.finalRank]
+      ? acc[yearStat.finalRank] + 1
+      : 1;
+    return acc;
+  }, {} as Record<number, number>);
+};
+
+const calculateBestFinish = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.reduce(
+    (best, yearStat) => Math.min(best, yearStat.finalRank),
+    Infinity
+  );
+};
+
+const calculateWorstFinish = (teamStatsByYear: yearlyStats[]) => {
+  return teamStatsByYear.reduce(
+    (worst, yearStat) => Math.max(worst, yearStat.finalRank),
+    0
+  );
+};
+
 export {
   calculateTrophyYears,
   calculateTrophyCount,
@@ -369,4 +392,7 @@ export {
   calculateBiggestMatchups,
   calculateLowestMatchups,
   calculateLifetimePointsFor,
+  calculatePlacementHistory,
+  calculateBestFinish,
+  calculateWorstFinish,
 };

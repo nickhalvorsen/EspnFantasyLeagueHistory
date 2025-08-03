@@ -21,6 +21,9 @@ import {
   calculateBiggestMatchups,
   calculateLowestMatchups,
   calculateLifetimePointsFor,
+  calculatePlacementHistory,
+  calculateBestFinish,
+  calculateWorstFinish,
 } from "./statCalculators";
 
 type yearlyStats = {
@@ -67,6 +70,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       startYear: 0,
       latestYear: 0,
       regularSeasonMatchups: 0,
+      maximumPlayerCount: 0,
     },
   };
 
@@ -195,6 +199,9 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       biggestMatchups: calculateBiggestMatchups(thisTeamStatsByWeek),
       lowestMatchups: calculateLowestMatchups(thisTeamStatsByWeek),
       lifetimePointsFor: calculateLifetimePointsFor(thisTeamStatsByWeek),
+      placementHistory: calculatePlacementHistory(thisTeamStatsByYear),
+      bestFinish: calculateBestFinish(thisTeamStatsByYear),
+      worstFinish: calculateWorstFinish(thisTeamStatsByYear),
 
       // TODO
       averagePointsPerGameYearly: {},
@@ -212,6 +219,14 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
     regularSeasonMatchups:
       getYearDataApiResponse[getYearDataApiResponse.length - 1].settings
         .scheduleSettings.matchupPeriodCount,
+    maximumPlayerCount: getYearDataApiResponse.reduce(
+      (max, yearData) =>
+        yearData.teams.reduce(
+          (max, team) => Math.max(max, team.rankCalculatedFinal),
+          max
+        ),
+      0
+    ),
   };
 
   return allStats;
