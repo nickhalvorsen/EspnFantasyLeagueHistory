@@ -1,28 +1,30 @@
 import {
   Card,
-  CardAction,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ErrorBoundary } from "./errorBoundary";
 
-interface StatCardProps {
-  name: string;
-  value: any;
-}
-
-const StatCard = ({ name, value }: StatCardProps) => (
-  <Card className="@container/card">
+const StatCard = ({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) => (
+  <Card>
     <CardHeader>
       <CardTitle>
-        <span className="text-sm text-muted-foreground">{name}</span>
+        <h2>{title}</h2>
       </CardTitle>
-      <CardAction />
+      <CardDescription>{description}</CardDescription>
     </CardHeader>
     <CardContent>
-      <span className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-        {value}
-      </span>
+      <ErrorBoundary>{children}</ErrorBoundary>
     </CardContent>
   </Card>
 );

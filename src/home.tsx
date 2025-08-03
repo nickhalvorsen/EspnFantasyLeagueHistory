@@ -6,13 +6,6 @@ import { BiggestWeeksShelf } from "./statCards/biggestWeeksShelf";
 import { WorstWeeksShelf } from "./statCards/worstWeeksShelf";
 import { BiggestWeeksChart } from "./statCards/biggestWeeksChart";
 import { WorstWeeksChart } from "./statCards/worstWeeksChart";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./components/ui/card";
 import { BestRecordsShelf } from "./statCards/bestRecordsShelf";
 import { BestRecordsChart } from "./statCards/bestRecordsChart";
 import { WorstRecordsChart } from "./statCards/worstRecordsChart";
@@ -28,6 +21,7 @@ import { LowestMatchupsShelf } from "./statCards/lowestMatchupsShelf";
 import { TrophyShelf } from "./statCards/trophyShelf";
 import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
 import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
+import { StatCard } from "./reusableComponents/statCard";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -43,76 +37,45 @@ const Home = () => {
         <WinLossShelf />
         <PlayoffPercentageShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Average points per game</h2>
-            </CardTitle>
-            <CardDescription>Reg. season, all time</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AveragePointsChart />
-          </CardContent>
-        </Card>
+        <StatCard
+          title="Average points per game"
+          description="Regular season, all time"
+        >
+          <AveragePointsChart />
+        </StatCard>
 
         <BestRecordsShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Most wins in a season</h2>
-            </CardTitle>
-            <CardDescription>Regular season, by manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <BestRecordsChart />
-          </CardContent>
-        </Card>
+        <StatCard
+          title="Most wins in a season"
+          description="Regular season, by manager"
+        >
+          <BestRecordsChart />
+        </StatCard>
 
         <WorstRecordsShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Most losses in a season</h2>
-            </CardTitle>
-            <CardDescription>Regular season, by manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WorstRecordsChart />
-          </CardContent>
-        </Card>
+        <StatCard
+          title="Most losses in a season"
+          description="Regular season, by manager"
+        >
+          <WorstRecordsChart />
+        </StatCard>
 
         <BestPlacementShelf />
         <WorstPlacementShelf />
 
         <BiggestWeeksShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Highest scoring weeks</h2>
-            </CardTitle>
-            <CardDescription>By manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <BiggestWeeksChart />
-          </CardContent>
-        </Card>
+        <StatCard title="Highest scoring week" description="By manager">
+          <BiggestWeeksChart />
+        </StatCard>
 
         <WorstWeeksShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Lowest scoring weeks</h2>
-            </CardTitle>
-            <CardDescription>By manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WorstWeeksChart />
-          </CardContent>
-        </Card>
+        <StatCard title="Lowest scoring week" description="By manager">
+          <WorstWeeksChart />
+        </StatCard>
 
         <BiggestBlowoutsShelf />
         <ClosestMatchesShelf />
@@ -120,41 +83,23 @@ const Home = () => {
         <BiggestMatchupsShelf />
         <LowestMatchupsShelf />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Longest win streaks</h2>
-            </CardTitle>
-            <CardDescription>Regular season, by manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WinStreaksChart />
-          </CardContent>
-        </Card>
+        <StatCard
+          title="Longest win streaks"
+          description="Regular season, by manager"
+        >
+          <WinStreaksChart />
+        </StatCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Longest loss streaks</h2>
-            </CardTitle>
-            <CardDescription>Regular season, by manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <LossStreaksChart />
-          </CardContent>
-        </Card>
+        <StatCard
+          title="Longest loss streaks"
+          description="Regular season, by manager"
+        >
+          <LossStreaksChart />
+        </StatCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <h2>Trade count</h2>
-            </CardTitle>
-            <CardDescription>All-time, by manager</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TradeTotalsChart />
-          </CardContent>
-        </Card>
+        <StatCard title="Trade count" description="All-time, by manager">
+          <TradeTotalsChart />
+        </StatCard>
 
         <GarbageBinShelf />
       </div>

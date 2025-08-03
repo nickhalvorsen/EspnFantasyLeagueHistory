@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { StatCard } from "./reusableComponents/statCard";
+import { StatCardSmall } from "./reusableComponents/statCardSmall";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 import { winLossTieString } from "./reusableComponents/stringFormatters";
 import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShelf";
@@ -25,7 +25,7 @@ const ManagerStats = () => {
         <TrophyCount numTrophies={stats.trophies} />
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 ">
-        <StatCard
+        <StatCardSmall
           name="Career win/loss (reg. season)"
           value={winLossTieString(
             stats.winLossRecord.wins,
@@ -33,17 +33,17 @@ const ManagerStats = () => {
             stats.winLossRecord.ties
           )}
         />
-        <StatCard
+        <StatCardSmall
           name="Average points per game (reg. season)"
           value={stats.averagePointsPerGame.toFixed(2)}
         />
-        <StatCard
+        <StatCardSmall
           name="Playoff appearance %"
           value={`${stats.playoffPercentage.toFixed(0)}% (${
             stats.numPlayoffAppearances
           }/${stats.yearsPlayed})`}
         />
-        <StatCard
+        <StatCardSmall
           name="Career points (reg. season)"
           value={stats.lifetimePointsFor.toFixed(2)}
         />

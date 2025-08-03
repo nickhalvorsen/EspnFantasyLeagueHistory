@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import type { ReactNode } from "react";
+import { StatCard } from "./statCard";
 
 type ShelfProps = {
   title: string;
@@ -14,19 +8,11 @@ type ShelfProps = {
 };
 
 const Shelf = ({ title, description, children }: ShelfProps) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>
-        <h2>{title}</h2>
-      </CardTitle>
-      <CardDescription>{description}</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <table style={{ width: "100%" }}>
-        <tbody>{children}</tbody>
-      </table>
-    </CardContent>
-  </Card>
+  <StatCard title={title} description={description}>
+    <table style={{ width: "100%" }}>
+      <tbody>{children}</tbody>
+    </table>
+  </StatCard>
 );
 
 type ShelfRowProps = {
