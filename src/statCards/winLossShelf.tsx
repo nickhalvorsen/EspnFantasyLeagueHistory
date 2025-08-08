@@ -11,7 +11,7 @@ const WinLossShelf = () => {
   });
 
   return (
-    <Shelf title="Career win/loss" description="Regular season, all-time">
+    <Shelf>
       {allData.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}

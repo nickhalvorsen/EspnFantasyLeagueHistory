@@ -8,7 +8,7 @@ const TrophyShelf = () => {
     .filter((team) => team.trophyYears.length > 0);
 
   return (
-    <Shelf title="Trophy shelf">
+    <Shelf>
       {allData.map((item) => (
         <ShelfRow key={item.team.espnId} label={item.team.managerName}>
           <span className="text-[1.5em]">

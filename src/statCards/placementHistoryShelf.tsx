@@ -17,18 +17,16 @@ const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
   if (maxPlayerCount) {
     for (let place = 1; place <= maxPlayerCount; place++) {
       const count = data?.[place] ?? 0;
+      let emoji = "⚪️";
+      if (place === 1) emoji = "🏆";
       rows.push(
         <ShelfRow key={place} label={getOrdinal(place)}>
-          {"⚪️".repeat(count)}
+          {emoji.repeat(count)}
         </ShelfRow>
       );
     }
   }
-  return (
-    <Shelf title="Career placements" description="">
-      {rows}
-    </Shelf>
-  );
+  return <Shelf>{rows}</Shelf>;
 };
 
 export { PlacementHistoryShelf };

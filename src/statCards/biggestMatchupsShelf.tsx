@@ -24,7 +24,7 @@ const BiggestMatchupsShelf = () => {
   const top10 = biggestMatchups.slice(0, 10);
 
   return (
-    <Shelf title="Highest-scoring matchups" description="All-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}

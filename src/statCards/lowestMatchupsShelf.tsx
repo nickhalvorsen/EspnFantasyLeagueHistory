@@ -24,7 +24,7 @@ const LowestMatchupsShelf = () => {
   const top10 = lowestMatchups.slice(0, 10);
 
   return (
-    <Shelf title="Lowest-scoring matchups" description="All-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}

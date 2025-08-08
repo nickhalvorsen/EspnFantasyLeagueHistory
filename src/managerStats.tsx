@@ -6,6 +6,7 @@ import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShe
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useStore } from "./useData";
 import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
+import { StatCard } from "./reusableComponents/statCard";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
@@ -50,9 +51,21 @@ const ManagerStats = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
-        <PlayoffWinLossAgainstShelf managerEspnId={stats.team.espnId} />
-        <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
+        <StatCard
+          title="Win/loss vs. manager"
+          description="Regular season, all-time"
+        >
+          <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
+        <StatCard
+          title="Playoff win/loss vs. manager"
+          description="Winner's bracket, all-time, excluding consolation matches"
+        >
+          <PlayoffWinLossAgainstShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
+        <StatCard title="Career placements" description="">
+          <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
       </div>
     </div>
   );

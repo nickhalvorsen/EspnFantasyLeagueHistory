@@ -18,7 +18,7 @@ const BestRecordsShelf = () => {
   const top10 = allRecords.slice(0, 10);
 
   return (
-    <Shelf title="Best season records" description="Regular season, all-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow key={idx} label={item.manager}>
           {winLossTieString(item.wins, item.losses, item.ties)}{" "}

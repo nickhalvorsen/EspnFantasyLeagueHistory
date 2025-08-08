@@ -17,7 +17,7 @@ const WorstWeeksShelf = () => {
   const top10 = allLowScores.slice(0, 10);
 
   return (
-    <Shelf title="Lowest scoring weeks" description="All-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow key={idx} label={item.manager}>
           {item.value}

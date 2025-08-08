@@ -33,9 +33,20 @@ const Home = () => {
         {leagueInfo?.latestYear}
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <TrophyShelf />
-        <WinLossShelf />
-        <PlayoffPercentageShelf />
+        <StatCard title="Trophy shelf">
+          <TrophyShelf />
+        </StatCard>
+
+        <StatCard
+          title="Career win/loss"
+          description="Regular season, all-time"
+        >
+          <WinLossShelf />
+        </StatCard>
+
+        <StatCard title="Playoff appearance %" description="All-time">
+          <PlayoffPercentageShelf />
+        </StatCard>
 
         <StatCard
           title="Average points per game"
@@ -44,7 +55,12 @@ const Home = () => {
           <AveragePointsChart />
         </StatCard>
 
-        <BestRecordsShelf />
+        <StatCard
+          title="Best season records"
+          description="Regular season, all-time"
+        >
+          <BestRecordsShelf />
+        </StatCard>
 
         <StatCard
           title="Most wins in a season"
@@ -53,7 +69,12 @@ const Home = () => {
           <BestRecordsChart />
         </StatCard>
 
-        <WorstRecordsShelf />
+        <StatCard
+          title="Worst season records"
+          description="Regular season, all-time"
+        >
+          <WorstRecordsShelf />
+        </StatCard>
 
         <StatCard
           title="Most losses in a season"
@@ -62,26 +83,45 @@ const Home = () => {
           <WorstRecordsChart />
         </StatCard>
 
-        <BestPlacementShelf />
-        <WorstPlacementShelf />
+        <StatCard title="Best career finish" description="By manager">
+          <BestPlacementShelf />
+        </StatCard>
 
-        <BiggestWeeksShelf />
+        <StatCard title="Worst career finish" description="By manager">
+          <WorstPlacementShelf />
+        </StatCard>
+
+        <StatCard title="Highest scoring weeks" description="All-time">
+          <BiggestWeeksShelf />
+        </StatCard>
 
         <StatCard title="Highest scoring week" description="By manager">
           <BiggestWeeksChart />
         </StatCard>
 
-        <WorstWeeksShelf />
+        <StatCard title="Lowest scoring weeks" description="All-time">
+          <WorstWeeksShelf />
+        </StatCard>
 
         <StatCard title="Lowest scoring week" description="By manager">
           <WorstWeeksChart />
         </StatCard>
 
-        <BiggestBlowoutsShelf />
-        <ClosestMatchesShelf />
+        <StatCard title="Biggest blowouts" description="All-time">
+          <BiggestBlowoutsShelf />
+        </StatCard>
 
-        <BiggestMatchupsShelf />
-        <LowestMatchupsShelf />
+        <StatCard title="Closest matches" description="All-time">
+          <ClosestMatchesShelf />
+        </StatCard>
+
+        <StatCard title="Highest-scoring matchups" description="All-time">
+          <BiggestMatchupsShelf />
+        </StatCard>
+
+        <StatCard title="Lowest-scoring matchups" description="All-time">
+          <LowestMatchupsShelf />
+        </StatCard>
 
         <StatCard
           title="Longest win streaks"
@@ -101,7 +141,9 @@ const Home = () => {
           <TradeTotalsChart />
         </StatCard>
 
-        <GarbageBinShelf />
+        <StatCard title="Garbage bin shelf">
+          <GarbageBinShelf />
+        </StatCard>
       </div>
     </div>
   );

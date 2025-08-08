@@ -8,7 +8,7 @@ const GarbageBinShelf = () => {
   );
 
   return (
-    <Shelf title="Garbage bin shelf">
+    <Shelf>
       {allData.map((item) => (
         <ShelfRow key={item.team.espnId} label={item.team.managerName}>
           <span>&nbsp;{"🗑️".repeat(item.binYears.length)}</span>

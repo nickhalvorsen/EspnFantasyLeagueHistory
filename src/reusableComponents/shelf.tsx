@@ -1,18 +1,13 @@
 import type { ReactNode } from "react";
-import { StatCard } from "./statCard";
 
 type ShelfProps = {
-  title: string;
-  description?: string;
-  children?: ReactNode;
+  children: ReactNode;
 };
 
-const Shelf = ({ title, description, children }: ShelfProps) => (
-  <StatCard title={title} description={description}>
-    <table style={{ width: "100%" }}>
-      <tbody>{children}</tbody>
-    </table>
-  </StatCard>
+const Shelf = ({ children }: ShelfProps) => (
+  <table style={{ width: "100%" }}>
+    <tbody>{children}</tbody>
+  </table>
 );
 
 type ShelfRowProps = {

@@ -8,7 +8,7 @@ const WorstPlacementShelf = () => {
   });
 
   return (
-    <Shelf title="Worst career finish" description="By manager">
+    <Shelf>
       {allData.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}

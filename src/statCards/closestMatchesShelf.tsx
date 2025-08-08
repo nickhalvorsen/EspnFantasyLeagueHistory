@@ -23,7 +23,7 @@ const ClosestMatchesShelf = () => {
   const top10 = closestMatches.slice(0, 10);
 
   return (
-    <Shelf title="Closest matches" description="All-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}

@@ -10,7 +10,7 @@ const BestPlacementShelf = () => {
   });
 
   return (
-    <Shelf title="Best career finish" description="By manager">
+    <Shelf>
       {allData.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}

@@ -10,7 +10,7 @@ const PlayoffPercentageShelf = () => {
   });
 
   return (
-    <Shelf title="Playoff appearance %" description="All-time">
+    <Shelf>
       {allData.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}

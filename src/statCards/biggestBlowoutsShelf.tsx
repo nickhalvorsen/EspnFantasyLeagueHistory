@@ -22,7 +22,7 @@ const BiggestBlowoutsShelf = () => {
   const top10 = biggestBlowouts.slice(0, 10);
 
   return (
-    <Shelf title="Biggest blowouts" description="All-time">
+    <Shelf>
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}
