@@ -28,12 +28,18 @@ const BiggestMatchupsShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}
-          label={`${item.manager1Name} vs. ${item.manager2Name}`}
+          label={
+            <>
+              {`${item.manager1Name} vs. ${item.manager2Name}`}{" "}
+              <SubSubText className="sm:inline block">
+                ({item.year} week {item.week})
+              </SubSubText>
+            </>
+          }
         >
           {item.total.toFixed(2)} total pts
-          <SubSubText>
-            ({item.manager1score}–{item.manager2score}) ({item.year} week{" "}
-            {item.week})
+          <SubSubText className="sm:inline block">
+            ({item.manager1score}–{item.manager2score})
           </SubSubText>
         </ShelfRow>
       ))}

@@ -11,7 +11,7 @@ const Shelf = ({ children }: ShelfProps) => (
 );
 
 type ShelfRowProps = {
-  label?: string;
+  label?: string | ReactNode;
   children?: ReactNode;
 };
 

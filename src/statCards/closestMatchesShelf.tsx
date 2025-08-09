@@ -27,12 +27,18 @@ const ClosestMatchesShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow
           key={idx}
-          label={`${item.manager1Name} vs. ${item.manager2Name}`}
+          label={
+            <>
+              {`${item.manager1Name} vs. ${item.manager2Name}`}{" "}
+              <SubSubText className="sm:inline block">
+                ({item.year} week {item.week})
+              </SubSubText>
+            </>
+          }
         >
           {item.manager1score}–{item.manager2score}
-          <SubSubText>
-            ({item.differential.toFixed(2)} pts margin) ({item.year} week{" "}
-            {item.week})
+          <SubSubText className="sm:inline block">
+            ({item.differential.toFixed(2)} pts margin)
           </SubSubText>
         </ShelfRow>
       ))}
