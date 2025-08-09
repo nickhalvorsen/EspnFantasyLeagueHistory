@@ -22,8 +22,8 @@ import { TrophyShelf } from "./statCards/trophyShelf";
 import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
 import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
 import { StatCard } from "./reusableComponents/statCard";
-import { BestYearlyAveragePointsChart } from "./statCards/bestYearlyAveragePointsChart";
-import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
+//import { BestYearlyAveragePointsChart } from "./statCards/bestYearlyAveragePointsChart";
+//import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
