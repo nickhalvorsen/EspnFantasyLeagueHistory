@@ -22,8 +22,8 @@ const HorizontalBarChart = ({
       data={data}
       layout="vertical"
       margin={{
-        left: -20,
-        right: 20,
+        left: 10,
+        right: 10,
       }}
     >
       <XAxis
@@ -33,10 +33,8 @@ const HorizontalBarChart = ({
       />
       <YAxis
         dataKey="label"
-        width={100}
         type="category"
         tickLine={false}
-        tickMargin={0}
         axisLine={false}
         tick={{
           fontSize: 16,

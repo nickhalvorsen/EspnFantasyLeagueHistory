@@ -124,14 +124,14 @@ const Home = () => {
         </StatCard>
 
         <StatCard
-          title="Longest win streaks"
+          title="Longest win streak"
           description="Regular season, by manager"
         >
           <WinStreaksChart />
         </StatCard>
 
         <StatCard
-          title="Longest loss streaks"
+          title="Longest loss streak"
           description="Regular season, by manager"
         >
           <LossStreaksChart />
