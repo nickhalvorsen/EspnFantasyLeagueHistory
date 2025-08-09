@@ -105,6 +105,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
     });
 
     yearData.schedule.forEach((schedule) => {
+      if (schedule.winner === "UNDECIDED") return;
+
       allTeamStatsByWeek.push({
         year: yearData.seasonId,
         weekNumber: schedule.matchupPeriodId,

@@ -36,7 +36,7 @@ describe("calculateTotalPoints", () => {
     expect(result).toEqual(340);
   });
 
-  it("should calculate total points incl. playoffs", () => {
+  it("should calculate total points NOT incl. playoffs", () => {
     const thisTeamsWeeks: weeklyStats[] = [
       getDummyWeeklyStats(2020, 1, 111, false, false),
       getDummyWeeklyStats(2021, 2, 111, true, false),
@@ -44,10 +44,10 @@ describe("calculateTotalPoints", () => {
     ];
 
     const result = calculateLifetimePointsFor(thisTeamsWeeks);
-    expect(result).toEqual(333);
+    expect(result).toEqual(111);
   });
 
-  it("should calculate total points incl. playoffs and multi-header games", () => {
+  it("should calculate total points NOT incl. playoffs and multi-header games", () => {
     const thisTeamsWeeks: weeklyStats[] = [
       getDummyWeeklyStats(2020, 1, 111, false, false),
       getDummyWeeklyStats(2021, 2, 111, true, false),
@@ -56,6 +56,6 @@ describe("calculateTotalPoints", () => {
     ];
 
     const result = calculateLifetimePointsFor(thisTeamsWeeks);
-    expect(result).toEqual(555);
+    expect(result).toEqual(111);
   });
 });

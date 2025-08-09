@@ -43,7 +43,7 @@ describe("calculateAveragePointsPerGame", () => {
     expect(result.toFixed(2)).toEqual((117.81).toFixed(2));
   });
 
-  it("should accomodate playoff games ", () => {
+  it("should NOT accomodate playoff games ", () => {
     const thisTeamsWeeks: weeklyStats[] = [
       getDummyWeeklyStats(2020, 1, 100),
       getDummyWeeklyStats(2020, 2, 120, true, true, false, []),
@@ -51,13 +51,13 @@ describe("calculateAveragePointsPerGame", () => {
     ];
 
     const result = calculateAveragePointsPerGame(thisTeamsWeeks);
-    expect(result.toFixed(2)).toEqual((116.6666).toFixed(2));
+    expect(result.toFixed(2)).toEqual((100).toFixed(2));
   });
 
   it("should consider double header games as two weeks", () => {
     const thisTeamsWeeks: weeklyStats[] = [
       getDummyWeeklyStats(2020, 1, 100),
-      getDummyWeeklyStats(2020, 4, 290, true, true, true, [140, 150]),
+      getDummyWeeklyStats(2020, 4, 290, false, true, true, [140, 150]),
     ];
 
     const result = calculateAveragePointsPerGame(thisTeamsWeeks);

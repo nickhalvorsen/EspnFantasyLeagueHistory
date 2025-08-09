@@ -39,7 +39,7 @@ type GetYearDataApiResponse = {
       totalPoints: number;
       pointsByScoringPeriod: { [key: number]: number };
     };
-    winner: "AWAY" | "HOME" | "TIE";
+    winner: "AWAY" | "HOME" | "TIE" | "UNDECIDED";
     playoffTierType: string;
   }>;
   settings: {

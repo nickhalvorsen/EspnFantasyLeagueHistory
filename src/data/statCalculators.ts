@@ -112,14 +112,20 @@ const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear.filter((yearStat) => yearStat.playoffSeed <= 4).length;
 };
 
-const calculateWinLossRecord = (eamStatsByYear: yearlyStats[]) => {
+const calculateWinLossRecord = (teamStatsByYear: yearlyStats[]) => {
   //yearStat.wins is regular season only
-  const wins = eamStatsByYear.reduce((sum, yearStat) => sum + yearStat.wins, 0);
-  const losses = eamStatsByYear.reduce(
+  const wins = teamStatsByYear.reduce(
+    (sum, yearStat) => sum + yearStat.wins,
+    0
+  );
+  const losses = teamStatsByYear.reduce(
     (sum, yearStat) => sum + yearStat.losses,
     0
   );
-  const ties = eamStatsByYear.reduce((sum, yearStat) => sum + yearStat.ties, 0);
+  const ties = teamStatsByYear.reduce(
+    (sum, yearStat) => sum + yearStat.ties,
+    0
+  );
   return { wins, losses, ties };
 };
 
@@ -209,7 +215,7 @@ const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) => {
 
 const calculateWorstSeasonRecords = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear
-    .sort((a, b) => a.losses - b.losses)
+    .sort((a, b) => b.losses - a.losses || a.wins - b.wins)
     .slice(0, 10)
     .map((yearStat) => ({
       wins: yearStat.wins,
