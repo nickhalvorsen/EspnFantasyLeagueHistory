@@ -157,7 +157,10 @@ const Home = () => {
           <TradeTotalsChart />
         </StatCard>
 
-        <StatCard title="Garbage bin shelf">
+        <StatCard
+          title="Garbage bin shelf"
+          description="Last-place regular season finishes"
+        >
           <GarbageBinShelf />
         </StatCard>
       </div>
