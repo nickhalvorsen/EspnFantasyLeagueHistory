@@ -1,6 +1,7 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
+import New from "@/reusableComponents/new";
 
 const WorstWeeksShelf = () => {
   const allData = useStore();
@@ -22,7 +23,7 @@ const WorstWeeksShelf = () => {
         <ShelfRow key={idx} label={item.manager}>
           {item.value}
           <SubSubText>
-            ({item.year} week {item.week})
+            ({item.year} week {item.week}) <New year={item.year} />
           </SubSubText>
         </ShelfRow>
       ))}

@@ -22,6 +22,8 @@ import { TrophyShelf } from "./statCards/trophyShelf";
 import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
 import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
 import { StatCard } from "./reusableComponents/statCard";
+import { BestYearlyAveragePointsChart } from "./statCards/bestYearlyAveragePointsChart";
+import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
@@ -82,6 +84,20 @@ const Home = () => {
         >
           <WorstRecordsChart />
         </StatCard>
+        {/* 
+        <StatCard
+          title="Highest single-year average points"
+          description="Regular season, by manager"
+        >
+          <BestYearlyAveragePointsChart />
+        </StatCard>
+
+        <StatCard
+          title="Lowest single-year average points"
+          description="Regular season, by manager"
+        >
+          <WorstYearlyAveragePointsChart />
+        </StatCard> */}
 
         <StatCard title="Best career finish" description="By manager">
           <BestPlacementShelf />

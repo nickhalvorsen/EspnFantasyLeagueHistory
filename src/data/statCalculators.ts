@@ -382,6 +382,55 @@ const calculateWorstFinish = (teamStatsByYear: yearlyStats[]) => {
     .reduce((worst, yearStat) => Math.max(worst, yearStat.finalRank), 0);
 };
 
+const calculateBestSeasonAveragePoints = (
+  teamStatsByYear: yearlyStats[],
+  teamStatsByWeek: weeklyStats[]
+) =>
+  calculateAveragePointsBySeason(teamStatsByYear, teamStatsByWeek)
+    .sort((a, b) => b.average - a.average)
+    .slice(0, 10);
+
+const calculateWorstSeasonAveragePoints = (
+  teamStatsByYear: yearlyStats[],
+  teamStatsByWeek: weeklyStats[]
+) =>
+  calculateAveragePointsBySeason(teamStatsByYear, teamStatsByWeek)
+    .sort((a, b) => a.average - b.average)
+    .slice(0, 10);
+
+const calculateAveragePointsBySeason = (
+  teamStatsByYear: yearlyStats[],
+  teamStatsByWeek: weeklyStats[]
+) => {
+  const seasonMap = new Map<number, { totalPoints: number; weeks: number }>();
+  teamStatsByWeek
+    .filter((x) =>
+      teamStatsByYear.some((y) => y.year === x.year && y.playoffSeed !== 0)
+    )
+    .filter((x) => !x.isPostSeason)
+    .forEach((weekStat) => {
+      const year = weekStat.year;
+      const points = weekStat.pointsFor;
+      const weekCount = weekStat.isMultiHeader
+        ? weekStat.multiHeaderPoints!.length
+        : 1;
+
+      if (!seasonMap.has(year)) {
+        seasonMap.set(year, { totalPoints: 0, weeks: 0 });
+      }
+      const season = seasonMap.get(year)!;
+      season.totalPoints += points;
+      season.weeks += weekCount;
+    });
+
+  return Array.from(seasonMap.entries()).map(
+    ([year, { totalPoints, weeks }]) => ({
+      year,
+      average: totalPoints / weeks,
+    })
+  );
+};
+
 export {
   calculateTrophyYears,
   calculateTrophyCount,
@@ -408,4 +457,6 @@ export {
   calculatePlacementHistory,
   calculateBestFinish,
   calculateWorstFinish,
+  calculateBestSeasonAveragePoints,
+  calculateWorstSeasonAveragePoints,
 };

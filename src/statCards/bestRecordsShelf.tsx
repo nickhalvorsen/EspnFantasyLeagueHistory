@@ -2,6 +2,7 @@ import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import { winLossTieString } from "@/reusableComponents/stringFormatters";
+import New from "@/reusableComponents/new";
 
 const BestRecordsShelf = () => {
   const allData = useStore();
@@ -22,7 +23,9 @@ const BestRecordsShelf = () => {
       {top10.map((item, idx) => (
         <ShelfRow key={idx} label={item.manager}>
           {winLossTieString(item.wins, item.losses, item.ties)}{" "}
-          <SubSubText>({item.year})</SubSubText>
+          <SubSubText>
+            ({item.year}) <New year={item.year} />
+          </SubSubText>
         </ShelfRow>
       ))}
     </Shelf>

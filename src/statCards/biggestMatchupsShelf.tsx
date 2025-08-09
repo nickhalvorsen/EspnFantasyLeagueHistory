@@ -1,6 +1,7 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
+import New from "@/reusableComponents/new";
 
 const BiggestMatchupsShelf = () => {
   const allData = useStore();
@@ -32,7 +33,7 @@ const BiggestMatchupsShelf = () => {
             <>
               {`${item.manager1Name} vs. ${item.manager2Name}`}{" "}
               <SubSubText className="sm:inline block">
-                ({item.year} week {item.week})
+                ({item.year} week {item.week}) <New year={item.year} />
               </SubSubText>
             </>
           }

@@ -36,6 +36,8 @@ type TeamFullStats = {
   winLossRecord: WinsAndLosses;
   winLossRecordAgainst: WinsAndLossesAgainst[];
   playoffWinLossRecordAgainst: WinsAndLossesAgainst[];
+  bestSeasonAveragePoints: Array<{ year: number; average: number }>;
+  worstSeasonAveragePoints: Array<{ year: number; average: number }>;
   longestWinStreak: number;
   longestLossStreak: number;
   //winLossRecordYearly: Record<number, WinsAndLosses>;
