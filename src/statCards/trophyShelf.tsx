@@ -4,7 +4,12 @@ import { SubText } from "@/reusableComponents/subText";
 
 const TrophyShelf = () => {
   const allData = useStore((s) => s.teamStats)
-    .sort((a, b) => b.trophyYears.length - a.trophyYears.length)
+    .sort(
+      (a, b) =>
+        b.trophyYears.length - a.trophyYears.length ||
+        a.trophyYears[a.trophyYears.length - 1] -
+          b.trophyYears[b.trophyYears.length - 1]
+    )
     .filter((team) => team.trophyYears.length > 0);
 
   return (
