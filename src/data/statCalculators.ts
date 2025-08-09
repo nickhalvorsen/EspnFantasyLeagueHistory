@@ -431,6 +431,36 @@ const calculateAveragePointsBySeason = (
   );
 };
 
+const calculatePointDifferentialByOpponent = (
+  thisTeamStatsByWeek: weeklyStats[]
+) => {
+  const matchups: PointDifferentialAgainst[] = [];
+
+  thisTeamStatsByWeek.forEach((weekStat) => {
+    if (weekStat.isPostSeason) return;
+    if (espnTeamIdsToOmit.includes(weekStat.opponentEspnId.toString())) return;
+
+    let thisMatchup = matchups.find(
+      (matchup) => matchup.opponentEspnId === weekStat.opponentEspnId
+    );
+
+    if (!thisMatchup) {
+      matchups.push({
+        opponentEspnId: weekStat.opponentEspnId,
+        pointDifferential: 0,
+      });
+
+      thisMatchup = matchups.find(
+        (matchup) => matchup.opponentEspnId === weekStat.opponentEspnId
+      );
+    }
+    thisMatchup!.pointDifferential +=
+      weekStat.pointsFor - weekStat.pointsAgainst;
+  });
+
+  return matchups;
+};
+
 export {
   calculateTrophyYears,
   calculateTrophyCount,
@@ -459,4 +489,5 @@ export {
   calculateWorstFinish,
   calculateBestSeasonAveragePoints,
   calculateWorstSeasonAveragePoints,
+  calculatePointDifferentialByOpponent,
 };

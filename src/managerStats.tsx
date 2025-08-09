@@ -7,6 +7,7 @@ import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { useStore } from "./useData";
 import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
 import { StatCard } from "./reusableComponents/statCard";
+import { PointDifferentialAgainstShelf } from "./statCards/pointDifferentialAgainstShelf";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
@@ -57,12 +58,21 @@ const ManagerStats = () => {
         >
           <WinLossAgainstShelf managerEspnId={stats.team.espnId} />
         </StatCard>
+
         <StatCard
           title="Playoff win/loss vs. manager"
           description="Winner's bracket, all-time, excluding consolation matches"
         >
           <PlayoffWinLossAgainstShelf managerEspnId={stats.team.espnId} />
         </StatCard>
+
+        <StatCard
+          title="Point differential vs. manager"
+          description="Regular season, all-time"
+        >
+          <PointDifferentialAgainstShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
+
         <StatCard title="Career placements" description="">
           <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
         </StatCard>

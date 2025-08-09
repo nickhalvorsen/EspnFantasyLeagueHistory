@@ -26,6 +26,7 @@ import {
   calculateWorstFinish,
   calculateBestSeasonAveragePoints,
   calculateWorstSeasonAveragePoints,
+  calculatePointDifferentialByOpponent,
 } from "./statCalculators";
 
 type yearlyStats = {
@@ -217,10 +218,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       placementHistory: calculatePlacementHistory(thisTeamStatsByYear),
       bestFinish: calculateBestFinish(thisTeamStatsByYear),
       worstFinish: calculateWorstFinish(thisTeamStatsByYear),
-
-      // TODO
-      averagePointsPerGameYearly: {},
-      averagePointsAgainstPerGameYearly: {},
+      pointDifferentialByOpponent:
+        calculatePointDifferentialByOpponent(thisTeamStatsByWeek),
     };
     allStats.teamStats.push(thisTeamsStats);
   });

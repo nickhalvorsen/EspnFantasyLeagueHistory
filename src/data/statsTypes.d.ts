@@ -27,8 +27,6 @@ type TeamFullStats = {
   placementHistory: Record<number, number>;
   averagePointsPerGame: number;
   averagePointsAgainstPerGame: number;
-  averagePointsPerGameYearly: Record<number, number>;
-  averagePointsAgainstPerGameYearly: Record<number, number>;
   highScores: WeeklyAchievement[];
   lowScores: WeeklyAchievement[];
   numPlayoffAppearances: number;
@@ -52,9 +50,15 @@ type TeamFullStats = {
   lifetimePointsFor: number;
   bestFinish: number;
   worstFinish: number;
+  pointDifferentialByOpponent: PointDifferentialAgainst[];
 };
 
 type WinsAndLossesAgainst = WinsAndLosses & { opponentEspnId: number };
+
+type PointDifferentialAgainst = {
+  opponentEspnId: number;
+  pointDifferential: number;
+};
 
 type Matchup = {
   year: number;
