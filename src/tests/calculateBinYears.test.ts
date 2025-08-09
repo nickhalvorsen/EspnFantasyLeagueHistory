@@ -22,6 +22,7 @@ const getDummyYearlyStats = (
   pointsFor: 1200,
   pointsAgainst: 1000,
   playoffSeed: playoffSeed,
+  numPlayersInPlayoffs: 4,
 });
 
 describe("calculateBinYears", () => {

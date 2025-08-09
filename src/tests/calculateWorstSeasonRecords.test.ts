@@ -23,6 +23,7 @@ const getDummyYearlyStats = (
   pointsFor: 1200,
   pointsAgainst: 1000,
   playoffSeed: 5,
+  numPlayersInPlayoffs: 4,
 });
 
 describe("calculateWorstSeasonRecords", () => {
