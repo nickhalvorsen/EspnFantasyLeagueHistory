@@ -46,6 +46,7 @@ type GetYearDataApiResponse = {
     name: string;
     scheduleSettings: {
       matchupPeriodCount: number;
+      playoffTeamCount: number;
     };
   };
 };

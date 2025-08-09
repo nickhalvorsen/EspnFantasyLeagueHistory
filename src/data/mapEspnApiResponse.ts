@@ -39,6 +39,7 @@ type yearlyStats = {
   pointsFor: number;
   pointsAgainst: number;
   playoffSeed: number;
+  numPlayersInPlayoffs: number;
   finalRank: number;
   tradeCount: number;
 };
@@ -101,6 +102,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         playoffSeed: team.playoffSeed,
         finalRank: team.rankCalculatedFinal,
         tradeCount: team.transactionCounter.trades,
+        numPlayersInPlayoffs:
+          yearData.settings.scheduleSettings.playoffTeamCount,
       });
     });
 
