@@ -4,7 +4,9 @@ import { SubText } from "@/reusableComponents/subText";
 
 const GarbageBinShelf = () => {
   const allData = useStore((s) => s.teamStats).sort(
-    (a, b) => a.binYears.length - b.binYears.length
+    (a, b) =>
+      a.binYears.length - b.binYears.length ||
+      b.binYears[b.binYears.length - 1] - a.binYears[a.binYears.length - 1]
   );
 
   return (
