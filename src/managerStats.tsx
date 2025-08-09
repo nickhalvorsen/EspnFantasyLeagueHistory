@@ -8,6 +8,7 @@ import { useStore } from "./useData";
 import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
 import { StatCard } from "./reusableComponents/statCard";
 import { PointDifferentialAgainstShelf } from "./statCards/pointDifferentialAgainstShelf";
+import { ManagerBiggestWeeksShelf } from "./statCards/managerBiggestWeeksShelf";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
@@ -52,6 +53,16 @@ const ManagerStats = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <StatCard title="Career placements" description="">
+          <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
+
+        <StatCard
+          title="Highest-scoring weeks"
+          description="Regular season, all-time"
+        >
+          <ManagerBiggestWeeksShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
         <StatCard
           title="Win/loss vs. manager"
           description="Regular season, all-time"
@@ -71,10 +82,6 @@ const ManagerStats = () => {
           description="Regular season, all-time"
         >
           <PointDifferentialAgainstShelf managerEspnId={stats.team.espnId} />
-        </StatCard>
-
-        <StatCard title="Career placements" description="">
-          <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
         </StatCard>
       </div>
     </div>
