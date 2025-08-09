@@ -24,7 +24,7 @@ const ManagerStats = () => {
   return (
     <div>
       <h1>
-        <span className="capitalize">{manager}</span>'s stats
+        <span className="capitalize">{manager}</span>'s fantasy stats
         <TrophyCount numTrophies={stats.trophies} />
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 ">
