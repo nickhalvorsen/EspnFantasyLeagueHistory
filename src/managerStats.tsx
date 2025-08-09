@@ -57,10 +57,7 @@ const ManagerStats = () => {
           <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
         </StatCard>
 
-        <StatCard
-          title="Highest-scoring weeks"
-          description="Regular season, all-time"
-        >
+        <StatCard title="Highest-scoring weeks" description="All-time">
           <ManagerBiggestWeeksShelf managerEspnId={stats.team.espnId} />
         </StatCard>
         <StatCard
