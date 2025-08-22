@@ -27,6 +27,8 @@ import {
   calculateBestSeasonAveragePoints,
   calculateWorstSeasonAveragePoints,
   calculatePointDifferentialByOpponent,
+  calculateAveragePointsBySeason,
+  calculateStreakByOpponent,
 } from "./statCalculators";
 
 type yearlyStats = {
@@ -207,6 +209,10 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         thisTeamStatsByYear,
         thisTeamStatsByWeek
       ),
+      averagePointsBySeason: calculateAveragePointsBySeason(
+        thisTeamStatsByYear,
+        thisTeamStatsByWeek
+      ),
       longestWinStreak: calculateLongestWinStreak(thisTeamStatsByWeek),
       longestLossStreak: calculateLongestLossStreak(thisTeamStatsByWeek),
       tradeCount: calculateTradeCount(thisTeamStatsByYear),
@@ -220,6 +226,7 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
       worstFinish: calculateWorstFinish(thisTeamStatsByYear),
       pointDifferentialByOpponent:
         calculatePointDifferentialByOpponent(thisTeamStatsByWeek),
+      currentStreakByOpponent: calculateStreakByOpponent(thisTeamStatsByWeek),
     };
     allStats.teamStats.push(thisTeamsStats);
   });

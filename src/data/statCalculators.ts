@@ -359,16 +359,10 @@ const calculateLifetimePointsFor = (thisTeamStatsByWeek: weeklyStats[]) => {
   }, 0);
 };
 
-const calculatePlacementHistory = (teamStatsByYear: yearlyStats[]) => {
-  return teamStatsByYear
+const calculatePlacementHistory = (teamStatsByYear: yearlyStats[]) =>
+  teamStatsByYear
     .filter((x) => x.finalRank > 0)
-    .reduce((acc, yearStat) => {
-      acc[yearStat.finalRank] = acc[yearStat.finalRank]
-        ? acc[yearStat.finalRank] + 1
-        : 1;
-      return acc;
-    }, {} as Record<number, number>);
-};
+    .map((x) => ({ year: x.year, place: x.finalRank }));
 
 const calculateBestFinish = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear
@@ -427,6 +421,7 @@ const calculateAveragePointsBySeason = (
     ([year, { totalPoints, weeks }]) => ({
       year,
       average: totalPoints / weeks,
+      place: teamStatsByYear.find((y) => y.year === year)?.finalRank || 0,
     })
   );
 };
@@ -461,6 +456,52 @@ const calculatePointDifferentialByOpponent = (
   return matchups;
 };
 
+const calculateStreakByOpponent = (thisTeamStatsByWeek: weeklyStats[]) => {
+  const streaks: {
+    opponentEspnId: number;
+    streak: number;
+    result: "WIN" | "LOSS" | "TIE" | null;
+  }[] = [];
+
+  const filteredWeeks = thisTeamStatsByWeek
+    .filter((x) => !x.isPostSeason)
+    .filter((x) => !espnTeamIdsToOmit.includes(x.opponentEspnId.toString()))
+    .sort((a, b) => a.year - b.year || a.weekNumber - b.weekNumber);
+
+  const opponentMap = new Map<
+    number,
+    { streak: number; result: "WIN" | "LOSS" | "TIE" | null }
+  >();
+
+  filteredWeeks.forEach((weekStat) => {
+    const oppId = weekStat.opponentEspnId;
+    const prev = opponentMap.get(oppId);
+
+    if (!prev) {
+      opponentMap.set(oppId, { streak: 1, result: weekStat.result });
+    } else {
+      if (weekStat.result === prev.result) {
+        opponentMap.set(oppId, {
+          streak: prev.streak + 1,
+          result: prev.result,
+        });
+      } else {
+        opponentMap.set(oppId, { streak: 1, result: weekStat.result });
+      }
+    }
+  });
+
+  opponentMap.forEach((value, key) => {
+    streaks.push({
+      opponentEspnId: key,
+      streak: value.streak,
+      result: value.result,
+    });
+  });
+
+  return streaks;
+};
+
 export {
   calculateTrophyYears,
   calculateTrophyCount,
@@ -487,7 +528,9 @@ export {
   calculatePlacementHistory,
   calculateBestFinish,
   calculateWorstFinish,
+  calculateAveragePointsBySeason,
   calculateBestSeasonAveragePoints,
   calculateWorstSeasonAveragePoints,
   calculatePointDifferentialByOpponent,
+  calculateStreakByOpponent,
 };

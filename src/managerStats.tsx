@@ -9,6 +9,8 @@ import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
 import { StatCard } from "./reusableComponents/statCard";
 import { PointDifferentialAgainstShelf } from "./statCards/pointDifferentialAgainstShelf";
 import { ManagerBiggestWeeksShelf } from "./statCards/managerBiggestWeeksShelf";
+import { ManagerBestYearlyAveragePointsChart } from "./statCards/managerBestYearlyAveragePointsChart";
+import { CurrentStreakAgainstShelf } from "./statCards/currentStreakAgainstShelf";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
@@ -57,9 +59,19 @@ const ManagerStats = () => {
           <PlacementHistoryShelf managerEspnId={stats.team.espnId} />
         </StatCard>
 
+        <StatCard
+          title="Best yearly points per game average"
+          description="Regular season, all-time"
+        >
+          <ManagerBestYearlyAveragePointsChart
+            managerEspnId={stats.team.espnId}
+          />
+        </StatCard>
+
         <StatCard title="Highest-scoring weeks" description="All-time">
           <ManagerBiggestWeeksShelf managerEspnId={stats.team.espnId} />
         </StatCard>
+
         <StatCard
           title="Win/loss vs. manager"
           description="Regular season, all-time"
@@ -79,6 +91,13 @@ const ManagerStats = () => {
           description="Regular season, all-time"
         >
           <PointDifferentialAgainstShelf managerEspnId={stats.team.espnId} />
+        </StatCard>
+
+        <StatCard
+          title="Current win/loss streak vs. manager"
+          description="Regular season, all-time"
+        >
+          <CurrentStreakAgainstShelf managerEspnId={stats.team.espnId} />
         </StatCard>
       </div>
     </div>

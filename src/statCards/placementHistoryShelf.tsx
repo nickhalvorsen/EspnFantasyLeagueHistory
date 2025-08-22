@@ -1,6 +1,7 @@
 import { useStore } from "../useData";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { getOrdinal } from "@/reusableComponents/stringFormatters";
+import { SubText } from "@/reusableComponents/subText";
 type Props = {
   managerEspnId: string;
 };
@@ -16,12 +17,20 @@ const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
   const rows = [];
   if (maxPlayerCount) {
     for (let place = 1; place <= maxPlayerCount; place++) {
-      const count = data?.[place] ?? 0;
+      const finishesInThisPlace = data?.filter((x) => x.place === place);
+      const count = finishesInThisPlace?.length ?? 0;
       let emoji = "⚪️";
       if (place === 1) emoji = "🏆";
       rows.push(
         <ShelfRow key={place} label={getOrdinal(place)}>
-          {emoji.repeat(count)}
+          {count > 0 && (
+            <>
+              {emoji.repeat(count)}
+              <SubText>
+                ({finishesInThisPlace?.map((x) => x.year).join(", ")})
+              </SubText>
+            </>
+          )}
         </ShelfRow>
       );
     }

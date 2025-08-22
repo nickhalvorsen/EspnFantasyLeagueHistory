@@ -24,7 +24,7 @@ type TeamFullStats = {
   trophies: number;
   trophyYears: number[];
   binYears: number[];
-  placementHistory: Record<number, number>;
+  placementHistory: Array<{ year: number; place: number }>;
   averagePointsPerGame: number;
   averagePointsAgainstPerGame: number;
   highScores: WeeklyAchievement[];
@@ -36,6 +36,11 @@ type TeamFullStats = {
   playoffWinLossRecordAgainst: WinsAndLossesAgainst[];
   bestSeasonAveragePoints: Array<{ year: number; average: number }>;
   worstSeasonAveragePoints: Array<{ year: number; average: number }>;
+  averagePointsBySeason: Array<{
+    year: number;
+    average: number;
+    place: number;
+  }>;
   longestWinStreak: number;
   longestLossStreak: number;
   //winLossRecordYearly: Record<number, WinsAndLosses>;
@@ -51,6 +56,11 @@ type TeamFullStats = {
   bestFinish: number;
   worstFinish: number;
   pointDifferentialByOpponent: PointDifferentialAgainst[];
+  currentStreakByOpponent: {
+    opponentEspnId: number;
+    streak: number;
+    result: "WIN" | "LOSS" | "TIE" | null;
+  }[];
 };
 
 type WinsAndLossesAgainst = WinsAndLosses & { opponentEspnId: number };

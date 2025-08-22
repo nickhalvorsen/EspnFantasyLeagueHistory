@@ -85,4 +85,15 @@ describe("calculateLongestLossStreak", () => {
     const result = calculateLongestLossStreak(thisTeamsWeeks);
     expect(result).toEqual(2);
   });
+
+  it("should break streak with tie", () => {
+    const thisTeamsWeeks: weeklyStats[] = [
+      getDummyWeeklyStats(2020, 1, "LOSS"),
+      getDummyWeeklyStats(2020, 2, "TIE"),
+      getDummyWeeklyStats(2020, 3, "LOSS"),
+    ];
+
+    const result = calculateLongestLossStreak(thisTeamsWeeks);
+    expect(result).toEqual(1);
+  });
 });
