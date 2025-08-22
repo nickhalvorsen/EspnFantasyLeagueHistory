@@ -1,9 +1,10 @@
-// todo: put constants in config.json?
-const BASE_URL = "https://otkxtjxpie.execute-api.us-east-2.amazonaws.com";
-const LEAGUE_ID = 8711378;
+import config from "../config.json";
+
+const ESPN_API_BASE_URL = config.ESPN_API_BASE_URL;
+const ESPN_LEAGUE_ID = config.ESPN_LEAGUE_ID;
 
 const fetchFromApi = async (url: string) => {
-  const res = await fetch(BASE_URL + url, {
+  const res = await fetch(ESPN_API_BASE_URL + url, {
     headers: {},
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
@@ -12,14 +13,14 @@ const fetchFromApi = async (url: string) => {
 
 const getAllYears = async () => {
   const response: GetAllYearsApiResponse[] = await fetchFromApi(
-    `/apis/v3/games/ffl/leagueHistory/${LEAGUE_ID}`
+    `/apis/v3/games/ffl/leagueHistory/${ESPN_LEAGUE_ID}`
   );
   return response.map((r) => r.seasonId);
 };
 
 const getYearData = async (year: number) => {
   const response: GetYearDataApiResponse = await fetchFromApi(
-    `/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${LEAGUE_ID}?view=mTeam&view=mMatchupScore&view=mSettings`
+    `/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${ESPN_LEAGUE_ID}?view=mTeam&view=mMatchupScore&view=mSettings`
   );
   return response;
 };

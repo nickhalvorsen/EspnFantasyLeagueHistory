@@ -22,16 +22,20 @@ import { TrophyShelf } from "./statCards/trophyShelf";
 import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
 import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
 import { StatCard } from "./reusableComponents/statCard";
+import config from "./config.json";
 //import { BestYearlyAveragePointsChart } from "./statCards/bestYearlyAveragePointsChart";
 //import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
 
 const Home = () => {
   const leagueInfo = useStore((state: any) => state.leagueInfo);
+  const leagueName = config.OVERRIDE_LEAGUE_NAME
+    ? config.LEAGUE_NAME_OVERRIDE
+    : leagueInfo.leagueName;
 
   return (
     <div className="mb-2">
       <h1 className="mb-4">
-        XFL :POG: Fantasy Stats {leagueInfo?.startYear}&ndash;
+        {leagueName} Fantasy Stats {leagueInfo?.startYear}&ndash;
         {leagueInfo?.latestYear}
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
