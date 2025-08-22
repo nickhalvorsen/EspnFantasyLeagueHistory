@@ -1,0 +1,7 @@
+.shelf-row:not(:last-child) {
+  border-bottom: 1px solid #222;
+}
+
+.shelf-row:nth-child(even) {
+  background-color: rgba(255,255,255,0.03);
+}

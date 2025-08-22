@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import classes from "./shelf.module.scss";
 
 type ShelfProps = {
   children: ReactNode;
@@ -15,16 +16,8 @@ type ShelfRowProps = {
   children?: ReactNode;
 };
 
-const borderColor = "#292929";
-
 const ShelfRow = ({ label, children }: ShelfRowProps) => (
-  <tr
-    style={{
-      marginBottom: "0",
-      borderBottomColor: borderColor,
-    }}
-    className="mb-2 border-b"
-  >
+  <tr className={`mb-2  ${classes["shelf-row"]}`}>
     {label && (
       <td
         style={{
