@@ -27,7 +27,11 @@ const CurrentStreakAgainstShelf = ({ managerEspnId }: Props) => {
         <ShelfRow key={record.opponentEspnId} label={"vs. " + record.name}>
           <span
             className={
-              record.result === "WIN" ? "text-green-500" : "text-red-500"
+              record.result === "WIN"
+                ? "text-green-500"
+                : record.result === "LOSS"
+                ? "text-red-500"
+                : ""
             }
           >
             {record.result?.charAt(0)}-{Math.abs(record.streak)}
