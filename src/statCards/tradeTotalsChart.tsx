@@ -10,13 +10,11 @@ const TradeTotalsChart = () => {
     .sort((a, b) => b.value - a.value);
 
   const highestTrades = data[0].value;
+  // round up to nearest 5
+  const domainEnd = Math.ceil((highestTrades + 1) / 5) * 5;
 
   return (
-    <HorizontalBarChart
-      data={data}
-      domainStart={0}
-      domainEnd={highestTrades + 10}
-    />
+    <HorizontalBarChart data={data} domainStart={0} domainEnd={domainEnd} />
   );
 };
 
