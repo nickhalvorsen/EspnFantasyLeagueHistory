@@ -55,7 +55,6 @@ describe("calculateBestSeasonAveragePoints", () => {
     ];
     const yearly = [getDummyYearlyStats(1, 2022, true)];
     const result = calculateBestSeasonAveragePoints(yearly, weekly);
-    console.log("Average points for 2022:", result);
     expect(result[0].average).toBeCloseTo((100 + 120 + 110) / 3, 5);
   });
 
