@@ -9,17 +9,21 @@ const ClosestMatchesShelf = () => {
     .flatMap((teamStats) =>
       teamStats.closestGames.map((match) => ({
         ...match,
-        manager1Name: allData.teams.find(
-          (team) => team.espnId === match.manager1
-        )?.managerName,
-        manager2Name: allData.teams.find(
-          (team) => team.espnId === match.manager2
-        )?.managerName,
+        manager1Name:
+          allData.teams.find((team) => team.espnId === match.manager1)
+            ?.managerName ?? "Unknown",
+        manager2Name:
+          allData.teams.find((team) => team.espnId === match.manager2)
+            ?.managerName ?? "Unknown",
         differential: match.manager1score - match.manager2score,
       }))
     )
     .sort((a, b) => Math.abs(a.differential) - Math.abs(b.differential))
-    .filter((match) => match.differential >= 0);
+    .filter(
+      (match) =>
+        match.differential > 0 ||
+        (match.differential === 0 && match.manager1Name <= match.manager2Name)
+    );
 
   const top10 = closestMatches.slice(0, 10);
 
