@@ -6,8 +6,8 @@ type Props = {
 };
 
 const ManagerBestYearlyAveragePointsChart = ({ managerEspnId }: Props) => {
-  let allData = useStore((state) => state.allData.teamStats);
-  let data = allData
+  const allData = useStore((state) => state.allData.teamStats);
+  const data = allData
     .find((teamStats) => teamStats.team.espnId === managerEspnId)
     ?.averagePointsBySeason.map((season) => ({
       label: season.year.toString(),

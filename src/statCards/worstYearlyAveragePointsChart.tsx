@@ -2,7 +2,7 @@ import { HorizontalBarChart } from "../reusableComponents/horizontalBarChart";
 import { useStore } from "@/data/useStore";
 
 const WorstYearlyAveragePointsChart = () => {
-  let data = useStore((state) => state.allData.teamStats)
+  const data = useStore((state) => state.allData.teamStats)
     .map((teamStats) => ({
       label: teamStats.team.managerName,
       value: Number(teamStats.worstSeasonAveragePoints[0].average.toFixed(2)),
