@@ -1,5 +1,3 @@
-"use client";
-
 import { useStore } from "../data/useStore";
 import { HorizontalBarChart } from "../reusableComponents/horizontalBarChart";
 
