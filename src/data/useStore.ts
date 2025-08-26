@@ -3,7 +3,6 @@ import { create } from "zustand";
 type MyStore = {
   allData: AllStats;
   isLoading: boolean;
-  isLoaded: boolean;
   setAllData: (data: AllStats) => void;
   setLoaded: () => void;
 };
@@ -21,7 +20,6 @@ const useStore = create<MyStore>((set) => ({
     },
   },
   isLoading: true,
-  isLoaded: false,
   setAllData: (data: AllStats) => {
     set({
       allData: data,
@@ -30,7 +28,6 @@ const useStore = create<MyStore>((set) => ({
   setLoaded: () => {
     set({
       isLoading: false,
-      isLoaded: true,
     });
   },
 }));

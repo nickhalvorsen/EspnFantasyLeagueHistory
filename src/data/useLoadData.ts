@@ -7,7 +7,6 @@ const useLoadData = () => {
   const setAllData = useStore((state) => state.setAllData);
   const setLoaded = useStore((state) => state.setLoaded);
   const isLoading = useStore((state) => state.isLoading);
-  const isLoaded = useStore((state) => state.isLoaded);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +23,7 @@ const useLoadData = () => {
     fetchData();
   }, []);
 
-  return { isLoading, isLoaded };
+  return { isLoading };
 };
 
 export { useLoadData };
