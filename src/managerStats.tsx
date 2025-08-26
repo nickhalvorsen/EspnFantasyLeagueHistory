@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { StatCardSmall } from "./reusableComponents/statCardSmall";
 import { TrophyCount } from "./reusableComponents/trophyCount";
-import { winLossTieString } from "./reusableComponents/stringFormatters";
+import { winLossTieString } from "./utils/stringFormatters";
 import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShelf";
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
 import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";

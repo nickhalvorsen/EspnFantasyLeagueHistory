@@ -1,6 +1,6 @@
 import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
-import { winLossTieString } from "@/reusableComponents/stringFormatters";
+import { winLossTieString } from "@/utils/stringFormatters";
 import { SubSubText } from "@/reusableComponents/subSubText";
 
 const WinLossShelf = () => {

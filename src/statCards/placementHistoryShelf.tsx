@@ -1,6 +1,6 @@
 import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
-import { getOrdinal } from "@/reusableComponents/stringFormatters";
+import { getOrdinal } from "@/utils/stringFormatters";
 import { SubText } from "@/reusableComponents/subText";
 type Props = {
   managerEspnId: string;
