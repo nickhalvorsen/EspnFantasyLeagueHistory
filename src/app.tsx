@@ -3,7 +3,7 @@ import { ThemeProvider } from "./layout/theme-provider.tsx";
 import { Nav } from "./layout/nav.tsx";
 import ManagerStats from "./managerStats.tsx";
 import { Home } from "./home.tsx";
-import { useLoadData } from "./useData.ts";
+import { useLoadData } from "./data/useLoadData.ts";
 import { DelayedLoading } from "./layout/delayedLoading.tsx";
 import { HashRouter, Route, Routes } from "react-router-dom";
 

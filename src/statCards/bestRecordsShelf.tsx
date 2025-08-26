@@ -1,16 +1,16 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import { winLossTieString } from "@/reusableComponents/stringFormatters";
 import New from "@/reusableComponents/new";
 
 const BestRecordsShelf = () => {
-  const allData = useStore();
+  const teamStats = useStore((state) => state.allData.teamStats);
 
-  const allRecords = allData.teamStats
-    .flatMap((teamStats) =>
-      teamStats.bestSeasonRecords.map((record) => ({
-        manager: teamStats.team.managerName,
+  const allRecords = teamStats
+    .flatMap((teamStat) =>
+      teamStat.bestSeasonRecords.map((record) => ({
+        manager: teamStat.team.managerName,
         ...record,
       }))
     )

@@ -1,18 +1,18 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
 
 const LowestMatchupsShelf = () => {
-  const allData = useStore();
-  const lowestMatchups = allData.teamStats
+  const store = useStore();
+  const lowestMatchups = store.allData.teamStats
     .flatMap((teamStats) =>
       teamStats.lowestMatchups.map((matchup) => ({
         ...matchup,
-        manager1Name: allData.teams.find(
+        manager1Name: store.allData.teams.find(
           (team) => team.espnId === matchup.manager1
         )?.managerName,
-        manager2Name: allData.teams.find(
+        manager2Name: store.allData.teams.find(
           (team) => team.espnId === matchup.manager2
         )?.managerName,
         total: matchup.manager1score + matchup.manager2score,

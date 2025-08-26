@@ -1,13 +1,13 @@
 "use client";
 
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { HorizontalBarChart } from "../reusableComponents/horizontalBarChart";
 
 const AveragePointsAgainstChart = () => {
-  let data = useStore((state) => state.teamStats)
-    .map((teamStats) => ({
-      label: teamStats.team.managerName,
-      value: Number(teamStats.averagePointsAgainstPerGame.toFixed(2)),
+  let data = useStore((state) => state.allData.teamStats)
+    .map((teamStat) => ({
+      label: teamStat.team.managerName,
+      value: Number(teamStat.averagePointsAgainstPerGame.toFixed(2)),
     }))
     .sort((a, b) => b.value - a.value);
 

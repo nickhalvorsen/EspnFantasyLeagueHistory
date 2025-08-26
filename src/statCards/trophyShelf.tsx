@@ -1,9 +1,9 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubText } from "@/reusableComponents/subText";
 
 const TrophyShelf = () => {
-  const allData = useStore((s) => s.teamStats)
+  const data = useStore((s) => s.allData.teamStats)
     .sort(
       (a, b) =>
         b.trophyYears.length - a.trophyYears.length ||
@@ -14,7 +14,7 @@ const TrophyShelf = () => {
 
   return (
     <Shelf>
-      {allData.map((item) => (
+      {data.map((item) => (
         <ShelfRow key={item.team.espnId} label={item.team.managerName}>
           <span className="text-[1.5em]">
             &nbsp;{"🏆".repeat(item.trophyYears.length)}

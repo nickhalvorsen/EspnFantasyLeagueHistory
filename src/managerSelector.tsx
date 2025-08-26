@@ -4,12 +4,12 @@ import {
   NavigationMenuLink,
   NavigationMenuTrigger,
 } from "./components/ui/navigation-menu";
-import { useStore } from "./useData";
+import { useStore } from "./data/useStore";
 import { TrophyCount } from "./reusableComponents/trophyCount";
 import { Link } from "react-router-dom";
 
 const ManagerSelector = () => {
-  const teams = useStore((state) => state.teamStats).sort((a, b) =>
+  const teams = useStore((state) => state.allData.teamStats).sort((a, b) =>
     a.team.managerName.localeCompare(b.team.managerName)
   );
   return (

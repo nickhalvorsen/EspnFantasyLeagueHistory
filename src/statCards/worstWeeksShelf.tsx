@@ -1,12 +1,12 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
 
 const WorstWeeksShelf = () => {
-  const allData = useStore();
+  const teamStats = useStore((state) => state.allData.teamStats);
 
-  const allLowScores = allData.teamStats
+  const allLowScores = teamStats
     .flatMap((teamStats) =>
       teamStats.lowScores.map((score) => ({
         manager: teamStats.team.managerName,

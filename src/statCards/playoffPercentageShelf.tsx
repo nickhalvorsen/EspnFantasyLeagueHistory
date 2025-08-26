@@ -1,9 +1,9 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 
 const PlayoffPercentageShelf = () => {
-  const allData = useStore((s) => s.teamStats).sort((a, b) => {
+  const data = useStore((s) => s.allData.teamStats).sort((a, b) => {
     const playoffA = a.playoffPercentage;
     const playoffB = b.playoffPercentage;
     return playoffB - playoffA;
@@ -11,7 +11,7 @@ const PlayoffPercentageShelf = () => {
 
   return (
     <Shelf>
-      {allData.map((teamStats) => (
+      {data.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}
           label={teamStats.team.managerName}

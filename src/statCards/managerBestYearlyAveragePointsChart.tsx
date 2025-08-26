@@ -1,4 +1,4 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { HorizontalBarChart } from "../reusableComponents/horizontalBarChart";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 
 const ManagerBestYearlyAveragePointsChart = ({ managerEspnId }: Props) => {
-  let allData = useStore((state) => state.teamStats);
+  let allData = useStore((state) => state.allData.teamStats);
   let data = allData
     .find((teamStats) => teamStats.team.espnId === managerEspnId)
     ?.averagePointsBySeason.map((season) => ({

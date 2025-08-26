@@ -1,4 +1,4 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { getOrdinal } from "@/reusableComponents/stringFormatters";
 import { SubText } from "@/reusableComponents/subText";
@@ -7,12 +7,14 @@ type Props = {
 };
 
 const PlacementHistoryShelf = ({ managerEspnId }: Props) => {
-  const teamStats = useStore((s) => s.teamStats);
+  const teamStats = useStore((s) => s.allData.teamStats);
   const data = teamStats.find(
     (teamStats) => teamStats.team.espnId === managerEspnId
   )?.placementHistory;
 
-  const maxPlayerCount = useStore((s) => s.leagueInfo.maximumPlayerCount);
+  const maxPlayerCount = useStore(
+    (s) => s.allData.leagueInfo.maximumPlayerCount
+  );
 
   const rows = [];
   if (maxPlayerCount) {

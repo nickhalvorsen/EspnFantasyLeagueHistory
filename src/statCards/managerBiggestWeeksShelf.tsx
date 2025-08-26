@@ -1,4 +1,4 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const ManagerBiggestWeeksShelf = ({ managerEspnId }: Props) => {
-  const teamStats = useStore((s) => s.teamStats);
+  const teamStats = useStore((s) => s.allData.teamStats);
 
   const data = teamStats
     .find((teamStats) => teamStats.team.espnId === managerEspnId)

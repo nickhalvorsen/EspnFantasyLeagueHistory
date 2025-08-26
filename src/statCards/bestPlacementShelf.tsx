@@ -1,9 +1,9 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { getOrdinal } from "@/reusableComponents/stringFormatters";
 
 const BestPlacementShelf = () => {
-  const allData = useStore((s) => s.teamStats).sort((a, b) => {
+  const data = useStore((s) => s.allData.teamStats).sort((a, b) => {
     const placementA = a.bestFinish;
     const placementB = b.bestFinish;
     return placementA - placementB;
@@ -11,7 +11,7 @@ const BestPlacementShelf = () => {
 
   return (
     <Shelf>
-      {allData.map((teamStats) => (
+      {data.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}
           label={teamStats.team.managerName}

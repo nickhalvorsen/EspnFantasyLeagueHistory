@@ -1,4 +1,3 @@
-import { useStore } from "./useData";
 import { GarbageBinShelf } from "./statCards/garbageBinShelf";
 import { AveragePointsChart } from "./statCards/averagePointsChart";
 import { WinLossShelf } from "./statCards/winLossShelf";
@@ -23,11 +22,12 @@ import { BestPlacementShelf } from "./statCards/bestPlacementShelf";
 import { WorstPlacementShelf } from "./statCards/worstPlacementShelf";
 import { StatCard } from "./reusableComponents/statCard";
 import config from "./config.json";
+import { useStore } from "./data/useStore";
 //import { BestYearlyAveragePointsChart } from "./statCards/bestYearlyAveragePointsChart";
 //import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
 
 const Home = () => {
-  const leagueInfo = useStore((state: any) => state.leagueInfo);
+  const leagueInfo = useStore((state: any) => state.allData.leagueInfo);
   const leagueName = config.OVERRIDE_LEAGUE_NAME
     ? config.LEAGUE_NAME_OVERRIDE
     : leagueInfo.leagueName;

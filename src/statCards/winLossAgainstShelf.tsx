@@ -1,4 +1,4 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { winLossTieString } from "@/reusableComponents/stringFormatters";
 import { SubSubText } from "@/reusableComponents/subSubText";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const WinLossAgainstShelf = ({ managerEspnId }: Props) => {
-  const teamStats = useStore((s) => s.teamStats);
+  const teamStats = useStore((s) => s.allData.teamStats);
   const data = teamStats
     .find((teamStats) => teamStats.team.espnId === managerEspnId)
     ?.winLossRecordAgainst.map((record) => ({

@@ -1,11 +1,11 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 type Props = {
   managerEspnId: string;
 };
 
 const CurrentStreakAgainstShelf = ({ managerEspnId }: Props) => {
-  const teamStats = useStore((s) => s.teamStats);
+  const teamStats = useStore((s) => s.allData.teamStats);
   const data = teamStats
     .find((teamStats) => teamStats.team.espnId === managerEspnId)
     ?.currentStreakByOpponent.map((record) => ({

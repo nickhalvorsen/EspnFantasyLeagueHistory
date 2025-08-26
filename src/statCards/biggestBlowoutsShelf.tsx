@@ -1,18 +1,18 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
 
 const BiggestBlowoutsShelf = () => {
-  const allData = useStore();
-  const biggestBlowouts = allData.teamStats
+  const store = useStore();
+  const biggestBlowouts = store.allData.teamStats
     .flatMap((teamStats) =>
       teamStats.biggestBlowouts.map((blowout) => ({
         ...blowout,
-        manager1Name: allData.teams.find(
+        manager1Name: store.allData.teams.find(
           (team) => team.espnId === blowout.manager1
         )?.managerName,
-        manager2Name: allData.teams.find(
+        manager2Name: store.allData.teams.find(
           (team) => team.espnId === blowout.manager2
         )?.managerName,
         differential: blowout.manager1score - blowout.manager2score,

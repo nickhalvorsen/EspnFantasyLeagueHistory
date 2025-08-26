@@ -1,10 +1,10 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { winLossTieString } from "@/reusableComponents/stringFormatters";
 import { SubSubText } from "@/reusableComponents/subSubText";
 
 const WinLossShelf = () => {
-  const allData = useStore((s) => s.teamStats).sort((a, b) => {
+  const data = useStore((s) => s.allData.teamStats).sort((a, b) => {
     const diffA = a.winLossRecord.wins - a.winLossRecord.losses;
     const diffB = b.winLossRecord.wins - b.winLossRecord.losses;
     return diffB - diffA;
@@ -12,7 +12,7 @@ const WinLossShelf = () => {
 
   return (
     <Shelf>
-      {allData.map((teamStats) => (
+      {data.map((teamStats) => (
         <ShelfRow
           key={teamStats.team.espnId}
           label={teamStats.team.managerName}

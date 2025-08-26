@@ -1,15 +1,15 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
 
 const BiggestWeeksShelf = () => {
-  const allData = useStore();
+  const teamStats = useStore((store) => store.allData.teamStats);
 
-  const allHighScores = allData.teamStats
-    .flatMap((teamStats) =>
-      teamStats.highScores.map((score) => ({
-        manager: teamStats.team.managerName,
+  const allHighScores = teamStats
+    .flatMap((teamStat) =>
+      teamStat.highScores.map((score) => ({
+        manager: teamStat.team.managerName,
         ...score,
       }))
     )

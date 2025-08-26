@@ -4,18 +4,18 @@ import { TrophyCount } from "./reusableComponents/trophyCount";
 import { winLossTieString } from "./reusableComponents/stringFormatters";
 import { PlayoffWinLossAgainstShelf } from "./statCards/playoffWinLossAgainstShelf";
 import { WinLossAgainstShelf } from "./statCards/winLossAgainstShelf";
-import { useStore } from "./useData";
 import { PlacementHistoryShelf } from "./statCards/placementHistoryShelf";
 import { StatCard } from "./reusableComponents/statCard";
 import { PointDifferentialAgainstShelf } from "./statCards/pointDifferentialAgainstShelf";
 import { ManagerBiggestWeeksShelf } from "./statCards/managerBiggestWeeksShelf";
 import { ManagerBestYearlyAveragePointsChart } from "./statCards/managerBestYearlyAveragePointsChart";
 import { CurrentStreakAgainstShelf } from "./statCards/currentStreakAgainstShelf";
+import { useStore } from "./data/useStore";
 
 const ManagerStats = () => {
   const manager = useParams().manager!;
   const stats = useStore((s) =>
-    s.teamStats.find(
+    s.allData.teamStats.find(
       (team) => team.team.managerName.toLowerCase() === manager.toLowerCase()
     )
   );

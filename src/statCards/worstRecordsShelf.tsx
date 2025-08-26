@@ -1,13 +1,13 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import { winLossTieString } from "@/reusableComponents/stringFormatters";
 import New from "@/reusableComponents/new";
 
 const WorstRecordsShelf = () => {
-  const allData = useStore();
+  const teamStats = useStore((state) => state.allData.teamStats);
 
-  const allRecords = allData.teamStats
+  const allRecords = teamStats
     .flatMap((teamStats) =>
       teamStats.worstSeasonRecords.map((record) => ({
         manager: teamStats.team.managerName,

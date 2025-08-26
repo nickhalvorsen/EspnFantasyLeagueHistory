@@ -1,19 +1,19 @@
-import { useStore } from "../useData";
+import { useStore } from "../data/useStore";
 import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 import New from "@/reusableComponents/new";
 
 const ClosestMatchesShelf = () => {
-  const allData = useStore();
-  const closestMatches = allData.teamStats
+  const store = useStore();
+  const closestMatches = store.allData.teamStats
     .flatMap((teamStats) =>
       teamStats.closestGames.map((match) => ({
         ...match,
         manager1Name:
-          allData.teams.find((team) => team.espnId === match.manager1)
+          store.allData.teams.find((team) => team.espnId === match.manager1)
             ?.managerName ?? "Unknown",
         manager2Name:
-          allData.teams.find((team) => team.espnId === match.manager2)
+          store.allData.teams.find((team) => team.espnId === match.manager2)
             ?.managerName ?? "Unknown",
         differential: match.manager1score - match.manager2score,
       }))
