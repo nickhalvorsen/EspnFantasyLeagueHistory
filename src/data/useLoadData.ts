@@ -1,12 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllYears, getYearData } from "./espnApi";
 import { mapAllStats } from "./mapEspnApiResponse";
 import { useStore } from "./useStore";
 
 const useLoadData = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const setAllData = useStore((state) => state.setAllData);
-  const setLoaded = useStore((state) => state.setLoaded);
-  const isLoading = useStore((state) => state.isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +16,7 @@ const useLoadData = () => {
 
       const mapped = mapAllStats(allYearData);
       setAllData(mapped);
-      setLoaded();
+      setIsLoading(false);
     };
 
     fetchData();

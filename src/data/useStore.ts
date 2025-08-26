@@ -2,9 +2,7 @@ import { create } from "zustand";
 
 type MyStore = {
   allData: AllStats;
-  isLoading: boolean;
   setAllData: (data: AllStats) => void;
-  setLoaded: () => void;
 };
 
 const useStore = create<MyStore>((set) => ({
@@ -19,15 +17,9 @@ const useStore = create<MyStore>((set) => ({
       maximumPlayerCount: 0,
     },
   },
-  isLoading: true,
   setAllData: (data: AllStats) => {
     set({
       allData: data,
-    });
-  },
-  setLoaded: () => {
-    set({
-      isLoading: false,
     });
   },
 }));
