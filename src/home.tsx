@@ -27,7 +27,7 @@ import { useStore } from "./data/useStore";
 //import { WorstYearlyAveragePointsChart } from "./statCards/worstYearlyAveragePointsChart";
 
 const Home = () => {
-  const leagueInfo = useStore((state: any) => state.allData.leagueInfo);
+  const leagueInfo = useStore((state) => state.allData.leagueInfo);
   const leagueName = config.OVERRIDE_LEAGUE_NAME
     ? config.LEAGUE_NAME_OVERRIDE
     : leagueInfo.leagueName;

@@ -8,7 +8,7 @@ import {
 
 interface StatCardProps {
   name: string;
-  value: any;
+  value: string;
 }
 
 const StatCardSmall = ({ name, value }: StatCardProps) => (
