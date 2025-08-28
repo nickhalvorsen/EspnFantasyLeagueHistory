@@ -3,11 +3,9 @@ import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { SubSubText } from "@/reusableComponents/subSubText";
 
 const PlayoffPercentageShelf = () => {
-  const data = useStore((s) => s.allData.teamStats).sort((a, b) => {
-    const playoffA = a.playoffPercentage;
-    const playoffB = b.playoffPercentage;
-    return playoffB - playoffA;
-  });
+  const data = useStore((s) => s.allData.teamStats).sort(
+    (a, b) => b.playoffPercentage - a.playoffPercentage
+  );
 
   return (
     <Shelf>

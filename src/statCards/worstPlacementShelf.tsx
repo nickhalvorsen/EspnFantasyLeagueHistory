@@ -3,9 +3,9 @@ import { Shelf, ShelfRow } from "../reusableComponents/shelf";
 import { getOrdinal } from "@/utils/stringFormatters";
 
 const WorstPlacementShelf = () => {
-  const data = useStore((s) => s.allData.teamStats).sort((a, b) => {
-    return a.worstFinish - b.worstFinish;
-  });
+  const data = useStore((s) => s.allData.teamStats).sort(
+    (a, b) => a.worstFinish - b.worstFinish
+  );
 
   return (
     <Shelf>
