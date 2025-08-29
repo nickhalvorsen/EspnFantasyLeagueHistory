@@ -93,7 +93,24 @@ const calculateHighScores = (thisTeamStatsByWeek: weeklyStats[]) => {
 };
 
 const calculateLowScores = (thisTeamStatsByWeek: weeklyStats[]) => {
-  return [...thisTeamStatsByWeek]
+  const weeksWithDoubleHeadersSplitOut = thisTeamStatsByWeek.flatMap(
+    (weekStat) => {
+      if (weekStat.isMultiHeader) {
+        return weekStat.multiHeaderPoints!.map((points) => ({
+          year: weekStat.year,
+          weekNumber: weekStat.weekNumber,
+          teamEspnId: weekStat.teamEspnId,
+          pointsFor: points,
+          pointsAgainst: weekStat.pointsAgainst,
+          result: weekStat.result,
+          opponentEspnId: weekStat.opponentEspnId,
+        }));
+      }
+      return [weekStat];
+    }
+  );
+
+  return [...weeksWithDoubleHeadersSplitOut]
     .sort((a, b) => a.pointsFor - b.pointsFor)
     .slice(0, 10)
     .map((weekStat) => ({
