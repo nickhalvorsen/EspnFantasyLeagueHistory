@@ -20,7 +20,7 @@ type Team = {
 
 type TeamFullStats = {
   team: Team;
-  yearsPlayed: number;
+  yearsCompleted: number;
   trophies: number;
   trophyYears: number[];
   binYears: number[];

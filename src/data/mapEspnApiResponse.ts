@@ -183,7 +183,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
 
     const thisTeamsStats: TeamFullStats = {
       team: team,
-      yearsPlayed: thisTeamStatsByYear.length,
+      yearsCompleted: thisTeamStatsByYear.filter((x) => x.finalRank != 0)
+        .length,
       trophies: calculateTrophyCount(thisTeamStatsByYear),
       trophyYears: calculateTrophyYears(thisTeamStatsByYear),
       binYears: calculateBinYears(thisTeamStatsByYear, allTeamStatsByYear),

@@ -46,7 +46,7 @@ const ManagerStats = () => {
           name="Playoff appearance %"
           value={`${stats.playoffPercentage.toFixed(0)}% (${
             stats.numPlayoffAppearances
-          }/${stats.yearsPlayed})`}
+          }/${stats.yearsCompleted})`}
         />
         <StatCardSmall
           name="Career points (reg. season)"

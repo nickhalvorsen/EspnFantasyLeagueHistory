@@ -120,17 +120,22 @@ const calculateLowScores = (thisTeamStatsByWeek: weeklyStats[]) => {
     }));
 };
 
+// todo: playoff percentage only updates after season ends
+// todo: add unit tests
 const calculatePlayoffPercentage = (teamStatsByYear: yearlyStats[]) => {
   const playoffAppearances = calculatePlayoffAppearances(teamStatsByYear);
+
   const totalPossiblePlayoffs = teamStatsByYear.filter(
-    (x) => x.playoffSeed != 0
+    (x) => x.finalRank != 0
   ).length;
   return (playoffAppearances / totalPossiblePlayoffs) * 100 || 0;
 };
 
 const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear.filter(
-    (yearStat) => yearStat.playoffSeed <= yearStat.numPlayersInPlayoffs
+    (yearStat) =>
+      yearStat.finalRank !== 0 &&
+      yearStat.playoffSeed <= yearStat.numPlayersInPlayoffs
   ).length;
 };
 

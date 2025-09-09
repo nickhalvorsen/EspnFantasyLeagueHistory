@@ -17,7 +17,7 @@ const PlayoffPercentageShelf = () => {
           {teamStats.playoffPercentage.toFixed(0)}%
           <SubSubText>
             &nbsp;(
-            {teamStats.numPlayoffAppearances}/{teamStats.yearsPlayed})
+            {teamStats.numPlayoffAppearances}/{teamStats.yearsCompleted})
           </SubSubText>
         </ShelfRow>
       ))}
