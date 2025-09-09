@@ -10,6 +10,12 @@ const useLoadData = () => {
   useEffect(() => {
     const fetchData = async () => {
       const allYears = await getAllYears();
+
+      // temp
+      if (!allYears.includes(2025)) {
+        allYears.push(2025);
+      }
+
       const allYearData = await Promise.all(
         allYears.map((year) => getYearData(year))
       );
