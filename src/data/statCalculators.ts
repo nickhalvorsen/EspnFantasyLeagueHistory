@@ -231,7 +231,7 @@ const calculatePlayoffWinLossRecordAgainst = (
 const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
   teamStatsByYear
     // filter to only completed seasons
-    .filter((x) => x.playoffSeed !== 0)
+    .filter((x) => x.finalRank !== 0)
     .sort((a, b) => b.wins - a.wins || a.losses - b.losses)
     .slice(0, 10)
     .map((yearStat) => ({
@@ -244,7 +244,7 @@ const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
 const calculateWorstSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
   teamStatsByYear
     // filter to only completed seasons
-    .filter((x) => x.playoffSeed !== 0)
+    .filter((x) => x.finalRank !== 0)
     .sort((a, b) => b.losses - a.losses || a.wins - b.wins)
     .slice(0, 10)
     .map((yearStat) => ({
