@@ -1,6 +1,5 @@
 {
   "ESPN_API_BASE_URL": "https://otkxtjxpie.execute-api.us-east-2.amazonaws.com",
   "ESPN_LEAGUE_ID": 8711378,
-  "OVERRIDE_LEAGUE_NAME": true,
   "LEAGUE_NAME_OVERRIDE": "XFL :POG:"
 }
