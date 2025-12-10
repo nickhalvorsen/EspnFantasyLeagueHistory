@@ -8,7 +8,8 @@ const getDummyYearlyStats = (
   wins: number,
   losses: number,
   ties: number,
-  finalRank: number
+  isRegularSeasonComplete: boolean,
+  isFullSeasonComplete: boolean
 ) => ({
   team: {
     espnId: espnId.toString(),
@@ -16,23 +17,25 @@ const getDummyYearlyStats = (
     managerName: "Manager 1",
   },
   year: year,
-  finalRank: finalRank,
+  finalRank: isFullSeasonComplete ? 1 : 0,
   tradeCount: 0,
   wins: wins,
   losses: losses,
   ties: ties,
   pointsFor: 1200,
   pointsAgainst: 1000,
-  playoffSeed: 5,
+  playoffSeed: isRegularSeasonComplete ? 1 : 0,
   numPlayersInPlayoffs: 4,
+  isRegularSeasonComplete: isRegularSeasonComplete,
+  isFullSeasonComplete: isFullSeasonComplete,
 });
 
 describe("calculateBestSeasonRecords", () => {
   it("should calculate best season records in order", () => {
     const input: yearlyStats[] = [
-      getDummyYearlyStats(3, 2020, 5, 5, 0, 5),
-      getDummyYearlyStats(3, 2021, 6, 4, 0, 5),
-      getDummyYearlyStats(3, 2022, 7, 3, 0, 5),
+      getDummyYearlyStats(3, 2020, 5, 5, 0, true, true),
+      getDummyYearlyStats(3, 2021, 6, 4, 0, true, true),
+      getDummyYearlyStats(3, 2022, 7, 3, 0, true, true),
     ];
     const result = calculateBestSeasonRecords(input);
     expect(result).toEqual([
@@ -44,8 +47,8 @@ describe("calculateBestSeasonRecords", () => {
 
   it("should calculate best season records in order with differing number of total games", () => {
     const input: yearlyStats[] = [
-      getDummyYearlyStats(3, 2020, 5, 5, 0, 5),
-      getDummyYearlyStats(3, 2021, 5, 4, 0, 5),
+      getDummyYearlyStats(3, 2020, 5, 5, 0, true, true),
+      getDummyYearlyStats(3, 2021, 5, 4, 0, true, true),
     ];
     const result = calculateBestSeasonRecords(input);
     expect(result).toEqual([
@@ -56,12 +59,26 @@ describe("calculateBestSeasonRecords", () => {
 
   it("should ignore seasons in progress", () => {
     const input: yearlyStats[] = [
-      getDummyYearlyStats(3, 2020, 5, 5, 0, 5),
-      getDummyYearlyStats(3, 2021, 5, 4, 0, 5),
-      getDummyYearlyStats(3, 2022, 5, 2, 0, 0),
+      getDummyYearlyStats(3, 2020, 5, 5, 0, true, true),
+      getDummyYearlyStats(3, 2021, 5, 4, 0, true, false),
+      getDummyYearlyStats(3, 2022, 5, 2, 0, false, false),
     ];
     const result = calculateBestSeasonRecords(input);
     expect(result).toEqual([
+      { year: 2021, wins: 5, losses: 4, ties: 0 },
+      { year: 2020, wins: 5, losses: 5, ties: 0 },
+    ]);
+  });
+
+  it("should not ignore postseasons in progress", () => {
+    const input: yearlyStats[] = [
+      getDummyYearlyStats(3, 2020, 5, 5, 0, true, true),
+      getDummyYearlyStats(3, 2021, 5, 4, 0, true, false),
+      getDummyYearlyStats(3, 2022, 5, 2, 0, true, false),
+    ];
+    const result = calculateBestSeasonRecords(input);
+    expect(result).toEqual([
+      { year: 2022, wins: 5, losses: 2, ties: 0 },
       { year: 2021, wins: 5, losses: 4, ties: 0 },
       { year: 2020, wins: 5, losses: 5, ties: 0 },
     ]);

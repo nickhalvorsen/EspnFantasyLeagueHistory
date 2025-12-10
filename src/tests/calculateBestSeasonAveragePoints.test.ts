@@ -27,7 +27,7 @@ const getDummyWeeklyStats = (
 const getDummyYearlyStats = (
   espnId: number,
   year: number,
-  isRegSeasonCompleted: boolean
+  isRegularSeasonComplete: boolean
 ) => ({
   team: {
     espnId: espnId.toString(),
@@ -35,14 +35,16 @@ const getDummyYearlyStats = (
     managerName: "Manager 1",
   },
   year: year,
-  finalRank: isRegSeasonCompleted ? 5 : 0,
+  finalRank: isRegularSeasonComplete ? 5 : 0,
   tradeCount: 0,
   wins: 1,
   losses: 1,
   ties: 1,
   pointsFor: 1200,
   pointsAgainst: 1000,
-  playoffSeed: isRegSeasonCompleted ? 5 : 0,
+  playoffSeed: isRegularSeasonComplete ? 5 : 0,
+  isRegularSeasonComplete: isRegularSeasonComplete,
+  isFullSeasonComplete: isRegularSeasonComplete,
   numPlayersInPlayoffs: 4,
 });
 

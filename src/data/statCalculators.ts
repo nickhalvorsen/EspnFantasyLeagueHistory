@@ -120,7 +120,6 @@ const calculateLowScores = (thisTeamStatsByWeek: weeklyStats[]) => {
     }));
 };
 
-// todo: playoff percentage only updates after season ends
 // todo: add unit tests
 const calculatePlayoffPercentage = (teamStatsByYear: yearlyStats[]) => {
   const playoffAppearances = calculatePlayoffAppearances(teamStatsByYear);
@@ -134,7 +133,7 @@ const calculatePlayoffPercentage = (teamStatsByYear: yearlyStats[]) => {
 const calculatePlayoffAppearances = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear.filter(
     (yearStat) =>
-      yearStat.finalRank !== 0 &&
+      yearStat.isRegularSeasonComplete &&
       yearStat.playoffSeed <= yearStat.numPlayersInPlayoffs
   ).length;
 };
@@ -230,8 +229,7 @@ const calculatePlayoffWinLossRecordAgainst = (
 
 const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
   teamStatsByYear
-    // filter to only completed seasons
-    .filter((x) => x.finalRank !== 0)
+    .filter((x) => x.isRegularSeasonComplete)
     .sort((a, b) => b.wins - a.wins || a.losses - b.losses)
     .slice(0, 10)
     .map((yearStat) => ({
@@ -243,8 +241,7 @@ const calculateBestSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
 
 const calculateWorstSeasonRecords = (teamStatsByYear: yearlyStats[]) =>
   teamStatsByYear
-    // filter to only completed seasons
-    .filter((x) => x.finalRank !== 0)
+    .filter((x) => x.isRegularSeasonComplete)
     .sort((a, b) => b.losses - a.losses || a.wins - b.wins)
     .slice(0, 10)
     .map((yearStat) => ({
@@ -383,18 +380,18 @@ const calculateLifetimePointsFor = (thisTeamStatsByWeek: weeklyStats[]) => {
 
 const calculatePlacementHistory = (teamStatsByYear: yearlyStats[]) =>
   teamStatsByYear
-    .filter((x) => x.finalRank > 0)
+    .filter((x) => x.isFullSeasonComplete)
     .map((x) => ({ year: x.year, place: x.finalRank }));
 
 const calculateBestFinish = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear
-    .filter((x) => x.finalRank > 0)
+    .filter((x) => x.isFullSeasonComplete)
     .reduce((best, yearStat) => Math.min(best, yearStat.finalRank), Infinity);
 };
 
 const calculateWorstFinish = (teamStatsByYear: yearlyStats[]) => {
   return teamStatsByYear
-    .filter((x) => x.finalRank > 0)
+    .filter((x) => x.isFullSeasonComplete)
     .reduce((worst, yearStat) => Math.max(worst, yearStat.finalRank), 0);
 };
 
@@ -421,7 +418,9 @@ const calculateAveragePointsBySeason = (
   const seasonMap = new Map<number, { totalPoints: number; weeks: number }>();
   teamStatsByWeek
     .filter((x) =>
-      teamStatsByYear.some((y) => y.year === x.year && y.playoffSeed !== 0)
+      teamStatsByYear.some(
+        (y) => y.year === x.year && y.isRegularSeasonComplete
+      )
     )
     .filter((x) => !x.isPostSeason)
     .forEach((weekStat) => {

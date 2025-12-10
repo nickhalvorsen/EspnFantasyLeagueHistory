@@ -14,7 +14,13 @@ const WorstRecordsShelf = () => {
         ...record,
       }))
     )
-    .sort((a, b) => b.losses - a.losses || a.wins - b.wins || a.ties - b.ties);
+    .sort(
+      (a, b) =>
+        b.losses - a.losses ||
+        a.wins - b.wins ||
+        a.ties - b.ties ||
+        a.year - b.year
+    );
 
   const top10 = allRecords.slice(0, 10);
 

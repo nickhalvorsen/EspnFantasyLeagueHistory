@@ -47,6 +47,8 @@ type yearlyStats = {
   numPlayersInPlayoffs: number;
   finalRank: number;
   tradeCount: number;
+  isFullSeasonComplete: boolean;
+  isRegularSeasonComplete: boolean;
 };
 
 type weeklyStats = {
@@ -109,6 +111,8 @@ const mapAllStats = (getYearDataApiResponse: GetYearDataApiResponse[]) => {
         tradeCount: team.transactionCounter.trades,
         numPlayersInPlayoffs:
           yearData.settings.scheduleSettings.playoffTeamCount,
+        isFullSeasonComplete: team.rankCalculatedFinal !== 0,
+        isRegularSeasonComplete: team.playoffSeed !== 0,
       });
     });
 
