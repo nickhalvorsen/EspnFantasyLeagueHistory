@@ -23,6 +23,8 @@ const getDummyYearlyStats = (
   pointsAgainst: 1000,
   playoffSeed: playoffSeed,
   numPlayersInPlayoffs: 4,
+  isFullSeasonComplete: true,
+  isRegularSeasonComplete: true,
 });
 
 describe("calculateTrophyYears", () => {
