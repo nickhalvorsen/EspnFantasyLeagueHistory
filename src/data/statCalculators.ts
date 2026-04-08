@@ -26,6 +26,7 @@ const calculateBinYears = (
   }, {} as Record<number, number>);
 
   return teamStatsByYear
+    .filter((yearStat) => yearStat.isFullSeasonComplete)
     .filter((yearStat) => yearStat.playoffSeed === yearToMaxRank[yearStat.year])
     .map((yearStat) => yearStat.year);
 };
